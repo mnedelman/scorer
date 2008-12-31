@@ -1,0 +1,108 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ScoreKeeper</RootNamespace>
+    <AssemblyName>ScoreKeeper</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Jon\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>True</NoStdLib>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <ApplicationIcon>..\ScoreKeeper.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <ItemGroup>
+    <Compile Include="Program.cs">
+    </Compile>
+    <Compile Include="Resources.cs" />
+    <Compile Include="Score2008.cs" />
+    <Compile Include="Score2008Control.cs" />
+    <Compile Include="Score2008Control.Designer.cs">
+      <DependentUpon>Score2008Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="ScoreboardControl.cs" />
+    <Compile Include="ScoreboardControl.Designer.cs">
+      <DependentUpon>ScoreboardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreForm.cs" />
+    <Compile Include="ScoreForm.Designer.cs">
+      <DependentUpon>ScoreForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScoreManager.cs" />
+    <Compile Include="ScoreRow.cs" />
+    <Compile Include="SelectionControl.cs" />
+    <Compile Include="StartupForm.cs" />
+    <Compile Include="StartupForm.Designer.cs">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Team.cs" />
+    <Compile Include="TeamBase.cs" />
+    <Compile Include="TeamData.cs" />
+    <Compile Include="TeamForm.cs" />
+    <Compile Include="TeamForm.Designer.cs">
+      <DependentUpon>TeamForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources.resx" />
+    <EmbeddedResource Include="Score2008Control.resx">
+      <DependentUpon>Score2008Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreboardControl.resx">
+      <DependentUpon>ScoreboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreForm.resx">
+      <DependentUpon>ScoreForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartupForm.resx">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamForm.resx">
+      <DependentUpon>TeamForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+</Project>
