@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 3.0.0.3683
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreKeeper", "ScoreKeeper\ScoreKeeper.csproj", "{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreKeeperTests", "ScoreKeeperTests\ScoreKeeperTests.csproj", "{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F0CEE1C-7B6B-4E52-89C0-C30863C3D68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal
