@@ -54,35 +54,29 @@ namespace ScoreKeeper
     private void InitializeComponent()
     {
     	this.components = new System.ComponentModel.Container();
-    	this.timer_ = new System.Windows.Forms.Timer(this.components);
-    	this.status_ = new System.Windows.Forms.Label();
+    	this.scroll_timer_ = new System.Windows.Forms.Timer(this.components);
+    	this.data_refresh_timer_ = new System.Windows.Forms.Timer(this.components);
     	this.SuspendLayout();
     	// 
-    	// timer_
+    	// scroll_timer_
     	// 
-    	this.timer_.Enabled = true;
-    	this.timer_.Interval = 5000;
-    	this.timer_.Tick += new System.EventHandler(this.OnTimer);
+    	this.scroll_timer_.Interval = 1000;
+    	this.scroll_timer_.Tick += new System.EventHandler(this.OnScroll);
     	// 
-    	// status_
+    	// data_refresh_timer_
     	// 
-    	this.status_.Dock = System.Windows.Forms.DockStyle.Bottom;
-    	this.status_.Location = new System.Drawing.Point(0, 135);
-    	this.status_.Name = "status_";
-    	this.status_.Size = new System.Drawing.Size(150, 15);
-    	this.status_.TabIndex = 0;
-    	this.status_.Text = "Last Updated: Never";
-    	this.status_.Visible = false;
+    	this.data_refresh_timer_.Enabled = true;
+    	this.data_refresh_timer_.Interval = 60000;
+    	this.data_refresh_timer_.Tick += new System.EventHandler(this.OnDataRefresh);
     	// 
     	// ScoreboardControl
     	// 
     	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
     	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-    	this.Controls.Add(this.status_);
     	this.Name = "ScoreboardControl";
     	this.ResumeLayout(false);
     }
-    private System.Windows.Forms.Label status_;
-    private System.Windows.Forms.Timer timer_;
+    private System.Windows.Forms.Timer data_refresh_timer_;
+    private System.Windows.Forms.Timer scroll_timer_;
   }
 }

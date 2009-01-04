@@ -24,7 +24,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ScoreKeeper {
@@ -33,6 +32,7 @@ namespace ScoreKeeper {
       // The InitializeComponent() call is required for Windows Forms designer support.
       InitializeComponent();
       Icon = Resources.Icon;
+      version_.Text = Environment.Version.ToString();
       OnCheck(null, null);
     }
     
@@ -47,11 +47,15 @@ namespace ScoreKeeper {
     public int Port {
       get { return (int)port_.Value; }
     }
-    
+        
     private void OnCheck(object sender, EventArgs e) {
       bool is_client = mode_client_.Checked;
       host_label_.Enabled = is_client;
       host_.Enabled = is_client;
+    }
+    
+    private void OnUrl(object sender, LinkLabelLinkClickedEventArgs e) {
+      System.Diagnostics.Process.Start(url_.Text);
     }
   }
 }

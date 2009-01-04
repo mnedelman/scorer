@@ -59,9 +59,31 @@ namespace ScoreKeeper {
       else
         return score.Score().Points.ToString();
     }
-    public Score2008 Score1;
-    public Score2008 Score2;
-    public Score2008 Score3;
+    
+    public Score2008 GetScore(int index) {
+      return scores_[index - 1];
+    }
+    
+    public void SetScore(int index, Score2008 score) {
+      scores_[index - 1] = score;
+    }
+    
+    public Score2008 Score1 {
+      get { return scores_[0]; }
+      set { scores_[0] = value; }
+    }
+    
+    public Score2008 Score2 {
+      get { return scores_[1]; }
+      set { scores_[1] = value; }
+    }
+    
+    public Score2008 Score3 {
+      get { return scores_[2]; }
+      set { scores_[2] = value; }
+    }
+    
+    private Score2008[] scores_ = new Score2008[3];
   }
   
   public class TeamNameComparer : IComparer {

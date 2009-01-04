@@ -24,34 +24,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 using System;
-using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Http;
 using System.Windows.Forms;
 
 namespace ScoreKeeper {
 	internal sealed class Program {
+    static public bool IsTesting = true;
+    
 		[STAThread]
 		private static void Main(string[] args) {
+		  IsTesting = false;
+		  
  			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			
 		  StartupForm startup_form = new StartupForm();
-		  if (DialogResult.OK != startup_form.ShowDialog())
+		  if (startup_form.ShowDialog() != DialogResult.OK)
 		    return;
 		  
 		  if (startup_form.Server) {
-  			ChannelServices.RegisterChannel(new HttpChannel(startup_form.Port),
-		                                    false);
-  			RemotingServices.Marshal(new ScoreManager(), "Scores");
-  			Application.Run(new MainForm());
+		    MainForm form = new MainForm();
+		    using (HttpServer server = new HttpServer(form, startup_form.Port)) {
+  		    server.Start();
+    			Application.Run(form);
+		    }
 		  } else {
-        ChannelServices.RegisterChannel(new HttpChannel(), false);
-        RemotingConfiguration.RegisterWellKnownClientType(
-            typeof(ScoreManager),
-            string.Format("http://{0}:{1}/Scores",
-                          startup_form.Host, startup_form.Port));
-  			Application.Run(new ScoreForm());
+  			Application.Run(new ScoreForm(new RemoteScore(startup_form.Host,
+		                                                  startup_form.Port)));
 		  }
 		}
 	}

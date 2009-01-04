@@ -26,24 +26,24 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace ScoreKeeper {
-	/// <summary>
-	/// Description of MainForm.
-	/// </summary>
-	public partial class MainForm : Form {
+	public partial class MainForm : Form, IGetScoreInterface {
 		public MainForm() {
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			InitializeComponent();
 			Icon = Resources.Icon;
 			Init();
 		}
+	  
+	  private void DisableUndo() {
+	    undo_.Text = "Undo Set";
+	    undo_.Enabled = false;
+	  }
 	  
 	  protected virtual void Init() {
 			config_ = ConfigurationManager.OpenExeConfiguration(
@@ -55,6 +55,14 @@ namespace ScoreKeeper {
 	    UpdateScoreItems();
 	  }
 	  
+    public void Log(string format, params object[] args) {
+      lock (log_entries_) {
+        log_entries_.Add(string.Format(format, args));
+        if (log_entries_.Count > 100)
+          log_entries_.RemoveAt(0);
+      }
+	  }
+	  
 		private void OnAddTeam(object sender, EventArgs e) {
 	    TeamForm form = new TeamForm(team_data_.Teams);
 	    if (form.ShowDialog(this) != DialogResult.OK)
@@ -64,6 +72,10 @@ namespace ScoreKeeper {
 	    UpdateTeamList();
 		}
 		
+	  public ScoreRow[] GetScores() {
+	    return team_data_.GetScores();
+	  }
+	  
 		private void OnExport(object sender, EventArgs e) {
 	    if (export_dialog_.ShowDialog() != DialogResult.OK)
 	      return;
@@ -90,6 +102,23 @@ namespace ScoreKeeper {
 	                    MessageBoxButtons.OK);
 		}
 		
+		private void OnLogTimer(object sender, EventArgs e) {
+	    lock (log_entries_)
+	      log_.Lines = log_entries_.ToArray();
+		}
+		
+		private void OnScore1Clear(object sender, EventArgs e) {
+	    SetScore(1, true);
+		}
+		
+		private void OnScore2Clear(object sender, EventArgs e) {
+	    SetScore(2, true);
+		}
+		
+		private void OnScore3Clear(object sender, EventArgs e) {
+	    SetScore(3, true);
+		}
+		
 		private void OnScore1Load(object sender, EventArgs e) {
 	    score_control_.Score = ((Team)team_.SelectedItem).Score1;
 		}
@@ -103,31 +132,19 @@ namespace ScoreKeeper {
 		}
 	  
 		private void OnScore1Set(object sender, EventArgs e) {
-	    ((Team)team_.SelectedItem).Score1 = score_control_.Score;
-	    Save();
-	    
-	    UpdateScore1();
-	    score_control_.Reset();
+	    SetScore(1, false);
 		}
 		
 		private void OnScore2Set(object sender, EventArgs e) {
-	    ((Team)team_.SelectedItem).Score2 = score_control_.Score;
-	    Save();
-
-	    UpdateScore2();
-	    score_control_.Reset();
+	    SetScore(2, false);
 		}
 		
 		private void OnScore3Set(object sender, EventArgs e) {
-	    ((Team)team_.SelectedItem).Score3 = score_control_.Score;
-	    Save();
-
-	    UpdateScore3();
-	    score_control_.Reset();
+	    SetScore(3, false);
 		}
 		
 		private void OnScoreboard(object sender, EventArgs e) {
-	    new ScoreForm(true).Show();
+	    new ScoreForm(this).Show();
 		}
 		
 	  private void OnScoreChange(object sender, EventArgs e) {
@@ -142,6 +159,12 @@ namespace ScoreKeeper {
 		
 		private void OnSelectTeam(object sender, EventArgs e) {
 	    UpdateTeamItems();
+		}
+		
+		private void OnUndo(object sender, EventArgs e) {
+	    team_data_.SetScore(undo_team_, undo_round_, undo_score_);
+	    UpdateScore(undo_round_);
+	    DisableUndo();
 		}
 	  
 	  protected virtual void Save() {
@@ -179,8 +202,9 @@ namespace ScoreKeeper {
 		
 	  protected void UpdateFileItems() {
 	    bool has_file = !string.IsNullOrEmpty(filename_);
-	    file_status_.Text = has_file ? string.Format("Saving to {0}", filename_) :
-  	                                 "Please select a file";
+	    file_status_.Text =
+	        has_file ? string.Format("Saving to {0}", filename_) :
+                     "Please select a file to auto-save scoring data";
       score_control_.Enabled = has_file;
       panel_team_.Enabled = has_file;
       export_.Enabled = has_file;
@@ -194,22 +218,41 @@ namespace ScoreKeeper {
 	    score3_set_.Enabled = has_score;
 	  }
 	  
-	  private void UpdateScore1() {
+	  private void SetScore(int round, bool clear) {
 	    Team team = (Team)team_.SelectedItem;
-      score1_.Text = team.Points1;
-      score1_load_.Enabled = (team.Score1 != null);
+	    undo_team_ = team;
+	    undo_round_ = round;
+	    undo_score_ = team.GetScore(round);
+	    undo_.Text = clear ? "Undo Clear" : "Undo Set";
+	    undo_.Enabled = true;
+
+	    team_data_.SetScore(team, round, clear ? null : score_control_.Score);
+	    Save();
+	    UpdateScore(round);
+	    score_control_.Reset();
 	  }
 	  
-	  private void UpdateScore2() {
+	  private void UpdateScore(int round) {
 	    Team team = (Team)team_.SelectedItem;
-      score2_.Text = team.Points2;
-      score2_load_.Enabled = (team.Score2 != null);
-	  }
-	  
-	  private void UpdateScore3() {
-	    Team team = (Team)team_.SelectedItem;
-      score3_.Text = team.Points3;
-      score3_load_.Enabled = (team.Score3 != null);
+	    
+	    if (round == 0 || round == 1) {
+        score1_.Text = team.Points1;
+        bool has_score = team.Score1 != null;
+        score1_load_.Enabled = has_score;
+        score1_clear_.Enabled = has_score;
+	    }
+	    if (round == 0 || round == 2) {
+        score2_.Text = team.Points2;
+        bool has_score = team.Score2 != null;
+        score2_load_.Enabled = has_score;
+        score2_clear_.Enabled = has_score;
+	    }
+	    if (round == 0 || round == 3) {
+        score3_.Text = team.Points3;
+        bool has_score = team.Score3 != null;
+        score3_load_.Enabled = has_score;
+        score3_clear_.Enabled = has_score;
+	    }
 	  }
 	  
 	  private void UpdateTeamList() {
@@ -227,11 +270,10 @@ namespace ScoreKeeper {
 	  private void UpdateTeamItems() {
 	    bool is_team = !(team_.SelectedItem is string);
 	    score_group_.Enabled = is_team;
+	    DisableUndo();
 
 	    if (is_team) {
-	      UpdateScore1();
-	      UpdateScore2();
-	      UpdateScore3();
+	      UpdateScore(0);
 	    } else {
 	      score1_.Text = "?";
 	      score2_.Text = "?";
@@ -239,12 +281,14 @@ namespace ScoreKeeper {
 	    }
 	  }
 
-	  static public ScoreRow[] GetScores() {
-	    return team_data_.GetScores();
-	  }
+	  private Team undo_team_ = null;
+	  private Score2008 undo_score_ = null;
+	  private int undo_round_ = 0;
 	  
 	  private Configuration config_ = null;
 	  protected string filename_ = null;
-	  static protected TeamData team_data_ = new TeamData();
+	  protected TeamData team_data_ = new TeamData();
+	  
+	  List<string> log_entries_ = new List<string>();
 	}
 }

@@ -26,6 +26,11 @@
 using System;
 
 namespace ScoreKeeper {
+  public interface IGetScoreInterface {
+    ScoreRow[] GetScores();
+    void Log(string format, params object[] args);
+  }
+  
   public enum YesNo {
     Yes,
     No,

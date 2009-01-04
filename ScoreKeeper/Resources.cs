@@ -27,6 +27,7 @@ using System;
 using System.Drawing;
 using System.Reflection;
 using System.Resources;
+using System.Windows.Forms;
 
 namespace ScoreKeeper {
   public class Resources {
@@ -36,9 +37,25 @@ namespace ScoreKeeper {
 			ResourceManager resources = new ResourceManager("ScoreKeeper.Resources",
 			                                                assembly);
 			Icon = (Icon)resources.GetObject("Icon");
-			
-			FllLogo = Bitmap.FromFile("FLL Logo.jpg");
-			FllEventLogo = Bitmap.FromFile("FLL Event Logo.jpg");
+ 			FllLogo = Load("FLL Logo.jpg");
+ 			FllEventLogo = Load("FLL Event Logo.jpg");
+    }
+    
+    static Image Load(string file) {
+      try {
+        return Bitmap.FromFile(file);
+      } catch {
+        if (Program.IsTesting) {
+          return new Bitmap(1, 1);
+        } else {
+          MessageBox.Show(string.Format(
+              "'{0}' should be adjacent to the ScoreKeeper.exe, but was not " +
+              "found there.  Please make sure the file is available, and " +
+              "restart if the logo is desired.", file),
+              "Missing File", MessageBoxButtons.OK);
+          return null;
+        }
+      }
     }
     
     static public Icon Icon;
