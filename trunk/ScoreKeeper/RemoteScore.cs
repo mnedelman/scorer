@@ -24,14 +24,30 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 using System;
+using System.IO;
+using System.Net;
 
 namespace ScoreKeeper {
-  public class ScoreManager : MarshalByRefObject {
-    public ScoreManager() {
+  public class RemoteScore : IGetScoreInterface {
+    public RemoteScore(string host, int port) {
+      url_ = string.Format("http://{0}:{1}/scores.xml", host, port);
     }
     
     public ScoreRow[] GetScores() {
-      return MainForm.GetScores();
+      HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url_);
+      request.Timeout = 5000;
+      HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+      if (response.StatusCode != HttpStatusCode.OK)
+        return null;
+      
+      return (ScoreRow[])ScoreRow.ArraySerializer.Deserialize(
+          response.GetResponseStream());
     }
+    
+    public void Log(string format, params object[] args) {
+      throw new NotSupportedException();
+    }
+    
+    private string url_;
   }
 }

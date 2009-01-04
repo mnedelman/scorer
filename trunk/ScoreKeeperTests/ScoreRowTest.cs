@@ -36,35 +36,63 @@ namespace ScoreKeeper
     [Test]
     public void TestConstructor() {
       Team team = new Team("7", "bar");
-      team.Score1 = new Score2008();
+      team.SetScore(1, new Score2008());
       team.Score1.Zero();
-      team.Score2 = team.Score1.Clone();
+      team.SetScore(2, team.Score1.Clone());
       team.Score2.HouseRaised = YesNo.Yes;
       
       ScoreRow row = new ScoreRow(team);
       Assert.AreEqual(-1, row.Rank);
       Assert.AreEqual("7", row.Number);
       Assert.AreEqual("bar", row.Name);
-      Assert.AreEqual("25", row.Points1);
-      Assert.AreEqual("0", row.Points2);
+      Assert.AreEqual("0", row.Points1);
+      Assert.AreEqual("25", row.Points2);
       Assert.AreEqual("?", row.Points3);
+      Assert.AreEqual(2, row.GetBestRound());
+      
+      team.SetScore(3, team.Score2.Clone());
+      team.Score3.HouseDark = YesNo.Yes;
+      row = new ScoreRow(team);
+      Assert.AreEqual(3, row.GetBestRound());
+      
+      team.SetScore(2, null);
+      team.SetScore(3, null);
+      row = new ScoreRow(team);
+      Assert.AreEqual(0, row.GetBestRound());
+
+      team.Score1.HouseDark = YesNo.Yes;
+      row = new ScoreRow(team);
+      Assert.AreEqual(1, row.GetBestRound());
+      
+      team.SetScore(1, null);
+      row = new ScoreRow(team);
+      Assert.AreEqual(0, row.GetBestRound());
+      
+      team.SetScore(1, new Score2008());
+      team.Score1.Zero();
+      team.SetScore(2, team.Score1.Clone());
+      team.SetScore(3, team.Score1.Clone());
+      row = new ScoreRow(team);
+      Assert.AreEqual(0, row.GetBestRound());
     }
 
     [Test]
     public void TestCompareTo() {
-      ScoreRow row1 = new ScoreRow("7", "foo", new int[] {200, 100, 50});
-      ScoreRow row2 = new ScoreRow("7", "foo", new int[] {200, 200, 50});
-      ScoreRow row3 = new ScoreRow("7", "foo", new int[] {200, 200, 200});
-      ScoreRow row4 = new ScoreRow("8", "foo", new int[] {200, 200, 200});
-      ScoreRow row5 = new ScoreRow("7", "fob", new int[] {200, 200, 200});
-      ScoreRow row6 = new ScoreRow("5", "bar", new int[] {300, 200, 200});
-      ScoreRow row7 = new ScoreRow("4", "baz", new int[] {100, 50, 50});
-      ScoreRow row8 = new ScoreRow("3", "baz", new int[] {-1, -1, -1});
-      ScoreRow row9 = new ScoreRow("3", "baz", new int[] {0, 0, 0});
-      ScoreRow row10 = new ScoreRow("3", "baz", new int[] {0, -1, -1});
+      ScoreRow row1 = new ScoreRow("7", "foo", 50, 200, 100);
+      ScoreRow row2 = new ScoreRow("7", "foo", 200, 200, 50);
+      ScoreRow row3 = new ScoreRow("7", "foo", 200, 200, 200);
+      ScoreRow row4 = new ScoreRow("8", "foo", 200, 200, 200);
+      ScoreRow row5 = new ScoreRow("7", "fob", 200, 200, 200);
+      ScoreRow row6 = new ScoreRow("5", "bar", 200, 300, 200);
+      ScoreRow row7 = new ScoreRow("4", "baz", 50, 50, 100);
+      ScoreRow row8 = new ScoreRow("3", "baz", -1, -1, -1);
+      ScoreRow row9 = new ScoreRow("3", "baz", 0, 0, 0);
+      ScoreRow row10 = new ScoreRow("3", "baz", 0, -1, -1);
+      ScoreRow row11 = new ScoreRow("9", "baz", 50, 100, 50);
+      ScoreRow row12 = new ScoreRow("10", "baz", 100, 50, 50);
       List<ScoreRow> list = new List<ScoreRow>(
           new ScoreRow[] {row1, row2, row3, row4, row5, row6, row7, row8, row9,
-                          row10
+                          row10, row11, row12
                          });
       list.Sort();
       Assert.AreEqual(row6, list[0]);
@@ -74,15 +102,17 @@ namespace ScoreKeeper
       Assert.AreEqual(row2, list[4]);
       Assert.AreEqual(row1, list[5]);
       Assert.AreEqual(row7, list[6]);
-      Assert.AreEqual(row9, list[7]);
-      Assert.AreEqual(row10, list[8]);
-      Assert.AreEqual(row8, list[9]);
+      Assert.AreEqual(row11, list[7]);
+      Assert.AreEqual(row12, list[8]);
+      Assert.AreEqual(row9, list[9]);
+      Assert.AreEqual(row10, list[10]);
+      Assert.AreEqual(row8, list[11]);
     }
     
     [Test]
     [ExpectedException(typeof(ArgumentException))]
     public void TestCompareToInvalid() {
-      ScoreRow row1 = new ScoreRow("7", "foo", new int[] {200, 100, 50});
+      ScoreRow row1 = new ScoreRow("7", "foo", 200, 100, 50);
       row1.CompareTo(null);
     }
   }

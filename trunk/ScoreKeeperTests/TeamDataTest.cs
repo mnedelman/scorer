@@ -44,16 +44,16 @@ namespace ScoreKeeper {
       Team team1 = new Team("1", string.Empty);
       
       Team team2 = new Team("2", string.Empty);
-      team2.Score1 = score_zero;
-      team2.Score3 = score_zero;
+      team2.SetScore(1, score_zero);
+      team2.SetScore(3, score_zero);
       
       Team team3 = new Team("3", string.Empty);
-      team3.Score2 = score_zero;
+      team3.SetScore(2, score_zero);
       
       Team team4 = new Team("4", string.Empty);
-      team4.Score1 = score_zero;
-      team4.Score2 = score_zero;
-      team4.Score3 = score_zero;
+      team4.SetScore(1, score_zero);
+      team4.SetScore(2, score_zero);
+      team4.SetScore(3, score_zero);
       
       TeamData team_data = new TeamData();
       team_data.Teams = new Team[] {team1, team2, team3, team4};
@@ -77,46 +77,46 @@ namespace ScoreKeeper {
       Team team1 = new Team("1", string.Empty);
       
       Team team2 = new Team("2", string.Empty);
-      team2.Score1 = score_zero;
-      team2.Score3 = score_zero;
+      team2.SetScore(1, score_zero);
+      team2.SetScore(3, score_zero);
       
       Team team3 = new Team("3", string.Empty);
-      team3.Score2 = score_zero;
+      team3.SetScore(2, score_zero);
       
       Team team4 = new Team("4", string.Empty);
-      team4.Score1 = score_zero.Clone();
+      team4.SetScore(1, score_zero.Clone());
       team4.Score1.CityPeople = YesNo.Yes;
-      team4.Score2 = score_zero.Clone();
+      team4.SetScore(2, score_zero.Clone());
       team4.Score2.PinkPeople = YesNo.Yes;
-      team4.Score3 = score_zero.Clone();
+      team4.SetScore(3, score_zero.Clone());
       team4.Score3.ArrowsAligned = YesNo.Yes;
       
       Team team5 = new Team("5", string.Empty);
-      team5.Score1 = score_zero.Clone();
+      team5.SetScore(1, score_zero.Clone());
       team5.Score1.ArrowsAligned = YesNo.Yes;
-      team5.Score2 = score_zero.Clone();
+      team5.SetScore(2, score_zero.Clone());
       team5.Score2.CityPeople = YesNo.Yes;
       team5.Score2.PinkPeople = YesNo.Yes;
-      team5.Score3 = score_zero.Clone();
+      team5.SetScore(3, score_zero.Clone());
       team5.Score3.PinkPeople = YesNo.Yes;
       
       Team team6 = new Team("6", string.Empty);
-      team6.Score1 = score_zero.Clone();
+      team6.SetScore(1, score_zero.Clone());
       team6.Score1.CityPeople = YesNo.Yes;
       team6.Score1.PinkPeople = YesNo.Yes;
-      team6.Score2 = score_zero.Clone();
+      team6.SetScore(2, score_zero.Clone());
       team6.Score2.CityPeople = YesNo.Yes;
       team6.Score2.GreenBicycle = YesNo.Yes;
       team6.Score2.GreenComputer = YesNo.Yes;
       team6.Score2.GreenInsulation = YesNo.Yes;
-      team6.Score3 = score_zero.Clone();
+      team6.SetScore(3, score_zero.Clone());
       team6.Score3.CityPeople = YesNo.Yes;
       team6.Score3.PinkPeople = YesNo.Yes;
       
       Team team7 = new Team("7", string.Empty);
-      team7.Score1 = team5.Score1.Clone();
-      team7.Score2 = team5.Score2.Clone();
-      team7.Score3 = team5.Score3.Clone();
+      team7.SetScore(1, team5.Score1.Clone());
+      team7.SetScore(2, team5.Score2.Clone());
+      team7.SetScore(3, team5.Score3.Clone());
       
       TeamData team_data = new TeamData();
       team_data.Teams = new Team[] {team1, team2, team3, team4, team5, team6,

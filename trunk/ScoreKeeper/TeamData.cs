@@ -26,9 +26,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace ScoreKeeper {
+  /// <summary>
+  /// Controls access to the list of teams.
+  /// </summary>
+  /// <description>
+  /// The expected behavior is that the primary thread will be doing various
+  /// actions (including edits), and other threads may only use GetScores.
+  /// 
+  /// Because of this, reads from the main thread don't need to lock.  The only
+  /// locking required is writes from the main thread, and reads from other
+  /// threads.
+  /// </description>
   [Serializable]
   public class TeamData {
     public static TeamData Load(string filename) {
@@ -45,13 +57,16 @@ namespace ScoreKeeper {
     }
     
     public ScoreRow[] GetScores() {
-      if (Teams.Length == 0)
-        return new ScoreRow[0];
-      
-      List<ScoreRow> scores = new List<ScoreRow>();
-      foreach (Team team in Teams)
-        scores.Add(new ScoreRow(team));
-      scores.Sort();
+      List<ScoreRow> scores;
+      lock (teams_) {
+        if (teams_.Length == 0)
+          return new ScoreRow[0];
+        
+        scores = new List<ScoreRow>();
+        foreach (Team team in teams_)
+          scores.Add(new ScoreRow(team));
+        scores.Sort();
+      }
       
       int next_rank = 1;
       scores[0].Rank = next_rank;
@@ -70,6 +85,16 @@ namespace ScoreKeeper {
 	    }
 	  }
     
-    public Team[] Teams = new Team[0];
+    public void SetScore(Team team, int round, Score2008 score) {
+      lock (teams_)
+        team.SetScore(round, score);
+    }
+    
+    public Team[] Teams {
+      get { return teams_; }
+      set { lock (teams_) teams_ = value; }
+    }
+    
+    private Team[] teams_ = new Team[0];
   }
 }

@@ -72,11 +72,10 @@ namespace ScoreKeeper
     	this.font56_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.font64_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.cycle_ = new System.Windows.Forms.ToolStripMenuItem();
-    	this.cycle10_ = new System.Windows.Forms.ToolStripMenuItem();
-    	this.cycle15_ = new System.Windows.Forms.ToolStripMenuItem();
-    	this.cycle20_ = new System.Windows.Forms.ToolStripMenuItem();
-    	this.cycle25_ = new System.Windows.Forms.ToolStripMenuItem();
-    	this.cycle30_ = new System.Windows.Forms.ToolStripMenuItem();
+    	this.cycle_stop_ = new System.Windows.Forms.ToolStripMenuItem();
+    	this.cycle_slow_ = new System.Windows.Forms.ToolStripMenuItem();
+    	this.cycle_medium_ = new System.Windows.Forms.ToolStripMenuItem();
+    	this.cycle_fast_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.logo_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.logo150_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.logo200_ = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,6 +85,7 @@ namespace ScoreKeeper
     	this.color_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.show_status_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.select_color_ = new System.Windows.Forms.ColorDialog();
+    	this.status_ = new System.Windows.Forms.Label();
     	((System.ComponentModel.ISupportInitialize)(this.year_logo_)).BeginInit();
     	this.logo_panel_.SuspendLayout();
     	((System.ComponentModel.ISupportInitialize)(this.fll_logo2_)).BeginInit();
@@ -141,13 +141,12 @@ namespace ScoreKeeper
     	// 
     	// scoreboard_
     	// 
-    	this.scoreboard_.CycleSeconds = 5;
     	this.scoreboard_.Dock = System.Windows.Forms.DockStyle.Fill;
     	this.scoreboard_.Location = new System.Drawing.Point(0, 160);
     	this.scoreboard_.Name = "scoreboard_";
-    	this.scoreboard_.ShowStatus = false;
-    	this.scoreboard_.Size = new System.Drawing.Size(800, 440);
+    	this.scoreboard_.Size = new System.Drawing.Size(800, 425);
     	this.scoreboard_.TabIndex = 3;
+    	this.scoreboard_.ScoreUpdate += new ScoreKeeper.ScoreboardControl.ScoreUpdateHandler(this.OnScoreUpdate);
     	this.scoreboard_.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
     	// 
     	// context_
@@ -263,54 +262,45 @@ namespace ScoreKeeper
     	// cycle_
     	// 
     	this.cycle_.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-    	    	    	this.cycle10_,
-    	    	    	this.cycle15_,
-    	    	    	this.cycle20_,
-    	    	    	this.cycle25_,
-    	    	    	this.cycle30_});
+    	    	    	this.cycle_stop_,
+    	    	    	this.cycle_slow_,
+    	    	    	this.cycle_medium_,
+    	    	    	this.cycle_fast_});
     	this.cycle_.Name = "cycle_";
     	this.cycle_.Size = new System.Drawing.Size(158, 22);
     	this.cycle_.Text = "Cycle Time";
     	// 
-    	// cycle10_
+    	// cycle_stop_
     	// 
-    	this.cycle10_.Name = "cycle10_";
-    	this.cycle10_.Size = new System.Drawing.Size(139, 22);
-    	this.cycle10_.Tag = "10";
-    	this.cycle10_.Text = "10 seconds";
-    	this.cycle10_.Click += new System.EventHandler(this.OnCycle);
+    	this.cycle_stop_.Name = "cycle_stop_";
+    	this.cycle_stop_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_stop_.Tag = "0";
+    	this.cycle_stop_.Text = "Stop";
+    	this.cycle_stop_.Click += new System.EventHandler(this.OnCycle);
     	// 
-    	// cycle15_
+    	// cycle_slow_
     	// 
-    	this.cycle15_.Name = "cycle15_";
-    	this.cycle15_.Size = new System.Drawing.Size(139, 22);
-    	this.cycle15_.Tag = "15";
-    	this.cycle15_.Text = "15 seconds";
-    	this.cycle15_.Click += new System.EventHandler(this.OnCycle);
+    	this.cycle_slow_.Name = "cycle_slow_";
+    	this.cycle_slow_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_slow_.Tag = "1";
+    	this.cycle_slow_.Text = "Slow";
+    	this.cycle_slow_.Click += new System.EventHandler(this.OnCycle);
     	// 
-    	// cycle20_
+    	// cycle_medium_
     	// 
-    	this.cycle20_.Name = "cycle20_";
-    	this.cycle20_.Size = new System.Drawing.Size(139, 22);
-    	this.cycle20_.Tag = "20";
-    	this.cycle20_.Text = "20 seconds";
-    	this.cycle20_.Click += new System.EventHandler(this.OnCycle);
+    	this.cycle_medium_.Name = "cycle_medium_";
+    	this.cycle_medium_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_medium_.Tag = "2";
+    	this.cycle_medium_.Text = "Medium";
+    	this.cycle_medium_.Click += new System.EventHandler(this.OnCycle);
     	// 
-    	// cycle25_
+    	// cycle_fast_
     	// 
-    	this.cycle25_.Name = "cycle25_";
-    	this.cycle25_.Size = new System.Drawing.Size(139, 22);
-    	this.cycle25_.Tag = "25";
-    	this.cycle25_.Text = "25 seconds";
-    	this.cycle25_.Click += new System.EventHandler(this.OnCycle);
-    	// 
-    	// cycle30_
-    	// 
-    	this.cycle30_.Name = "cycle30_";
-    	this.cycle30_.Size = new System.Drawing.Size(139, 22);
-    	this.cycle30_.Tag = "30";
-    	this.cycle30_.Text = "30 seconds";
-    	this.cycle30_.Click += new System.EventHandler(this.OnCycle);
+    	this.cycle_fast_.Name = "cycle_fast_";
+    	this.cycle_fast_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_fast_.Tag = "3";
+    	this.cycle_fast_.Text = "Fast";
+    	this.cycle_fast_.Click += new System.EventHandler(this.OnCycle);
     	// 
     	// logo_
     	// 
@@ -378,6 +368,16 @@ namespace ScoreKeeper
     	this.show_status_.Text = "Show Status";
     	this.show_status_.Click += new System.EventHandler(this.OnShowStatus);
     	// 
+    	// status_
+    	// 
+    	this.status_.Dock = System.Windows.Forms.DockStyle.Bottom;
+    	this.status_.Location = new System.Drawing.Point(0, 585);
+    	this.status_.Name = "status_";
+    	this.status_.Size = new System.Drawing.Size(800, 15);
+    	this.status_.TabIndex = 4;
+    	this.status_.Text = "Last Updated: Never";
+    	this.status_.Visible = false;
+    	// 
     	// ScoreForm
     	// 
     	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -385,6 +385,7 @@ namespace ScoreKeeper
     	this.BackColor = System.Drawing.Color.White;
     	this.ClientSize = new System.Drawing.Size(800, 600);
     	this.Controls.Add(this.scoreboard_);
+    	this.Controls.Add(this.status_);
     	this.Controls.Add(this.logo_panel_);
     	this.Name = "ScoreForm";
     	this.Text = "Scoreboard";
@@ -396,11 +397,11 @@ namespace ScoreKeeper
     	this.context_.ResumeLayout(false);
     	this.ResumeLayout(false);
     }
-    private System.Windows.Forms.ToolStripMenuItem cycle15_;
-    private System.Windows.Forms.ToolStripMenuItem cycle25_;
-    private System.Windows.Forms.ToolStripMenuItem cycle30_;
-    private System.Windows.Forms.ToolStripMenuItem cycle20_;
-    private System.Windows.Forms.ToolStripMenuItem cycle10_;
+    protected System.Windows.Forms.ToolStripMenuItem cycle_stop_;
+    protected System.Windows.Forms.ToolStripMenuItem cycle_slow_;
+    protected System.Windows.Forms.ToolStripMenuItem cycle_fast_;
+    protected System.Windows.Forms.ToolStripMenuItem cycle_medium_;
+    private System.Windows.Forms.Label status_;
     private System.Windows.Forms.ToolStripMenuItem cycle_;
     protected System.Windows.Forms.ToolStripMenuItem show_status_;
     private System.Windows.Forms.ColorDialog select_color_;

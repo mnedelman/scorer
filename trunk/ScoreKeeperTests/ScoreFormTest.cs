@@ -86,6 +86,17 @@ namespace ScoreKeeper
     }
     
     [Test]
+    public void TestCycle() {
+      Assert.IsTrue(cycle_slow_.Checked);
+      
+      ControlHelper.FireEvent(cycle_stop_, "Click");
+      Assert.IsTrue(cycle_stop_.Checked);
+      
+      ControlHelper.FireEvent(cycle_medium_, "Click");
+      Assert.IsTrue(cycle_medium_.Checked);
+    }
+    
+    [Test]
     public void TestFullScreen() {
       Assert.IsFalse(full_screen_.Checked);
       Assert.AreEqual(FormBorderStyle.Sizable, FormBorderStyle);

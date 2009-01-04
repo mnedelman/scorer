@@ -73,10 +73,10 @@ namespace ScoreKeeper
     public void TestGetPoints() {
       Team team = new Team();
       
-      team.Score1 = new Score2008();
+      team.SetScore(1, new Score2008());
       team.Score1.Zero();
       
-      team.Score2 = new Score2008();
+      team.SetScore(2, new Score2008());
       team.Score2.Zero();
       team.Score2.ArrowsAligned = YesNo.Yes;
       

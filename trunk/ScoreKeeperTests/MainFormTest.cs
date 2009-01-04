@@ -34,6 +34,7 @@ namespace ScoreKeeper {
     [SetUp]
     public void SetUp() {
       filename_ = @"c:\bad\path\file.xml";
+      team_data_.Teams = new Team[0];
     }
     
     [Test]
@@ -70,7 +71,7 @@ namespace ScoreKeeper {
     }
     
     [Test]
-    public void TestScoreSetLoad() {
+    public void TestScoreButtons() {
       Team team = SampleTeam();
       team_data_.Teams = new Team[] { team };
       Init();
@@ -81,6 +82,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("10", team.Points2);
       Assert.AreEqual("?", team.Points3);
+      Assert.IsFalse(undo_.Enabled);
       
       ControlHelper.FireEvent(score1_load_, "Click");
       score = score_control_.Score.Score();
@@ -89,6 +91,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("10", team.Points2);
       Assert.AreEqual("?", team.Points3);
+      Assert.IsFalse(undo_.Enabled);
       
       ControlHelper.FireEvent(score2_load_, "Click");
       score = score_control_.Score.Score();
@@ -97,6 +100,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("10", team.Points2);
       Assert.AreEqual("?", team.Points3);
+      Assert.IsFalse(undo_.Enabled);
       
       Score2008 score_data = score_control_.Score;
       score_data.CityPeople = YesNo.Yes;
@@ -109,6 +113,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("10", team.Points2);
       Assert.AreEqual("20", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
       
       ControlHelper.FireEvent(score3_load_, "Click");
       score = score_control_.Score.Score();
@@ -117,6 +122,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("10", team.Points2);
       Assert.AreEqual("20", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
       
       score_data = score_control_.Score;
       score_data.PinkPeople = YesNo.Yes;
@@ -126,27 +132,68 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("30", team.Points2);
       Assert.AreEqual("20", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
 
       ControlHelper.FireEvent(score2_load_, "Click");
       ControlHelper.FireEvent(score1_set_, "Click");
       Assert.AreEqual("30", team.Points1);
       Assert.AreEqual("30", team.Points2);
       Assert.AreEqual("20", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
+
+      ControlHelper.FireEvent(undo_, "Click");
+      Assert.AreEqual("0", team.Points1);
+      Assert.AreEqual("30", team.Points2);
+      Assert.AreEqual("20", team.Points3);
+      Assert.IsFalse(undo_.Enabled);
+
+      ControlHelper.FireEvent(score1_clear_, "Click");
+      Assert.AreEqual("?", team.Points1);
+      Assert.AreEqual("30", team.Points2);
+      Assert.AreEqual("20", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
+
+      ControlHelper.FireEvent(score3_clear_, "Click");
+      Assert.AreEqual("?", team.Points1);
+      Assert.AreEqual("30", team.Points2);
+      Assert.AreEqual("?", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
+
+      ControlHelper.FireEvent(score2_clear_, "Click");
+      Assert.AreEqual("?", team.Points1);
+      Assert.AreEqual("?", team.Points2);
+      Assert.AreEqual("?", team.Points3);
+      Assert.IsTrue(undo_.Enabled);
+
+      ControlHelper.FireEvent(undo_, "Click");
+      Assert.AreEqual("?", team.Points1);
+      Assert.AreEqual("30", team.Points2);
+      Assert.AreEqual("?", team.Points3);
+      Assert.IsFalse(undo_.Enabled);
     }
     
     [Test]
     public void TestUpdateFileItems() {
       UpdateFileItems();
-      Assert.AreEqual(file_status_.Text,
-                      @"Saving to c:\bad\path\file.xml");
+      Assert.AreEqual(@"Saving to c:\bad\path\file.xml", file_status_.Text);
       Assert.IsTrue(score_control_.Enabled);
       Assert.IsTrue(panel_team_.Enabled);
       
       filename_ = null;
       UpdateFileItems();
-      Assert.AreEqual(file_status_.Text, @"Please select a file");
+      Assert.AreEqual(@"Please select a file to auto-save scoring data",
+                      file_status_.Text);
       Assert.IsFalse(score_control_.Enabled);
       Assert.IsFalse(panel_team_.Enabled);
+    }
+    
+    [Test]
+    public void TestGetScores() {
+      team_data_.Teams = new Team[] { new Team("5", "bar") };
+      ScoreRow[] scores = GetScores();
+      Assert.AreEqual(1, scores.Length);
+      Assert.AreEqual("5", scores[0].Number);
+      Assert.AreEqual("bar", scores[0].Name);
     }
 
     protected override void Init() {
@@ -156,9 +203,9 @@ namespace ScoreKeeper {
     
     private Team SampleTeam() {
       Team team = new Team("foo", "bar");
-      team.Score1 = new Score2008();
+      team.SetScore(1, new Score2008());
       team.Score1.Zero();
-      team.Score2 = team.Score1.Clone();
+      team.SetScore(2, team.Score1.Clone());
       team.Score2.GreenInsulation = YesNo.Yes;
       return team;
     }

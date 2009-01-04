@@ -29,17 +29,19 @@ using System.Windows.Forms;
 
 namespace ScoreKeeper {
   public partial class ScoreForm : Form {
-    public ScoreForm() : this(true) {
+    public ScoreForm() : this(null) {
     }
     
-    public ScoreForm(bool is_local) {
+    public ScoreForm(IGetScoreInterface score_interface) {
       // The InitializeComponent() call is required for Windows Forms designer support.
       InitializeComponent();
       Icon = Resources.Icon;
+      
+      scoreboard_.SetScoreInterface(score_interface);
 
-      cycles_ = new ToolStripMenuItem[] {cycle10_, cycle15_, cycle20_, cycle25_,
-                                         cycle30_};
-      OnCycle(cycle15_, null);
+      cycles_ = new ToolStripMenuItem[] {cycle_stop_, cycle_slow_,
+                                         cycle_medium_, cycle_fast_};
+      OnCycle(cycle_slow_, null);
       
       fonts_ = new ToolStripMenuItem[] {font20_, font24_, font28_, font32_,
                                         font36_, font40_, font48_, font56_,
@@ -71,7 +73,7 @@ namespace ScoreKeeper {
     private void OnCycle(object sender, EventArgs e) {
       ToolStripMenuItem item = (ToolStripMenuItem)sender;
       CheckItem(item, cycles_);
-      scoreboard_.CycleSeconds = Convert.ToInt32(item.Tag);
+      scoreboard_.SetCycle(Convert.ToInt32(item.Tag));
     }
     
     private void OnFont(object sender, EventArgs e) {
@@ -105,9 +107,19 @@ namespace ScoreKeeper {
       context_.Show((Control)sender, e.Location);
     }
     
+    private void OnScoreUpdate(ScoreUpdateArgs update) {
+      if (update.Success) {
+        this.status_.Text = string.Format("Last Update: {0}",
+                                          update.Time.ToShortTimeString());
+        this.status_.ForeColor = Color.Black;
+      } else {
+        this.status_.ForeColor = Color.DarkOrange;
+      }
+    }
+
     private void OnShowStatus(object sender, EventArgs e) {
       show_status_.Checked = !show_status_.Checked;
-      scoreboard_.ShowStatus = show_status_.Checked;
+      this.status_.Visible = show_status_.Checked;
     }
 
     private void OnToggleLogo(object sender, EventArgs e) {
@@ -121,7 +133,7 @@ namespace ScoreKeeper {
         fll_logo2_.Image = null;
       }
     }
-
+    
     private void SetLogos() {
       Image image = Resources.FllLogo;
       fll_logo1_.Image = image;
@@ -136,6 +148,5 @@ namespace ScoreKeeper {
     private ToolStripMenuItem[] cycles_;
     private ToolStripMenuItem[] fonts_;
     private ToolStripMenuItem[] logos_;
-    
   }
 }
