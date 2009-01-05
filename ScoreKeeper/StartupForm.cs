@@ -24,6 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace ScoreKeeper {
@@ -32,11 +33,19 @@ namespace ScoreKeeper {
       // The InitializeComponent() call is required for Windows Forms designer support.
       InitializeComponent();
       Icon = Resources.Icon;
-      version_.Text = Environment.Version.ToString();
+      app_version_.Text =
+          Assembly.GetExecutingAssembly().GetName().Version.ToString();
+      net_version_.Text = Environment.Version.ToString();
+      
+      mode_server_.Checked = Config.IsServer;
+      mode_client_.Checked = !Config.IsServer;
+      host_.Text = Config.Host;
+      port_.Value = Config.Port;
+      
       OnCheck(null, null);
     }
     
-    public bool Server {
+    public bool IsServer {
       get { return mode_server_.Checked; }
     }
     
@@ -53,7 +62,13 @@ namespace ScoreKeeper {
       host_label_.Enabled = is_client;
       host_.Enabled = is_client;
     }
-    
+        
+    private void OnOk(object sender, EventArgs e) {
+    	Config.IsServer = IsServer;
+    	Config.Host = Host;
+    	Config.Port = Port;
+    }
+
     private void OnUrl(object sender, LinkLabelLinkClickedEventArgs e) {
       System.Diagnostics.Process.Start(url_.Text);
     }

@@ -31,35 +31,16 @@ using System.Text;
 using System.Threading;
 
 namespace ScoreKeeper {
+  /// <summary>
+  /// Handles HTTP requests for the server.
+  /// </summary>
+  /// <description>
+  /// This supports two pages: /scores.html and /scores.html.  The default page
+  /// for / is /scores.html.  All other pages will return a 404.
+  /// </description>
   public class HttpServer : IDisposable {
-    private class HttpResponse {
-      public HttpResponse(string message) {
-        ResponseCode = 0;
-        Message = message;
-        Body = null;
-      }
-      
-      public HttpResponse(string message, string body) {
-        ResponseCode = 200;
-        Message = message;
-        Body = body;
-      }
-      
-      public HttpResponse(int response_code, string message) {
-        ResponseCode = response_code;
-        Message = message;
-        Body = string.Format("<h1>HTTP/1.0 {0} {1}</h1>", response_code,
-                             message);
-      }
-      
-      public int ResponseCode;
-      public string Message;
-      public string Body;
-    }
-    
-    public HttpServer(IGetScoreInterface score_interface, int port) {
+    public HttpServer(IGetScoreInterface score_interface) {
       score_interface_ = score_interface;
-      listener_ = new TcpListener(IPAddress.Any, port);
     }
     
     ~HttpServer() {
@@ -71,20 +52,27 @@ namespace ScoreKeeper {
         thread_.Abort();
         thread_ = null;
       }
-      listener_.Stop();
+      if (listener_ != null) {
+        listener_.Stop();
+        listener_ = null;
+      }
     }
     
     private void HandleClient(object state) {
-      TcpClient client = (TcpClient)state;
-      string client_name = client.Client.RemoteEndPoint.ToString();
-      client.Client.ReceiveTimeout = 5000;
-      client.Client.SendTimeout = 5000;
-      score_interface_.Log("{0}: Connected", client_name);
-      
-      NetworkStream stream = client.GetStream();
-      HttpResponse response = HandleClientRequest(stream);
-      HandleClientResponse(stream, client_name, response);
-      client.Close();
+      try {
+        TcpClient client = (TcpClient)state;
+        string client_name = client.Client.RemoteEndPoint.ToString();
+        client.Client.ReceiveTimeout = 5000;
+        client.Client.SendTimeout = 5000;
+        score_interface_.Log("{0}: Connected", client_name);
+        
+        NetworkStream stream = client.GetStream();
+        HttpResponse response = HandleClientRequest(stream);
+        HandleClientResponse(stream, client_name, response);
+        client.Close();
+      } catch {
+        // Don't let clients kill the system.
+      }
     }
     
     private HttpResponse HandleClientRequest(NetworkStream stream) {
@@ -103,33 +91,46 @@ namespace ScoreKeeper {
         if (!request_tokens[2].StartsWith("HTTP/"))
           return new HttpResponse(400, "Invalid protocol");
         
-        if (request_tokens[1].Equals("/scores.xml"))
+        string url = request_tokens[1];
+        if (url.Equals("/scores.xml"))
           return HandleScoreXml();
-        else
+        else if (url.Equals("/") || url.Equals("/scores.html"))
           return HandleScoreHtml();
+        else
+          return new HttpResponse(404,
+                                  string.Format("Page '{0}' not found", url));
       } catch (IOException) {
-        return new HttpResponse("Connection lost");
+        return new HttpResponse("Connection lost during read");
       }
     }
     
     private void HandleClientResponse(NetworkStream stream, string client_name,
                                       HttpResponse response) {
       if (response.ResponseCode > 0) {
-        StreamWriter writer = new StreamWriter(stream);
-        writer.Write(string.Format("HTTP/1.0 {0} {1}\r\n",
-                                   response.ResponseCode, response.Message));
-			  writer.Write("Content-Length: " + response.Body.Length + "\r\n");
-        writer.Write("Connection: close\r\n");
-  			writer.Write("\r\n");
-        writer.Write(response.Body);
-  			writer.Flush();
-  			score_interface_.Log("{0}: {1} {2}", client_name,
-  			                   response.ResponseCode, response.Message);
+        try {
+          StreamWriter writer = new StreamWriter(stream);
+          writer.Write(string.Format("HTTP/1.0 {0} {1}\r\n",
+                                     response.ResponseCode, response.Message));
+  			  writer.Write("Content-Length: " + response.Body.Length + "\r\n");
+          writer.Write("Connection: close\r\n");
+    			writer.Write("\r\n");
+          writer.Write(response.Body);
+    			writer.Flush();
+        } catch (IOException) {
+    			score_interface_.Log("{0}: {1}", client_name,
+                               "Connection lost during write");
+        }
+  			score_interface_.Log("{0}: {1} ({2})", client_name, response.Message,
+  			                     response.ResponseCode);
       } else {
   			score_interface_.Log("{0}: {1}", client_name, response.Message);
       }
     }
     
+    /// <summary>
+    /// Responds with the scores as a basic HTML page.
+    /// </summary>
+    /// <returns>A response with the HTML page.</returns>
     private HttpResponse HandleScoreHtml() {
       StringBuilder str = new StringBuilder();
       str.Append("<title>Scores<body>" +
@@ -151,6 +152,10 @@ namespace ScoreKeeper {
       return new HttpResponse("Score HTML sent", str.ToString());
     }
     
+    /// <summary>
+    /// Responds with the scores as a serialized XML file.
+    /// </summary>
+    /// <returns>A response with the XML file.</returns>
     private HttpResponse HandleScoreXml() {
       ScoreRow[] scores = score_interface_.GetScores();
       using (MemoryStream stream = new MemoryStream()) {
@@ -170,7 +175,8 @@ namespace ScoreKeeper {
       }
     }
     
-    public void Start() {
+    public void Start(int port) {
+      listener_ = new TcpListener(IPAddress.Any, port);
       listener_.Start();
       thread_ = new Thread(new ThreadStart(Listen));
       thread_.Start();
@@ -181,5 +187,47 @@ namespace ScoreKeeper {
     private Thread thread_;
     
     private readonly char[] space_array_ = new char[] {' '};
+
+    /// <summary>
+    /// Handles basic encapsulation of HTTP response information.
+    /// </summary>
+    protected class HttpResponse {
+      /// <summary>
+      /// Creates a response where the connection no longer exists.
+      /// </summary>
+      /// <param name="message">The logged message.</param>
+      public HttpResponse(string message) {
+        ResponseCode = 0;
+        Message = message;
+        Body = null;
+      }
+      
+      /// <summary>
+      /// Creates a response for a successful request.
+      /// </summary>
+      /// <param name="message">The logged message.</param>
+      /// <param name="body">The response body.</param>
+      public HttpResponse(string message, string body) {
+        ResponseCode = 200;
+        Message = message;
+        Body = body;
+      }
+      
+      /// <summary>
+      /// Creates a response for a failed request.
+      /// </summary>
+      /// <param name="response_code">The error code.</param>
+      /// <param name="message">The logged message.</param>
+      public HttpResponse(int response_code, string message) {
+        ResponseCode = response_code;
+        Message = message;
+        Body = string.Format("<h1>HTTP/1.0 {0} {1}</h1>", response_code,
+                             message);
+      }
+      
+      public int ResponseCode;
+      public string Message;
+      public string Body;
+    }
   }
 }

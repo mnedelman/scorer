@@ -39,18 +39,18 @@ namespace ScoreKeeper {
     public ScoreRow(Team team) {
       Number = team.Number;
       Name = team.Name;
-      score1_ = (team.Score1 == null) ? -1 : team.Score1.Score().Points;
-      score2_ = (team.Score2 == null) ? -1 : team.Score2.Score().Points;
-      score3_ = (team.Score3 == null) ? -1 : team.Score3.Score().Points;
+      Score1 = (team.Score1 == null) ? -1 : team.Score1.Score().Points;
+      Score2 = (team.Score2 == null) ? -1 : team.Score2.Score().Points;
+      Score3 = (team.Score3 == null) ? -1 : team.Score3.Score().Points;
     }
     
     public ScoreRow(string number, string name, int score1, int score2,
                     int score3) {
       Number = number;
       Name = name;
-      score1_ = score1;
-      score2_ = score2;
-      score3_ = score3;
+      Score1 = score1;
+      Score2 = score2;
+      Score3 = score3;
     }
     
     public int CompareTo(object other) {
@@ -73,19 +73,19 @@ namespace ScoreKeeper {
       int best_round = 0;
       int best_score = 0;
       
-      if (score1_ > best_score) {
+      if (Score1 > best_score) {
         best_round = 1;
-        best_score = score1_;
+        best_score = Score1;
       }
       
-      if (score2_ > best_score) {
+      if (Score2 > best_score) {
         best_round = 2;
-        best_score = score2_;
+        best_score = Score2;
       }
       
-      if (score3_ > best_score) {
+      if (Score3 > best_score) {
         best_round = 3;
-        best_score = score3_;
+        best_score = Score3;
       }
       
       return best_round;
@@ -93,9 +93,9 @@ namespace ScoreKeeper {
     
     private int[] GetScores() {
       List<int> scores = new List<int>();
-      scores.Add(score1_);
-      scores.Add(score2_);
-      scores.Add(score3_);
+      scores.Add(Score1);
+      scores.Add(Score2);
+      scores.Add(Score3);
       scores.Sort();
       return scores.ToArray();
     }
@@ -111,22 +111,23 @@ namespace ScoreKeeper {
     }
     
     public string Points1 {
-      get { return score1_ == -1 ? "?" : score1_.ToString(); }
+      get { return Score1 == -1 ? "?" : Score1.ToString(); }
     }
     
     public string Points2 {
-      get { return score2_ == -1 ? "?" : score2_.ToString(); }
+      get { return Score2 == -1 ? "?" : Score2.ToString(); }
     }
     
     public string Points3 {
-      get { return score3_ == -1 ? "?" : score3_.ToString(); }
+      get { return Score3 == -1 ? "?" : Score3.ToString(); }
     }
     
     static public XmlSerializer ArraySerializer =
         new XmlSerializer(typeof(ScoreRow[]));
+    
     public int Rank = -1;
-    private int score1_;
-    private int score2_;
-    private int score3_;
+    public int Score1;
+    public int Score2;
+    public int Score3;
   }
 }

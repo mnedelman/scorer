@@ -25,7 +25,6 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -46,20 +45,17 @@ namespace ScoreKeeper {
 	  }
 	  
 	  protected virtual void Init() {
-			config_ = ConfigurationManager.OpenExeConfiguration(
-			    ConfigurationUserLevel.None);
-			KeyValueConfigurationElement file_element =
-			    config_.AppSettings.Settings["FileName"];
-			if (file_element == null || !SelectFile(file_element.Value))
+			if (Config.FileName == null || !SelectFile(Config.FileName))
   	    UpdateFileItems();
 	    UpdateScoreItems();
 	  }
 	  
     public void Log(string format, params object[] args) {
       lock (log_entries_) {
-        log_entries_.Add(string.Format(format, args));
+        log_entries_.Insert(0, DateTime.Now.ToString("[HH:mm] ") +
+                            string.Format(format, args));
         if (log_entries_.Count > 100)
-          log_entries_.RemoveAt(0);
+          log_entries_.RemoveAt(100);
       }
 	  }
 	  
@@ -168,7 +164,7 @@ namespace ScoreKeeper {
 		}
 	  
 	  protected virtual void Save() {
-	    team_data_.Save(filename_);
+	    team_data_.Save(Config.FileName);
 	  }
 		
 	  /// <summary>
@@ -186,24 +182,16 @@ namespace ScoreKeeper {
 	      MessageBox.Show(this, message, "File Error", MessageBoxButtons.OK);
 	      return false;
 	    }
-	    filename_ = filename;
-	    
-			KeyValueConfigurationElement file_element =
-			    config_.AppSettings.Settings["FileName"];
-			if (file_element != null)
-			  file_element.Value = filename_;
-			else
-  	    config_.AppSettings.Settings.Add("FileName", filename_);
-	    config_.Save();
+	    Config.FileName = filename;
 	    
 	    UpdateFileItems();
 	    return true;
 	  }
 		
 	  protected void UpdateFileItems() {
-	    bool has_file = !string.IsNullOrEmpty(filename_);
+	    bool has_file = !string.IsNullOrEmpty(Config.FileName);
 	    file_status_.Text =
-	        has_file ? string.Format("Saving to {0}", filename_) :
+	        has_file ? string.Format("Saving to {0}", Config.FileName) :
                      "Please select a file to auto-save scoring data";
       score_control_.Enabled = has_file;
       panel_team_.Enabled = has_file;
@@ -285,8 +273,6 @@ namespace ScoreKeeper {
 	  private Score2008 undo_score_ = null;
 	  private int undo_round_ = 0;
 	  
-	  private Configuration config_ = null;
-	  protected string filename_ = null;
 	  protected TeamData team_data_ = new TeamData();
 	  
 	  List<string> log_entries_ = new List<string>();
