@@ -84,6 +84,26 @@ namespace ScoreKeeper
       Assert.AreEqual("40", team.Points2);
       Assert.AreEqual("?", team.Points3);
     }
+
+    [Test]
+    public void TestScoreSet() {
+      Team team = new Team();
+      
+      team.Score1 = new Score2008();
+      team.Score1.Zero();
+      
+      team.Score2 = new Score2008();
+      team.Score2.Zero();
+      team.Score2.ArrowsAligned = YesNo.Yes;
+      
+      team.Score3 = new Score2008();
+      team.Score3.Zero();
+      team.Score3.CityPeople = YesNo.Yes;
+      
+      Assert.AreEqual("0", team.Points1);
+      Assert.AreEqual("40", team.Points2);
+      Assert.AreEqual("10", team.Points3);
+    }
   }
 
   [TestFixture]

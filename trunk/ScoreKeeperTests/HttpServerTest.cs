@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2008, Jonathan Perkins
+/* Copyright (c) 2008, Jonathan Perkins
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,44 +23,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 using System;
-using System.Net.Sockets;
-using System.Windows.Forms;
+using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper {
-	internal sealed class Program {
-    static public bool IsTesting = true;
+  [TestFixture]
+  public class HttpServerTest : HttpServer {
+    public HttpServerTest() : base(null) {
+    }
     
-		[STAThread]
-		private static void Main(string[] args) {
-		  IsTesting = false;
-		  
- 			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			
-		  StartupForm startup_form = new StartupForm();
-		  if (startup_form.ShowDialog() != DialogResult.OK)
-		    return;
-		  
-		  if (startup_form.IsServer) {
-		    MainForm form = new MainForm();
-		    using (HttpServer server = new HttpServer(form)) {
-		      try {
-    		    server.Start(startup_form.Port);
-		      } catch (SocketException) {
-		        MessageBox.Show(
-		            string.Format("The server is unable to start because port " +
-		                          "{0} is already in use. Another server may " +
-		                          "already be running.", startup_form.Port),
-		            "Port In Use", MessageBoxButtons.OK);
-		        return;
-		      }
-    			Application.Run(form);
-		    }
-		  } else {
-  			Application.Run(new ScoreForm(new RemoteScore(startup_form.Host,
-		                                                  startup_form.Port)));
-		  }
-		}
-	}
+    [Test]
+    public void TestHttpResponse() {
+      HttpResponse response = new HttpResponse("ping");
+      Assert.AreEqual(0, response.ResponseCode);
+      Assert.AreEqual("ping", response.Message);
+      Assert.AreEqual(null, response.Body);
+      
+      response = new HttpResponse("foo", "bar");
+      Assert.AreEqual(200, response.ResponseCode);
+      Assert.AreEqual("foo", response.Message);
+      Assert.AreEqual("bar", response.Body);
+      
+      response = new HttpResponse(300, "blah");
+      Assert.AreEqual(300, response.ResponseCode);
+      Assert.AreEqual("blah", response.Message);
+      Assert.AreEqual("<h1>HTTP/1.0 300 blah</h1>", response.Body);
+    }
+  }
 }

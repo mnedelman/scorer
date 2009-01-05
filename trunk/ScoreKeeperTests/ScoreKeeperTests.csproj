@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlHelper.cs" />
+    <Compile Include="HttpServerTest.cs" />
     <Compile Include="MainFormTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Score2008ControlTest.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="ScoreFormTest.cs" />
     <Compile Include="ScoreRowTest.cs" />
     <Compile Include="SelectionControlTest.cs" />
+    <Compile Include="StartupFormTest.cs" />
     <Compile Include="TeamDataTest.cs" />
     <Compile Include="TeamFormTest.cs" />
     <Compile Include="TeamTest.cs" />

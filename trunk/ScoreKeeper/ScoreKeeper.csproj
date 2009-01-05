@@ -44,6 +44,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="HttpServer.cs" />
     <Compile Include="Program.cs">
     </Compile>

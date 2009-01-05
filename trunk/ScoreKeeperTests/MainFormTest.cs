@@ -33,8 +33,13 @@ namespace ScoreKeeper {
   public class MainFormTest : MainForm {
     [SetUp]
     public void SetUp() {
-      filename_ = @"c:\bad\path\file.xml";
+      Config.FileName = @"c:\bad\path\file.xml";
       team_data_.Teams = new Team[0];
+    }
+    
+    [TearDown]
+    public void TearDown() {
+      Config.FileName = null;
     }
     
     [Test]
@@ -179,7 +184,7 @@ namespace ScoreKeeper {
       Assert.IsTrue(score_control_.Enabled);
       Assert.IsTrue(panel_team_.Enabled);
       
-      filename_ = null;
+      Config.FileName = null;
       UpdateFileItems();
       Assert.AreEqual(@"Please select a file to auto-save scoring data",
                       file_status_.Text);

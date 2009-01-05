@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2008, Jonathan Perkins
+/* Copyright (c) 2008, Jonathan Perkins
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,44 +23,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 using System;
-using System.Net.Sockets;
-using System.Windows.Forms;
+using NUnit.Framework;
+using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper {
-	internal sealed class Program {
-    static public bool IsTesting = true;
-    
-		[STAThread]
-		private static void Main(string[] args) {
-		  IsTesting = false;
-		  
- 			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			
-		  StartupForm startup_form = new StartupForm();
-		  if (startup_form.ShowDialog() != DialogResult.OK)
-		    return;
-		  
-		  if (startup_form.IsServer) {
-		    MainForm form = new MainForm();
-		    using (HttpServer server = new HttpServer(form)) {
-		      try {
-    		    server.Start(startup_form.Port);
-		      } catch (SocketException) {
-		        MessageBox.Show(
-		            string.Format("The server is unable to start because port " +
-		                          "{0} is already in use. Another server may " +
-		                          "already be running.", startup_form.Port),
-		            "Port In Use", MessageBoxButtons.OK);
-		        return;
-		      }
-    			Application.Run(form);
-		    }
-		  } else {
-  			Application.Run(new ScoreForm(new RemoteScore(startup_form.Host,
-		                                                  startup_form.Port)));
-		  }
-		}
-	}
+  [TestFixture]
+  public class StartupFormTest : StartupForm {
+    [Test]
+    public void TestStartup() {
+      StartupForm form = new StartupForm();
+      Assert.AreEqual(true, form.IsServer);
+      Assert.AreEqual("localhost", form.Host);
+      Assert.AreEqual(80, form.Port);
+      
+      Config.IsServer = false;
+      Config.Host = "example.com";
+      Config.Port = 8080;
+
+      form = new StartupForm();
+      Assert.AreEqual(false, form.IsServer);
+      Assert.AreEqual("example.com", form.Host);
+      Assert.AreEqual(8080, form.Port);
+    }
+  }
 }
