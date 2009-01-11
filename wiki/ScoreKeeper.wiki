@@ -12,6 +12,10 @@ This software is not associated with the FIRST organization.  It was written as 
   # Download the [http://code.google.com/p/scorer/downloads/list latest zip file].
   # Unzip; there should be ScoreKeeper.exe along with two FLL logos (the league and event logo).
     * These logos should be kept in the same directory as ScoreKeeper.exe.
+    * The logos are from:
+      * [http://www.usfirst.org/uploadedImages/Community/FLL/Communications_Resource_Center/Asset/FLLlogo_color_rgb.jpg FLL league logo]
+      * [http://www.usfirst.org/uploadedImages/Community/FLL/Communications_Resource_Center/Assets/2008_Archive_Assets/FLLClimateConnections_FULLCOLOR(no%20frame).jpg Event logo]
+
   # Make sure a minimum of .NET framework 2.0 is installed.  You can get the latest version of the .NET framework from [http://msdn.microsoft.com/en-us/netframework/default.aspx Microsoft].
 
 No additional setup should be necessary; just run `ScoreKeeper.exe` to start the application.
