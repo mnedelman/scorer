@@ -4,6 +4,8 @@
 
 <wiki:toc max_depth="2" />
 
+There are also [ScoreKeeperScreenshots screenshots].
+
 = Introduction =
 
 This software is intended for scoring FLL tournaments.  It is currently designed for the 2008 tournament (Climate Connections).  There are likely to be versions for future years.
