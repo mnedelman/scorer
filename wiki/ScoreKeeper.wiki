@@ -91,3 +91,8 @@ To customize the display mode, use the right mouse button to click anywhere on t
   * *Corner Logos*:  If checked, the FLL logo will show in the top left and right corners.  If unchecked, a flat color will be displayed instead, to allow for chroma key based overlays.
   * *Corner Color...*:  This opens up a dialog to select a new chroma key for the corners.  By default, the corners are R=0, G=254, B=0.
   * *Show Status*:  If checked, a small status message noting the last time the scoreboard got scores from the server will be shown at the bottom of the window.  Normally, scores will be fetched roughly once per minute.  If this message is black, everything is fine.  If this message is orange, the connection may have been lost.
+
+
+= Scores over HTTP =
+
+ScoreKeeper uses an HTTP server for its main port.  People on your network can access the scores via `http://<host>:<port>`.  If you're using the default port of 80, the port isn't necessary here.
