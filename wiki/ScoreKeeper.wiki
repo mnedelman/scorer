@@ -95,4 +95,4 @@ To customize the display mode, use the right mouse button to click anywhere on t
 
 = Scores over HTTP =
 
-ScoreKeeper uses an HTTP server for its main port.  People on your network can access the scores via `http://<host>:<port>`.  If you're using the default port of 80, the port isn't necessary here.
+ScoreKeeper uses an HTTP server for its main port.  People on your network can access the scores via `http://<host>:<port>`.
