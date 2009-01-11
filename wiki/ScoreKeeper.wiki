@@ -1,0 +1,83 @@
+#summary Main documentation on how to use the scoring software.
+
+= Introduction =
+
+This software is intended for scoring FLL tournaments.  It is currently designed for the 2008 tournament (Climate Connections).  There are likely to be versions for future years.
+
+This software is not associated with the FIRST organization.  It was written as a purely personal effort to assist in local scoring the the NCaFLL area.
+
+
+= Install =
+
+  # Download the [http://code.google.com/p/scorer/downloads/list latest zip file].
+  # Unzip; there should be ScoreKeeper.exe along with two FLL logos (the league and event logo).
+    * These logos should be kept in the same directory as ScoreKeeper.exe.
+  # Make sure a minimum of .NET framework 2.0 is installed.  You can get the latest version of the .NET framework from [http://msdn.microsoft.com/en-us/netframework/default.aspx Microsoft].
+
+No additional setup should be necessary; just run `ScoreKeeper.exe` to start the application.
+
+
+= Running ScoreKeeper =
+
+On startup, you will be prompted with the two modes ScoreKeeper can run in.  Your primary machine, where you enter scores, is the server.  If you use a second machine for display scores, it is the client.
+
+Port 80 is used by default for all communications.  If you have an issue with this port, try another port value, such as 8000 or 8080.
+
+= Score Entry (Server) =
+
+== Event Setup ==
+
+Generally, this should be done prior to an event.  This prepares the information so that you'll be able to use it later.
+
+  # Choose a file to save team and score information to.
+    # Click on "Select File..." to open the file dialog.
+    # Choose a name for the new .xml file for your event (eg, `RegionalChampionship.xml`)
+      * Each file should only contain information for one event.  If moving between events, change files.
+    # Click on "Open" to create the file.
+    * This process can also be used to re-open a file you were using previously.
+    * Once the file is selected, data will be saved automatically after each change.
+  # Add teams for your event.
+    # Click on "Add/Remove Teams..." to open the team dialog.
+    # For each team:
+      # Click on "Add".
+      # Add the team number and name.
+    # Once you're done adding teams, click on "OK".
+    * Once the team entry is finished, the "Team" dropdown should have the complete list of teams.
+
+== Entering Scores ==
+
+  # Select the team whose scores will be entered.
+    * Question marks ("?") will show up on rounds where teams don't have scores.
+  # For each item on the scoresheet, make the corresponding selection on the event list.
+    * As you click on items, you can watch the score field change as appropriate.
+    * The red message at the top-right of the score entry indicates missing or invalid score data.
+    * You will know you are done entering scores because no red message will show at the top-right.
+  # Once the score entry is complete, the "Set Score" buttons will enable on the left side of the window, beneath the teams.  Click on the button for the appropriate round.
+    * After setting the score, inputs will automatically reset to zero.
+
+
+= Scoreboard (Client) =
+
+== Connecting to the Score Entry (Server) ==
+
+  # From the startup page, click on the "Scoreboard (Client)" radio button.
+  # In the "Host" field, enter the name or IP of the machine the server is running on.
+    * If you're not sure what to enter:
+      # Go to the Score Entry (Server) application on the primary machine.
+      # Click on "Show IP..."
+      # Both your Hostname and one or more IPs will be listed here.  The IPs will look like "192.168.1.102".
+      # Try the various Hostname and IP values in the "Host" field you see on the client.  You'll know it's working if you see the teams show up when the scoreboard starts.
+  # In the "Port" field, make sure it matches what was selected on the server.
+
+== Scoreboard Display ==
+
+The scoreboard display can be accessed one of two ways; either running in "Scoreboard (Client)" mode, or clicking on the "Scoreboard..." button while in "Scoreboard (Server)" mode.
+
+To customize the display mode, use the right mouse button to click anywhere on the scoreboard.  This displays the following options:
+
+  * *Full Screen*:  If checked, the scoreboard will display full screen.  It is recommended you check this as part of setting up the scoreboard.
+  * *Font Size*:  This modifies the font size of the scoreboard, which changes how many teams will be displayed at once.
+  * *Cycle Time*:  If there are too many teams to see everyone at once, the scoreboard will slowly cycle through them.  This modifies the speed of the rotation.
+  * *Corner Logos*:  If checked, the FLL logo will show in the top left and right corners.  If unchecked, a flat color will be displayed instead, to allow for chroma key based overlays.
+  * *Corner Color...*:  This opens up a dialog to select a new chroma key for the corners.  By default, the corners are R=0, G=254, B=0.
+  * *Show Status*:  If checked, a small status message noting the last time the scoreboard got scores from the server will be shown at the bottom of the window.  Normally, scores will be fetched roughly once per minute.  If this message is black, everything is fine.  If this message is orange, the connection may have been lost.
