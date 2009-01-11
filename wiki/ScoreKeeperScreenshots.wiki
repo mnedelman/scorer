@@ -25,3 +25,7 @@ http://scorer.googlecode.com/svn/wiki/ServerSample.png
 = Scoreboard (Client) =
 
 http://scorer.googlecode.com/svn/wiki/Client.png
+
+= Scores over HTTP =
+
+http://scorer.googlecode.com/svn/wiki/HttpScores.png
