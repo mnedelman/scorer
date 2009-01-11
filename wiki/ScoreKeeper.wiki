@@ -1,5 +1,9 @@
 #summary Main documentation on how to use the scoring software.
 
+= Contents =
+
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 This software is intended for scoring FLL tournaments.  It is currently designed for the 2008 tournament (Climate Connections).  There are likely to be versions for future years.
@@ -85,3 +89,28 @@ To customize the display mode, use the right mouse button to click anywhere on t
   * *Corner Logos*:  If checked, the FLL logo will show in the top left and right corners.  If unchecked, a flat color will be displayed instead, to allow for chroma key based overlays.
   * *Corner Color...*:  This opens up a dialog to select a new chroma key for the corners.  By default, the corners are R=0, G=254, B=0.
   * *Show Status*:  If checked, a small status message noting the last time the scoreboard got scores from the server will be shown at the bottom of the window.  Normally, scores will be fetched roughly once per minute.  If this message is black, everything is fine.  If this message is orange, the connection may have been lost.
+
+
+= Screenshots =
+
+== Startup Screen ==
+
+http://scorer.googlecode.com/svn/wiki/Startup.png
+
+== Score Entry (Server) ==
+
+=== Basic ===
+
+http://scorer.googlecode.com/svn/wiki/Server.png
+
+=== Adding Teams ===
+
+http://scorer.googlecode.com/svn/wiki/Teams.png
+
+=== Entering Scores ===
+
+http://scorer.googlecode.com/svn/wiki/ServerSample.png
+
+== Scoreboard (Client) ==
+
+http://scorer.googlecode.com/svn/wiki/Client.png
