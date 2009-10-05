@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper
 {
@@ -36,22 +35,22 @@ namespace ScoreKeeper
     [Test]
     public void TestConstructor() {
       Team team = new Team("7", "bar");
-      team.SetScore(1, new Score2008());
+      team.SetScore(1, new Score2009());
       team.Score1.Zero();
       team.SetScore(2, team.Score1.Clone());
-      team.Score2.HouseRaised = YesNo.Yes;
+      team.Score2.Loops = 1;
       
       ScoreRow row = new ScoreRow(team);
       Assert.AreEqual(-1, row.Rank);
       Assert.AreEqual("7", row.Number);
       Assert.AreEqual("bar", row.Name);
       Assert.AreEqual("0", row.Points1);
-      Assert.AreEqual("25", row.Points2);
+      Assert.AreEqual("10", row.Points2);
       Assert.AreEqual("?", row.Points3);
       Assert.AreEqual(2, row.GetBestRound());
       
       team.SetScore(3, team.Score2.Clone());
-      team.Score3.HouseDark = YesNo.Yes;
+      team.Score3.Loops = 3;
       row = new ScoreRow(team);
       Assert.AreEqual(3, row.GetBestRound());
       
@@ -60,7 +59,7 @@ namespace ScoreKeeper
       row = new ScoreRow(team);
       Assert.AreEqual(0, row.GetBestRound());
 
-      team.Score1.HouseDark = YesNo.Yes;
+      team.Score1.Loops = 4;
       row = new ScoreRow(team);
       Assert.AreEqual(1, row.GetBestRound());
       
@@ -68,7 +67,7 @@ namespace ScoreKeeper
       row = new ScoreRow(team);
       Assert.AreEqual(0, row.GetBestRound());
       
-      team.SetScore(1, new Score2008());
+      team.SetScore(1, new Score2009());
       team.Score1.Zero();
       team.SetScore(2, team.Score1.Clone());
       team.SetScore(3, team.Score1.Clone());

@@ -50,10 +50,10 @@
     </Compile>
     <Compile Include="RemoteScore.cs" />
     <Compile Include="Resources.cs" />
-    <Compile Include="Score2008.cs" />
-    <Compile Include="Score2008Control.cs" />
-    <Compile Include="Score2008Control.Designer.cs">
-      <DependentUpon>Score2008Control.cs</DependentUpon>
+    <Compile Include="Score2009.cs" />
+    <Compile Include="Score2009Control.cs" />
+    <Compile Include="Score2009Control.Designer.cs">
+      <DependentUpon>Score2009Control.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
@@ -83,8 +83,8 @@
       <DependentUpon>TeamForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Resources.resx" />
-    <EmbeddedResource Include="Score2008Control.resx">
-      <DependentUpon>Score2008Control.cs</DependentUpon>
+    <EmbeddedResource Include="Score2009Control.resx">
+      <DependentUpon>Score2009Control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

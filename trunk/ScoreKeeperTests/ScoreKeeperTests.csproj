@@ -39,8 +39,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Reference Include="NUnit.Framework">
-      <HintPath>$(SharpDevelopBinPath)\Tools\NUnit\NUnit.Framework.dll</HintPath>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\..\..\..\Program Files %28x86%29\NUnit 2.5.2\bin\net-2.0\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -51,8 +51,8 @@
     <Compile Include="HttpServerTest.cs" />
     <Compile Include="MainFormTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Score2008ControlTest.cs" />
-    <Compile Include="Score2008Test.cs" />
+    <Compile Include="Score2009ControlTest.cs" />
+    <Compile Include="Score2009Test.cs" />
     <Compile Include="ScoreFormTest.cs" />
     <Compile Include="ScoreRowTest.cs" />
     <Compile Include="SelectionControlTest.cs" />
