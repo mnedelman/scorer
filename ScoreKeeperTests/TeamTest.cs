@@ -27,7 +27,6 @@
 using System;
 using System.Collections;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper
 {
@@ -73,12 +72,12 @@ namespace ScoreKeeper
     public void TestGetPoints() {
       Team team = new Team();
       
-      team.SetScore(1, new Score2008());
+      team.SetScore(1, new Score2009());
       team.Score1.Zero();
       
-      team.SetScore(2, new Score2008());
+      team.SetScore(2, new Score2009());
       team.Score2.Zero();
-      team.Score2.ArrowsAligned = YesNo.Yes;
+      team.Score2.Loops = 4;
       
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("40", team.Points2);
@@ -89,16 +88,16 @@ namespace ScoreKeeper
     public void TestScoreSet() {
       Team team = new Team();
       
-      team.Score1 = new Score2008();
+      team.Score1 = new Score2009();
       team.Score1.Zero();
       
-      team.Score2 = new Score2008();
+      team.Score2 = new Score2009();
       team.Score2.Zero();
-      team.Score2.ArrowsAligned = YesNo.Yes;
+      team.Score2.Loops = 4;
       
-      team.Score3 = new Score2008();
+      team.Score3 = new Score2009();
       team.Score3.Zero();
-      team.Score3.CityPeople = YesNo.Yes;
+      team.Score3.PeopleOnTarget = YesNo.Yes;
       
       Assert.AreEqual("0", team.Points1);
       Assert.AreEqual("40", team.Points2);

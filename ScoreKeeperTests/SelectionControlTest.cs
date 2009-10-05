@@ -28,7 +28,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper {
   [TestFixture]

@@ -26,7 +26,6 @@
 
 using System;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper {
   [TestFixture]
@@ -38,7 +37,7 @@ namespace ScoreKeeper {
     
     [Test]
     public void TestGetScoresEqual() {
-      Score2008 score_zero = new Score2008();
+      Score2009 score_zero = new Score2009();
       score_zero.Zero();
       
       Team team1 = new Team("1", string.Empty);
@@ -71,7 +70,7 @@ namespace ScoreKeeper {
     
     [Test]
     public void TestGetScoresComplex() {
-      Score2008 score_zero = new Score2008();
+      Score2009 score_zero = new Score2009();
       score_zero.Zero();
       
       Team team1 = new Team("1", string.Empty);
@@ -84,34 +83,29 @@ namespace ScoreKeeper {
       team3.SetScore(2, score_zero);
       
       Team team4 = new Team("4", string.Empty);
-      team4.SetScore(1, score_zero.Clone());
-      team4.Score1.CityPeople = YesNo.Yes;
-      team4.SetScore(2, score_zero.Clone());
-      team4.Score2.PinkPeople = YesNo.Yes;
-      team4.SetScore(3, score_zero.Clone());
-      team4.Score3.ArrowsAligned = YesNo.Yes;
+      team4.SetScore(1, score_zero.Clone());  // 10
+      team4.Score1.Loops = 1;
+      team4.SetScore(2, score_zero.Clone());  // 10
+      team4.Score2.PeopleOnTarget = YesNo.Yes;
+      team4.SetScore(3, score_zero.Clone());  // 40
+      team4.Score3.SensorWalls = 0;
       
       Team team5 = new Team("5", string.Empty);
-      team5.SetScore(1, score_zero.Clone());
-      team5.Score1.ArrowsAligned = YesNo.Yes;
-      team5.SetScore(2, score_zero.Clone());
-      team5.Score2.CityPeople = YesNo.Yes;
-      team5.Score2.PinkPeople = YesNo.Yes;
-      team5.SetScore(3, score_zero.Clone());
-      team5.Score3.PinkPeople = YesNo.Yes;
+      team5.SetScore(1, score_zero.Clone());  // 40
+      team5.Score1.Loops = 4;
+      team5.SetScore(2, score_zero.Clone());  // 20
+      team5.Score2.Truck = YesNo.Yes;
+      team5.SetScore(3, score_zero.Clone());  // 10
+      team5.Score3.WarningBeacons = 1;
       
       Team team6 = new Team("6", string.Empty);
-      team6.SetScore(1, score_zero.Clone());
-      team6.Score1.CityPeople = YesNo.Yes;
-      team6.Score1.PinkPeople = YesNo.Yes;
-      team6.SetScore(2, score_zero.Clone());
-      team6.Score2.CityPeople = YesNo.Yes;
-      team6.Score2.GreenBicycle = YesNo.Yes;
-      team6.Score2.GreenComputer = YesNo.Yes;
-      team6.Score2.GreenInsulation = YesNo.Yes;
-      team6.SetScore(3, score_zero.Clone());
-      team6.Score3.CityPeople = YesNo.Yes;
-      team6.Score3.PinkPeople = YesNo.Yes;
+      team6.SetScore(1, score_zero.Clone());  // 20
+      team6.Score1.Robot = RobotLocation.YellowBridge;
+      team6.SetScore(2, score_zero.Clone());  // 40
+      team6.Score2.Robot = RobotLocation.YellowBridge;
+      team6.Score2.Truck = YesNo.Yes;
+      team6.SetScore(3, score_zero.Clone());  // 20
+      team6.Score3.Truck = YesNo.Yes;
       
       Team team7 = new Team("7", string.Empty);
       team7.SetScore(1, team5.Score1.Clone());

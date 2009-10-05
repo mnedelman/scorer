@@ -83,8 +83,9 @@ namespace ScoreKeeper {
       get { return value_; }
       set {
         bool found = false;
+        value = value == null ? null : value.Replace(" ", "");
         foreach (Button button in Controls) {
-          if (button.Text == value) {
+          if (button.Text.Replace(" ", "") == value) {
             button.BackColor = Color.LightBlue;
             found = true;
           } else {
@@ -119,24 +120,29 @@ namespace ScoreKeeper {
       }
     }
     
-    [Browsable(false)]
+    [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public YesNo ValueYesNo {
       get {
         if (!YesNoMode) {
           throw new ArgumentException("SelectionControl is not in YesNo mode.");
         }
-        
-        if (value_ == null) {
-          return YesNo.Unknown;
-        }
-        return (YesNo)Enum.Parse(typeof(YesNo), value_);
+        return (YesNo)ValueToEnum(typeof(YesNo));
       }
       set {
-        if (value == YesNo.Unknown) {
-          Value = null;
-        } else {
-          Value = value.ToString();
-        }
+        SetValueFromEnum(value);
+      }
+    }
+    
+    public void SetValueFromEnum(object enum_value) {
+      string value = enum_value.ToString();
+      Value = value == "Unknown" ? null : value;
+    }
+    
+    public object ValueToEnum(Type enum_type) {
+      if (Value == null) {
+        return Enum.Parse(enum_type, "Unknown", true);
+      } else {
+        return Enum.Parse(enum_type, Value.Replace(" ", ""), true);
       }
     }
     

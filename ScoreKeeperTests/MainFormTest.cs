@@ -26,7 +26,6 @@
 
 using System;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper {
   [TestFixture]
@@ -107,8 +106,8 @@ namespace ScoreKeeper {
       Assert.AreEqual("?", team.Points3);
       Assert.IsFalse(undo_.Enabled);
       
-      Score2008 score_data = score_control_.Score;
-      score_data.CityPeople = YesNo.Yes;
+      Score2009 score_data = score_control_.Score;
+      score_data.Loops = 1;
       score_control_.Score = score_data;
       
       ControlHelper.FireEvent(score3_set_, "Click");
@@ -130,7 +129,7 @@ namespace ScoreKeeper {
       Assert.IsTrue(undo_.Enabled);
       
       score_data = score_control_.Score;
-      score_data.PinkPeople = YesNo.Yes;
+      score_data.Loops = 2;
       score_control_.Score = score_data;
       
       ControlHelper.FireEvent(score2_set_, "Click");
@@ -208,10 +207,10 @@ namespace ScoreKeeper {
     
     private Team SampleTeam() {
       Team team = new Team("foo", "bar");
-      team.SetScore(1, new Score2008());
+      team.SetScore(1, new Score2009());
       team.Score1.Zero();
       team.SetScore(2, team.Score1.Clone());
-      team.Score2.GreenInsulation = YesNo.Yes;
+      team.Score2.PeopleOnTarget = YesNo.Yes;
       return team;
     }
     

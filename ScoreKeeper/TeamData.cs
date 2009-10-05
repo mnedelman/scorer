@@ -85,7 +85,7 @@ namespace ScoreKeeper {
 	    }
 	  }
     
-    public void SetScore(Team team, int round, Score2008 score) {
+    public void SetScore(Team team, int round, Score2009 score) {
       lock (teams_)
         team.SetScore(round, score);
     }

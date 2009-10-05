@@ -27,7 +27,6 @@
 using System;
 using System.Windows.Forms;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace ScoreKeeper
 {
