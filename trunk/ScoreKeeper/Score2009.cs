@@ -60,7 +60,7 @@ namespace ScoreKeeper {
     /// Zeroes out the current score.
     /// </summary>
     public void Zero() {
-      Truck = YesNo.No;
+      Truck = YesNo.Yes;
       Robot = RobotLocation.Other;
       PeopleOnTarget = YesNo.No;
       AccessMarkers = 0;
@@ -78,11 +78,11 @@ namespace ScoreKeeper {
     /// </description>
     /// <returns>The aggregate score.</returns>
     public ScoreInfo Score() {
-      ScoreDelegate[] calls = {ScoreVehicleImpactTest,
-                               ScoreGainAccessToPlaces,
+      ScoreDelegate[] calls = {ScoreGainAccessToThings,
+                               ScoreVehicleImpactTest,
                                ScoreSinglePassengerRestraintTest,
                                ScoreMultiplePassengerSafetyTest,
-                               ScoreGainAccessToThings,
+                               ScoreGainAccessToPlaces,
                                ScoreAvoidImpacts,
                                ScoreSensorWallsImpactOption,
                               };
@@ -106,7 +106,7 @@ namespace ScoreKeeper {
       if (Truck == YesNo.Unknown)
         return new ScoreInfo(
             "Vehicle Impact Test: Is the truck touching the red stopper beam?");
-      return new ScoreInfo(Truck == YesNo.Yes ? 20 : 0);
+      return new ScoreInfo(Truck == YesNo.No ? 20 : 0);
     }
 
     /// <summary>
@@ -187,13 +187,20 @@ namespace ScoreKeeper {
     /// Value: 10 points each.
     /// </description>
     public ScoreInfo ScoreGainAccessToThings() {
-      if (AccessMarkers < 0 || AccessMarkers > 4)
-        return new ScoreInfo(
+      ScoreInfo score = new ScoreInfo(0);
+      if (AccessMarkers < 0 || AccessMarkers > 4) {
+        score.AddError(
             "Gain Access To Things: How many access markers are down?");
-      if (Loops < 0 || Loops > 11)
-        return new ScoreInfo(
+      } else {
+        score.AddPoints(25 * AccessMarkers);
+      }
+      if (Loops < 0 || Loops > 11) {
+        score.AddError(
             "Gain Access To Things: How many loops are in base?");
-      return new ScoreInfo(25 * AccessMarkers + 10 * Loops);
+      } else {
+        score.AddPoints(10 * Loops);
+      }
+      return score;
     }
     
     /// <summary>
@@ -212,18 +219,24 @@ namespace ScoreKeeper {
     /// Value: 10 points each, max 40.
     /// </description>
     public ScoreInfo ScoreAvoidImpacts() {
-      if (WarningBeacons < 0 || WarningBeacons > 8)
-        return new ScoreInfo(
+      ScoreInfo score = new ScoreInfo(0);
+      if (WarningBeacons < 0 || WarningBeacons > 8) {
+        score.AddError(
             "Avoid Impacts: How many warning beacons are upright?");
-      if (SensorWalls < 0 || SensorWalls > 5)
-        return new ScoreInfo(
+      } else {
+        score.AddPoints(10 * WarningBeacons);
+      }
+      if (SensorWalls < 0 || SensorWalls > 5) {
+        score.AddError(
             "Avoid Impacts: How many sensor walls are upright?");
-      if (AccessMarkers < 0 || AccessMarkers > 4)
-        return new ScoreInfo(
+      } else if (AccessMarkers < 0 || AccessMarkers > 4) {
+        score.AddError(
             "Avoid Impacts: How many access markers are down?");
-      int sensor_walls =
-          Math.Min(40, 10 * Math.Min(AccessMarkers, SensorWalls));
-      return new ScoreInfo(10 * WarningBeacons + sensor_walls);
+      } else {
+        score.AddPoints(
+            Math.Min(40, 10 * Math.Min(AccessMarkers, SensorWalls)));
+      }
+      return score;
     }
     
     /// <summary>
