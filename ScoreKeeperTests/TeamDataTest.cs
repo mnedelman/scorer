@@ -94,7 +94,7 @@ namespace ScoreKeeper {
       team5.SetScore(1, score_zero.Clone());  // 40
       team5.Score1.Loops = 4;
       team5.SetScore(2, score_zero.Clone());  // 20
-      team5.Score2.Truck = YesNo.Yes;
+      team5.Score2.Truck = YesNo.No;
       team5.SetScore(3, score_zero.Clone());  // 10
       team5.Score3.WarningBeacons = 1;
       
@@ -103,9 +103,9 @@ namespace ScoreKeeper {
       team6.Score1.Robot = RobotLocation.YellowBridge;
       team6.SetScore(2, score_zero.Clone());  // 40
       team6.Score2.Robot = RobotLocation.YellowBridge;
-      team6.Score2.Truck = YesNo.Yes;
+      team6.Score2.Truck = YesNo.No;
       team6.SetScore(3, score_zero.Clone());  // 20
-      team6.Score3.Truck = YesNo.Yes;
+      team6.Score3.Truck = YesNo.No;
       
       Team team7 = new Team("7", string.Empty);
       team7.SetScore(1, team5.Score1.Clone());

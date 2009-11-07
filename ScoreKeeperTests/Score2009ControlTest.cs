@@ -70,7 +70,7 @@ namespace ScoreKeeper {
       score.Robot = RobotLocation.RedBridge;
       Assert.AreEqual(RobotLocation.YellowBridge, Score.Robot);
 
-      score.Truck = YesNo.No;
+      score.Truck = YesNo.Yes;
       score.Robot = RobotLocation.Other;
       score.PeopleOnTarget = YesNo.No;
       score.AccessMarkers = 0;
@@ -82,7 +82,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", score_display_.Text);
       Assert.AreEqual("", error_.Text);
 
-      score.Truck = YesNo.Yes;
+      score.Truck = YesNo.No;
       score.Robot = RobotLocation.RedBridge;
       score.PeopleOnTarget = YesNo.Yes;
       score.AccessMarkers = 4;
@@ -96,10 +96,10 @@ namespace ScoreKeeper {
       
       score.SensorWalls = -1;
       Score = score.Clone();
-      Assert.AreEqual("280", score_display_.Text);
+      Assert.AreEqual("360", score_display_.Text);
       Assert.AreNotEqual("", error_.Text);
 
-      score.Truck = YesNo.Yes;                    // 20
+      score.Truck = YesNo.No;                     // 20
       score.Robot = RobotLocation.YellowBridge;   // 20
       score.PeopleOnTarget = YesNo.No;            //  0
       score.AccessMarkers = 2;                    // 50
@@ -117,8 +117,8 @@ namespace ScoreKeeper {
       Assert.AreEqual(YesNo.Unknown, score_.Truck);
       Assert.AreEqual("0", score_display_.Text);
       
-      ControlHelper.FireEvent(truck_.Controls[0], "Click");
-      Assert.AreEqual(YesNo.Yes, score_.Truck);
+      ControlHelper.FireEvent(truck_.Controls[1], "Click");
+      Assert.AreEqual(YesNo.No, score_.Truck);
       Assert.AreEqual("20", score_display_.Text);
     }
 
@@ -151,7 +151,7 @@ namespace ScoreKeeper {
       ControlHelper.FireEvent(access_markers_.Controls[3], "Click");
       Assert.AreEqual(3, score_.AccessMarkers);
       Assert.AreEqual(-1, score_.Loops);
-      Assert.AreEqual("0", score_display_.Text);
+      Assert.AreEqual("75", score_display_.Text);
       
       ControlHelper.FireEvent(loops_.Controls[6], "Click");
       Assert.AreEqual(3, score_.AccessMarkers);
@@ -170,19 +170,20 @@ namespace ScoreKeeper {
       Assert.AreEqual(3, score_.WarningBeacons);
       Assert.AreEqual(-1, score_.SensorWalls);
       Assert.AreEqual(-1, score_.AccessMarkers);
-      Assert.AreEqual("0", score_display_.Text);
+      Assert.AreEqual("30", score_display_.Text);
       
       ControlHelper.FireEvent(sensor_walls_.Controls[5], "Click");
       Assert.AreEqual(3, score_.WarningBeacons);
       Assert.AreEqual(5, score_.SensorWalls);
       Assert.AreEqual(-1, score_.AccessMarkers);
-      Assert.AreEqual("0", score_display_.Text);
+      Assert.AreEqual("30", score_display_.Text);
 
       ControlHelper.FireEvent(access_markers_.Controls[2], "Click");
       Assert.AreEqual(3, score_.WarningBeacons);
       Assert.AreEqual(5, score_.SensorWalls);
       Assert.AreEqual(2, score_.AccessMarkers);
-      Assert.AreEqual("50", score_display_.Text);
+      // Note: Also gets 50 points from ScoreGainAccessToThings.
+      Assert.AreEqual("100", score_display_.Text);
     }
     
     [Test]

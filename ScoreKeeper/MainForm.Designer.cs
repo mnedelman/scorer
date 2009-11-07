@@ -82,7 +82,7 @@ namespace ScoreKeeper
 			this.score_control_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.score_control_.Location = new System.Drawing.Point(299, 39);
 			this.score_control_.Name = "score_control_";
-			this.score_control_.TabIndex = 3;
+			this.score_control_.TabIndex = 0;
 			this.score_control_.Change += new System.EventHandler(this.OnScoreChange);
 			// 
 			// panel_file_
@@ -104,7 +104,7 @@ namespace ScoreKeeper
 			this.export_.Location = new System.Drawing.Point(437, 0);
 			this.export_.Name = "export_";
 			this.export_.Size = new System.Drawing.Size(93, 23);
-			this.export_.TabIndex = 3;
+			this.export_.TabIndex = 2;
 			this.export_.Text = "Export Scores...";
 			this.export_.UseVisualStyleBackColor = true;
 			this.export_.Click += new System.EventHandler(this.OnExport);
@@ -115,7 +115,7 @@ namespace ScoreKeeper
 			this.ip_.Location = new System.Drawing.Point(530, 0);
 			this.ip_.Name = "ip_";
 			this.ip_.Size = new System.Drawing.Size(75, 23);
-			this.ip_.TabIndex = 2;
+			this.ip_.TabIndex = 3;
 			this.ip_.Text = "Show IP...";
 			this.ip_.UseVisualStyleBackColor = true;
 			this.ip_.Click += new System.EventHandler(this.OnIp);

@@ -51,10 +51,20 @@ namespace ScoreKeeper {
     }
     
     public void Add(ScoreInfo score) {
-      Points += score.Points;
-      if (IsValid())
-        Error = score.Error;
+      AddPoints(score.Points);
+      AddError(score.Error);
     }
+    
+    public void AddError(string error) {
+      if(IsValid())
+        Error = error;
+    }
+    
+    public void AddPoints(int points) {
+      Points += points;
+    }
+    
+    
     public bool IsValid() { return string.IsNullOrEmpty(Error); }
 
     public int Points;

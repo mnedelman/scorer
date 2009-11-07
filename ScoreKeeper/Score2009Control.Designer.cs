@@ -92,10 +92,10 @@ namespace ScoreKeeper
     	// 
     	this.base_group_.Controls.Add(this.loops_);
     	this.base_group_.Controls.Add(this.loops_label_);
-    	this.base_group_.Location = new System.Drawing.Point(0, 366);
+    	this.base_group_.Location = new System.Drawing.Point(0, 26);
     	this.base_group_.Name = "base_group_";
     	this.base_group_.Size = new System.Drawing.Size(314, 65);
-    	this.base_group_.TabIndex = 10;
+    	this.base_group_.TabIndex = 4;
     	this.base_group_.TabStop = false;
     	this.base_group_.Text = "Base";
     	// 
@@ -138,7 +138,7 @@ namespace ScoreKeeper
     	this.field_objects_group_.Controls.Add(this.warning_beacons_label_);
     	this.field_objects_group_.Controls.Add(this.sensor_walls_label_);
     	this.field_objects_group_.Controls.Add(this.access_markers_label_);
-    	this.field_objects_group_.Location = new System.Drawing.Point(0, 246);
+    	this.field_objects_group_.Location = new System.Drawing.Point(0, 316);
     	this.field_objects_group_.Name = "field_objects_group_";
     	this.field_objects_group_.Size = new System.Drawing.Size(314, 115);
     	this.field_objects_group_.TabIndex = 9;
@@ -159,7 +159,7 @@ namespace ScoreKeeper
     	    	"8"};
     	this.warning_beacons_.Location = new System.Drawing.Point(93, 85);
     	this.warning_beacons_.Name = "warning_beacons_";
-    	this.warning_beacons_.TabIndex = 9;
+    	this.warning_beacons_.TabIndex = 5;
     	this.warning_beacons_.Value = null;
     	this.warning_beacons_.ValueInt = -1;
     	this.warning_beacons_.Change += new System.EventHandler(this.OnChangeWarningBeacons);
@@ -175,7 +175,7 @@ namespace ScoreKeeper
     	    	"5"};
     	this.sensor_walls_.Location = new System.Drawing.Point(165, 40);
     	this.sensor_walls_.Name = "sensor_walls_";
-    	this.sensor_walls_.TabIndex = 7;
+    	this.sensor_walls_.TabIndex = 3;
     	this.sensor_walls_.Value = null;
     	this.sensor_walls_.ValueInt = -1;
     	this.sensor_walls_.Change += new System.EventHandler(this.OnChangeSensorWalls);
@@ -200,7 +200,7 @@ namespace ScoreKeeper
     	this.warning_beacons_label_.Location = new System.Drawing.Point(7, 65);
     	this.warning_beacons_label_.Name = "warning_beacons_label_";
     	this.warning_beacons_label_.Size = new System.Drawing.Size(208, 23);
-    	this.warning_beacons_label_.TabIndex = 8;
+    	this.warning_beacons_label_.TabIndex = 4;
     	this.warning_beacons_label_.Text = "# of warning beacons upright:";
     	this.warning_beacons_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
@@ -209,7 +209,7 @@ namespace ScoreKeeper
     	this.sensor_walls_label_.Location = new System.Drawing.Point(7, 40);
     	this.sensor_walls_label_.Name = "sensor_walls_label_";
     	this.sensor_walls_label_.Size = new System.Drawing.Size(208, 23);
-    	this.sensor_walls_label_.TabIndex = 6;
+    	this.sensor_walls_label_.TabIndex = 2;
     	this.sensor_walls_label_.Text = "# of sensor walls upright:";
     	this.sensor_walls_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
@@ -229,7 +229,7 @@ namespace ScoreKeeper
     	this.single_passenger_safety_test_group_.Location = new System.Drawing.Point(0, 146);
     	this.single_passenger_safety_test_group_.Name = "single_passenger_safety_test_group_";
     	this.single_passenger_safety_test_group_.Size = new System.Drawing.Size(314, 45);
-    	this.single_passenger_safety_test_group_.TabIndex = 8;
+    	this.single_passenger_safety_test_group_.TabIndex = 6;
     	this.single_passenger_safety_test_group_.TabStop = false;
     	this.single_passenger_safety_test_group_.Text = "Single Passenger Safety Test";
     	// 
@@ -258,10 +258,10 @@ namespace ScoreKeeper
     	// 
     	this.multiple_passenger_safety_test_.Controls.Add(this.people_on_target_label_);
     	this.multiple_passenger_safety_test_.Controls.Add(this.people_on_target_);
-    	this.multiple_passenger_safety_test_.Location = new System.Drawing.Point(0, 196);
+    	this.multiple_passenger_safety_test_.Location = new System.Drawing.Point(0, 266);
     	this.multiple_passenger_safety_test_.Name = "multiple_passenger_safety_test_";
     	this.multiple_passenger_safety_test_.Size = new System.Drawing.Size(314, 45);
-    	this.multiple_passenger_safety_test_.TabIndex = 7;
+    	this.multiple_passenger_safety_test_.TabIndex = 8;
     	this.multiple_passenger_safety_test_.TabStop = false;
     	this.multiple_passenger_safety_test_.Text = "Multiple Passenger Safety Test";
     	// 
@@ -270,7 +270,7 @@ namespace ScoreKeeper
     	this.people_on_target_label_.Location = new System.Drawing.Point(6, 15);
     	this.people_on_target_label_.Name = "people_on_target_label_";
     	this.people_on_target_label_.Size = new System.Drawing.Size(208, 23);
-    	this.people_on_target_label_.TabIndex = 4;
+    	this.people_on_target_label_.TabIndex = 0;
     	this.people_on_target_label_.Text = "4 people in transport device on target?";
     	this.people_on_target_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
@@ -281,7 +281,7 @@ namespace ScoreKeeper
     	    	"No"};
     	this.people_on_target_.Location = new System.Drawing.Point(238, 15);
     	this.people_on_target_.Name = "people_on_target_";
-    	this.people_on_target_.TabIndex = 5;
+    	this.people_on_target_.TabIndex = 1;
     	this.people_on_target_.Value = null;
     	this.people_on_target_.ValueInt = -1;
     	this.people_on_target_.Change += new System.EventHandler(this.OnChangePeopleOnTarget);
@@ -290,10 +290,10 @@ namespace ScoreKeeper
     	// 
     	this.gain_access_to_places_group_.Controls.Add(this.robot_);
     	this.gain_access_to_places_group_.Controls.Add(this.robot_label_);
-    	this.gain_access_to_places_group_.Location = new System.Drawing.Point(0, 76);
+    	this.gain_access_to_places_group_.Location = new System.Drawing.Point(0, 196);
     	this.gain_access_to_places_group_.Name = "gain_access_to_places_group_";
     	this.gain_access_to_places_group_.Size = new System.Drawing.Size(314, 65);
-    	this.gain_access_to_places_group_.TabIndex = 6;
+    	this.gain_access_to_places_group_.TabIndex = 7;
     	this.gain_access_to_places_group_.TabStop = false;
     	this.gain_access_to_places_group_.Text = "Gain Access to Places";
     	// 
@@ -315,16 +315,16 @@ namespace ScoreKeeper
     	// 
     	this.robot_label_.Location = new System.Drawing.Point(6, 15);
     	this.robot_label_.Name = "robot_label_";
-    	this.robot_label_.Size = new System.Drawing.Size(208, 23);
+    	this.robot_label_.Size = new System.Drawing.Size(240, 23);
     	this.robot_label_.TabIndex = 0;
-    	this.robot_label_.Text = "Where did the Robot end?";
+    	this.robot_label_.Text = "Where was the Robot at the end of the match?";
     	this.robot_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// vehicle_impact_test_group_
     	// 
     	this.vehicle_impact_test_group_.Controls.Add(this.truck_);
     	this.vehicle_impact_test_group_.Controls.Add(this.truck_label_);
-    	this.vehicle_impact_test_group_.Location = new System.Drawing.Point(0, 26);
+    	this.vehicle_impact_test_group_.Location = new System.Drawing.Point(0, 96);
     	this.vehicle_impact_test_group_.Name = "vehicle_impact_test_group_";
     	this.vehicle_impact_test_group_.Size = new System.Drawing.Size(314, 45);
     	this.vehicle_impact_test_group_.TabIndex = 5;
@@ -338,7 +338,7 @@ namespace ScoreKeeper
     	    	"No"};
     	this.truck_.Location = new System.Drawing.Point(238, 15);
     	this.truck_.Name = "truck_";
-    	this.truck_.TabIndex = 3;
+    	this.truck_.TabIndex = 1;
     	this.truck_.Value = null;
     	this.truck_.ValueInt = -1;
     	this.truck_.Change += new System.EventHandler(this.OnChangeTruck);
@@ -358,7 +358,7 @@ namespace ScoreKeeper
     	this.error_.Location = new System.Drawing.Point(0, 434);
     	this.error_.Name = "error_";
     	this.error_.Size = new System.Drawing.Size(314, 29);
-    	this.error_.TabIndex = 4;
+    	this.error_.TabIndex = 10;
     	// 
     	// score_label_
     	// 
@@ -407,12 +407,12 @@ namespace ScoreKeeper
     	this.Controls.Add(this.zero_);
     	this.Controls.Add(this.reset_);
     	this.Controls.Add(this.score_label_);
-    	this.Controls.Add(this.base_group_);
     	this.Controls.Add(this.field_objects_group_);
     	this.Controls.Add(this.single_passenger_safety_test_group_);
     	this.Controls.Add(this.multiple_passenger_safety_test_);
     	this.Controls.Add(this.gain_access_to_places_group_);
     	this.Controls.Add(this.vehicle_impact_test_group_);
+    	this.Controls.Add(this.base_group_);
     	this.Name = "Score2009Control";
     	this.Size = new System.Drawing.Size(314, 463);
     	this.base_group_.ResumeLayout(false);

@@ -61,7 +61,7 @@ namespace ScoreKeeper {
       info = score.Score();
       Assert.False(info.IsValid());
 
-      score.Truck = YesNo.No;
+      score.Truck = YesNo.Yes;
       score.Robot = RobotLocation.Other;
       score.PeopleOnTarget = YesNo.No;
       score.AccessMarkers = 0;
@@ -73,7 +73,7 @@ namespace ScoreKeeper {
       Assert.True(info.IsValid());
       Assert.AreEqual(0, info.Points);
 
-      score.Truck = YesNo.Yes;
+      score.Truck = YesNo.No;
       score.Robot = RobotLocation.RedBridge;
       score.PeopleOnTarget = YesNo.Yes;
       score.AccessMarkers = 4;
@@ -88,9 +88,9 @@ namespace ScoreKeeper {
       score.SensorWalls = -1;
       info = score.Score();
       Assert.False(info.IsValid());
-      Assert.AreEqual(280, info.Points);
+      Assert.AreEqual(360, info.Points);
 
-      score.Truck = YesNo.Yes;                    // 20
+      score.Truck = YesNo.No;                     // 20
       score.Robot = RobotLocation.YellowBridge;   // 20
       score.PeopleOnTarget = YesNo.No;            //  0
       score.AccessMarkers = 2;                    // 50
@@ -111,12 +111,12 @@ namespace ScoreKeeper {
       info = score.ScoreVehicleImpactTest();
       Assert.False(info.IsValid());
       
-      score.Truck = YesNo.No;
+      score.Truck = YesNo.Yes;
       info = score.ScoreVehicleImpactTest();
       Assert.True(info.IsValid());
       Assert.AreEqual(0, info.Points);
       
-      score.Truck = YesNo.Yes;
+      score.Truck = YesNo.No;
       info = score.ScoreVehicleImpactTest();
       Assert.True(info.IsValid());
       Assert.AreEqual(20, info.Points);
