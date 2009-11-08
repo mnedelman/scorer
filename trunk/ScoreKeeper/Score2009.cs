@@ -60,7 +60,7 @@ namespace ScoreKeeper {
     /// Zeroes out the current score.
     /// </summary>
     public void Zero() {
-      Truck = YesNo.Yes;
+      Truck = YesNo.No;
       Robot = RobotLocation.Other;
       PeopleOnTarget = YesNo.No;
       AccessMarkers = 0;
@@ -106,7 +106,7 @@ namespace ScoreKeeper {
       if (Truck == YesNo.Unknown)
         return new ScoreInfo(
             "Vehicle Impact Test: Is the truck touching the red stopper beam?");
-      return new ScoreInfo(Truck == YesNo.No ? 20 : 0);
+      return new ScoreInfo(Truck == YesNo.Yes ? 20 : 0);
     }
 
     /// <summary>

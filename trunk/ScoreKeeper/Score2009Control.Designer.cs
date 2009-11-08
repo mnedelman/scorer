@@ -347,9 +347,9 @@ namespace ScoreKeeper
     	// 
     	this.truck_label_.Location = new System.Drawing.Point(6, 15);
     	this.truck_label_.Name = "truck_label_";
-    	this.truck_label_.Size = new System.Drawing.Size(205, 23);
+    	this.truck_label_.Size = new System.Drawing.Size(226, 23);
     	this.truck_label_.TabIndex = 0;
-    	this.truck_label_.Text = "Truck touching red stopper beam?";
+    	this.truck_label_.Text = "Truck not touching red stopper beam?";
     	this.truck_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// error_

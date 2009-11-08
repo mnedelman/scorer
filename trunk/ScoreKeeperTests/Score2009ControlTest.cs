@@ -70,7 +70,7 @@ namespace ScoreKeeper {
       score.Robot = RobotLocation.RedBridge;
       Assert.AreEqual(RobotLocation.YellowBridge, Score.Robot);
 
-      score.Truck = YesNo.Yes;
+      score.Truck = YesNo.No;
       score.Robot = RobotLocation.Other;
       score.PeopleOnTarget = YesNo.No;
       score.AccessMarkers = 0;
@@ -82,7 +82,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("0", score_display_.Text);
       Assert.AreEqual("", error_.Text);
 
-      score.Truck = YesNo.No;
+      score.Truck = YesNo.Yes;
       score.Robot = RobotLocation.RedBridge;
       score.PeopleOnTarget = YesNo.Yes;
       score.AccessMarkers = 4;
@@ -99,7 +99,7 @@ namespace ScoreKeeper {
       Assert.AreEqual("360", score_display_.Text);
       Assert.AreNotEqual("", error_.Text);
 
-      score.Truck = YesNo.No;                     // 20
+      score.Truck = YesNo.Yes;                    // 20
       score.Robot = RobotLocation.YellowBridge;   // 20
       score.PeopleOnTarget = YesNo.No;            //  0
       score.AccessMarkers = 2;                    // 50
@@ -117,8 +117,8 @@ namespace ScoreKeeper {
       Assert.AreEqual(YesNo.Unknown, score_.Truck);
       Assert.AreEqual("0", score_display_.Text);
       
-      ControlHelper.FireEvent(truck_.Controls[1], "Click");
-      Assert.AreEqual(YesNo.No, score_.Truck);
+      ControlHelper.FireEvent(truck_.Controls[0], "Click");
+      Assert.AreEqual(YesNo.Yes, score_.Truck);
       Assert.AreEqual("20", score_display_.Text);
     }
 
