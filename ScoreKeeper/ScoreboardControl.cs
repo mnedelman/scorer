@@ -105,8 +105,8 @@ namespace ScoreKeeper {
       }
       if (len != scores_.Length) {
         scroll_ = 0;
-        Invalidate();
       }
+      Invalidate();
       if (ScoreUpdate != null)
         ScoreUpdate(new ScoreUpdateArgs(true));
     }
