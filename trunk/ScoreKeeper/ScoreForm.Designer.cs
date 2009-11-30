@@ -61,6 +61,7 @@ namespace ScoreKeeper
     	this.scoreboard_ = new ScoreKeeper.ScoreboardControl();
     	this.context_ = new System.Windows.Forms.ContextMenuStrip(this.components);
     	this.full_screen_ = new System.Windows.Forms.ToolStripMenuItem();
+    	this.refresh_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.font_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.font20_ = new System.Windows.Forms.ToolStripMenuItem();
     	this.font24_ = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,6 +154,7 @@ namespace ScoreKeeper
     	// 
     	this.context_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
     	    	    	this.full_screen_,
+    	    	    	this.refresh_,
     	    	    	this.font_,
     	    	    	this.cycle_,
     	    	    	this.logo_,
@@ -160,14 +162,21 @@ namespace ScoreKeeper
     	    	    	this.color_,
     	    	    	this.show_status_});
     	this.context_.Name = "context_";
-    	this.context_.Size = new System.Drawing.Size(159, 158);
+    	this.context_.Size = new System.Drawing.Size(153, 202);
     	// 
     	// full_screen_
     	// 
     	this.full_screen_.Name = "full_screen_";
-    	this.full_screen_.Size = new System.Drawing.Size(158, 22);
+    	this.full_screen_.Size = new System.Drawing.Size(152, 22);
     	this.full_screen_.Text = "Full Screen";
     	this.full_screen_.Click += new System.EventHandler(this.OnFullScreen);
+    	// 
+    	// refresh_
+    	// 
+    	this.refresh_.Name = "refresh_";
+    	this.refresh_.Size = new System.Drawing.Size(152, 22);
+    	this.refresh_.Text = "Refresh Now";
+    	this.refresh_.Click += new System.EventHandler(this.OnRefresh);
     	// 
     	// font_
     	// 
@@ -182,7 +191,7 @@ namespace ScoreKeeper
     	    	    	this.font56_,
     	    	    	this.font64_});
     	this.font_.Name = "font_";
-    	this.font_.Size = new System.Drawing.Size(158, 22);
+    	this.font_.Size = new System.Drawing.Size(152, 22);
     	this.font_.Text = "Font Size";
     	// 
     	// font20_
@@ -190,7 +199,7 @@ namespace ScoreKeeper
     	this.font20_.Checked = true;
     	this.font20_.CheckState = System.Windows.Forms.CheckState.Checked;
     	this.font20_.Name = "font20_";
-    	this.font20_.Size = new System.Drawing.Size(97, 22);
+    	this.font20_.Size = new System.Drawing.Size(86, 22);
     	this.font20_.Tag = "20";
     	this.font20_.Text = "20";
     	this.font20_.Click += new System.EventHandler(this.OnFont);
@@ -198,7 +207,7 @@ namespace ScoreKeeper
     	// font24_
     	// 
     	this.font24_.Name = "font24_";
-    	this.font24_.Size = new System.Drawing.Size(97, 22);
+    	this.font24_.Size = new System.Drawing.Size(86, 22);
     	this.font24_.Tag = "24";
     	this.font24_.Text = "24";
     	this.font24_.Click += new System.EventHandler(this.OnFont);
@@ -206,7 +215,7 @@ namespace ScoreKeeper
     	// font28_
     	// 
     	this.font28_.Name = "font28_";
-    	this.font28_.Size = new System.Drawing.Size(97, 22);
+    	this.font28_.Size = new System.Drawing.Size(86, 22);
     	this.font28_.Tag = "28";
     	this.font28_.Text = "28";
     	this.font28_.Click += new System.EventHandler(this.OnFont);
@@ -214,7 +223,7 @@ namespace ScoreKeeper
     	// font32_
     	// 
     	this.font32_.Name = "font32_";
-    	this.font32_.Size = new System.Drawing.Size(97, 22);
+    	this.font32_.Size = new System.Drawing.Size(86, 22);
     	this.font32_.Tag = "32";
     	this.font32_.Text = "32";
     	this.font32_.Click += new System.EventHandler(this.OnFont);
@@ -222,7 +231,7 @@ namespace ScoreKeeper
     	// font36_
     	// 
     	this.font36_.Name = "font36_";
-    	this.font36_.Size = new System.Drawing.Size(97, 22);
+    	this.font36_.Size = new System.Drawing.Size(86, 22);
     	this.font36_.Tag = "36";
     	this.font36_.Text = "36";
     	this.font36_.Click += new System.EventHandler(this.OnFont);
@@ -230,7 +239,7 @@ namespace ScoreKeeper
     	// font40_
     	// 
     	this.font40_.Name = "font40_";
-    	this.font40_.Size = new System.Drawing.Size(97, 22);
+    	this.font40_.Size = new System.Drawing.Size(86, 22);
     	this.font40_.Tag = "40";
     	this.font40_.Text = "40";
     	this.font40_.Click += new System.EventHandler(this.OnFont);
@@ -238,7 +247,7 @@ namespace ScoreKeeper
     	// font48_
     	// 
     	this.font48_.Name = "font48_";
-    	this.font48_.Size = new System.Drawing.Size(97, 22);
+    	this.font48_.Size = new System.Drawing.Size(86, 22);
     	this.font48_.Tag = "48";
     	this.font48_.Text = "48";
     	this.font48_.Click += new System.EventHandler(this.OnFont);
@@ -246,7 +255,7 @@ namespace ScoreKeeper
     	// font56_
     	// 
     	this.font56_.Name = "font56_";
-    	this.font56_.Size = new System.Drawing.Size(97, 22);
+    	this.font56_.Size = new System.Drawing.Size(86, 22);
     	this.font56_.Tag = "56";
     	this.font56_.Text = "56";
     	this.font56_.Click += new System.EventHandler(this.OnFont);
@@ -254,7 +263,7 @@ namespace ScoreKeeper
     	// font64_
     	// 
     	this.font64_.Name = "font64_";
-    	this.font64_.Size = new System.Drawing.Size(97, 22);
+    	this.font64_.Size = new System.Drawing.Size(86, 22);
     	this.font64_.Tag = "64";
     	this.font64_.Text = "64";
     	this.font64_.Click += new System.EventHandler(this.OnFont);
@@ -267,13 +276,13 @@ namespace ScoreKeeper
     	    	    	this.cycle_medium_,
     	    	    	this.cycle_fast_});
     	this.cycle_.Name = "cycle_";
-    	this.cycle_.Size = new System.Drawing.Size(158, 22);
+    	this.cycle_.Size = new System.Drawing.Size(152, 22);
     	this.cycle_.Text = "Cycle Time";
     	// 
     	// cycle_stop_
     	// 
     	this.cycle_stop_.Name = "cycle_stop_";
-    	this.cycle_stop_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_stop_.Size = new System.Drawing.Size(119, 22);
     	this.cycle_stop_.Tag = "0";
     	this.cycle_stop_.Text = "Stop";
     	this.cycle_stop_.Click += new System.EventHandler(this.OnCycle);
@@ -281,7 +290,7 @@ namespace ScoreKeeper
     	// cycle_slow_
     	// 
     	this.cycle_slow_.Name = "cycle_slow_";
-    	this.cycle_slow_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_slow_.Size = new System.Drawing.Size(119, 22);
     	this.cycle_slow_.Tag = "1";
     	this.cycle_slow_.Text = "Slow";
     	this.cycle_slow_.Click += new System.EventHandler(this.OnCycle);
@@ -289,7 +298,7 @@ namespace ScoreKeeper
     	// cycle_medium_
     	// 
     	this.cycle_medium_.Name = "cycle_medium_";
-    	this.cycle_medium_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_medium_.Size = new System.Drawing.Size(119, 22);
     	this.cycle_medium_.Tag = "2";
     	this.cycle_medium_.Text = "Medium";
     	this.cycle_medium_.Click += new System.EventHandler(this.OnCycle);
@@ -297,7 +306,7 @@ namespace ScoreKeeper
     	// cycle_fast_
     	// 
     	this.cycle_fast_.Name = "cycle_fast_";
-    	this.cycle_fast_.Size = new System.Drawing.Size(121, 22);
+    	this.cycle_fast_.Size = new System.Drawing.Size(119, 22);
     	this.cycle_fast_.Tag = "3";
     	this.cycle_fast_.Text = "Fast";
     	this.cycle_fast_.Click += new System.EventHandler(this.OnCycle);
@@ -310,13 +319,13 @@ namespace ScoreKeeper
     	    	    	this.logo250_,
     	    	    	this.logo300_});
     	this.logo_.Name = "logo_";
-    	this.logo_.Size = new System.Drawing.Size(158, 22);
+    	this.logo_.Size = new System.Drawing.Size(152, 22);
     	this.logo_.Text = "Logo Size";
     	// 
     	// logo150_
     	// 
     	this.logo150_.Name = "logo150_";
-    	this.logo150_.Size = new System.Drawing.Size(103, 22);
+    	this.logo150_.Size = new System.Drawing.Size(92, 22);
     	this.logo150_.Tag = "150";
     	this.logo150_.Text = "150";
     	this.logo150_.Click += new System.EventHandler(this.OnLogo);
@@ -324,7 +333,7 @@ namespace ScoreKeeper
     	// logo200_
     	// 
     	this.logo200_.Name = "logo200_";
-    	this.logo200_.Size = new System.Drawing.Size(103, 22);
+    	this.logo200_.Size = new System.Drawing.Size(92, 22);
     	this.logo200_.Tag = "200";
     	this.logo200_.Text = "200";
     	this.logo200_.Click += new System.EventHandler(this.OnLogo);
@@ -332,7 +341,7 @@ namespace ScoreKeeper
     	// logo250_
     	// 
     	this.logo250_.Name = "logo250_";
-    	this.logo250_.Size = new System.Drawing.Size(103, 22);
+    	this.logo250_.Size = new System.Drawing.Size(92, 22);
     	this.logo250_.Tag = "250";
     	this.logo250_.Text = "250";
     	this.logo250_.Click += new System.EventHandler(this.OnLogo);
@@ -340,7 +349,7 @@ namespace ScoreKeeper
     	// logo300_
     	// 
     	this.logo300_.Name = "logo300_";
-    	this.logo300_.Size = new System.Drawing.Size(103, 22);
+    	this.logo300_.Size = new System.Drawing.Size(92, 22);
     	this.logo300_.Tag = "300";
     	this.logo300_.Text = "300";
     	this.logo300_.Click += new System.EventHandler(this.OnLogo);
@@ -350,21 +359,21 @@ namespace ScoreKeeper
     	this.toggle_logo_.Checked = true;
     	this.toggle_logo_.CheckState = System.Windows.Forms.CheckState.Checked;
     	this.toggle_logo_.Name = "toggle_logo_";
-    	this.toggle_logo_.Size = new System.Drawing.Size(158, 22);
+    	this.toggle_logo_.Size = new System.Drawing.Size(152, 22);
     	this.toggle_logo_.Text = "Corner Logos";
     	this.toggle_logo_.Click += new System.EventHandler(this.OnToggleLogo);
     	// 
     	// color_
     	// 
     	this.color_.Name = "color_";
-    	this.color_.Size = new System.Drawing.Size(158, 22);
+    	this.color_.Size = new System.Drawing.Size(152, 22);
     	this.color_.Text = "Corner Color...";
     	this.color_.Click += new System.EventHandler(this.OnColor);
     	// 
     	// show_status_
     	// 
     	this.show_status_.Name = "show_status_";
-    	this.show_status_.Size = new System.Drawing.Size(158, 22);
+    	this.show_status_.Size = new System.Drawing.Size(152, 22);
     	this.show_status_.Text = "Show Status";
     	this.show_status_.Click += new System.EventHandler(this.OnShowStatus);
     	// 
@@ -397,6 +406,7 @@ namespace ScoreKeeper
     	this.context_.ResumeLayout(false);
     	this.ResumeLayout(false);
     }
+    private System.Windows.Forms.ToolStripMenuItem refresh_;
     protected System.Windows.Forms.ToolStripMenuItem cycle_stop_;
     protected System.Windows.Forms.ToolStripMenuItem cycle_slow_;
     protected System.Windows.Forms.ToolStripMenuItem cycle_fast_;

@@ -36,21 +36,20 @@ namespace ScoreKeeper {
     protected ScoreRow() {
     }
     
-    public ScoreRow(Team team) {
+    public ScoreRow(Team team, int rounds) {
       Number = team.Number;
       Name = team.Name;
-      Score1 = (team.Score1 == null) ? -1 : team.Score1.Score().Points;
-      Score2 = (team.Score2 == null) ? -1 : team.Score2.Score().Points;
-      Score3 = (team.Score3 == null) ? -1 : team.Score3.Score().Points;
+      this.Scores = new int[rounds];
+      for (int round = 0; round < rounds; ++round) {
+        Score2009 score = team.Scores[round];
+        Scores[round] = (score == null) ? -1 : score.Score().Points;
+      }
     }
     
-    public ScoreRow(string number, string name, int score1, int score2,
-                    int score3) {
+    public ScoreRow(string number, string name, int[] scores) {
       Number = number;
       Name = name;
-      Score1 = score1;
-      Score2 = score2;
-      Score3 = score3;
+      Scores = scores;
     }
     
     public int CompareTo(object other) {
@@ -58,9 +57,9 @@ namespace ScoreKeeper {
         throw new ArgumentException("Can only compare with other ScoreRows.");
       ScoreRow row = (ScoreRow)other;
       
-      int[] thisScores = GetScores();
-      int[] rowScores = row.GetScores();
-      for (int i = 2; i >= 0; --i) {
+      int[] thisScores = GetSortedScores();
+      int[] rowScores = row.GetSortedScores();
+      for (int i = thisScores.Length - 1; i >= 0; --i) {
         int comp = thisScores[i].CompareTo(rowScores[i]);
         if (comp != 0)
           return -comp;
@@ -73,61 +72,48 @@ namespace ScoreKeeper {
       int best_round = 0;
       int best_score = 0;
       
-      if (Score1 > best_score) {
-        best_round = 1;
-        best_score = Score1;
-      }
-      
-      if (Score2 > best_score) {
-        best_round = 2;
-        best_score = Score2;
-      }
-      
-      if (Score3 > best_score) {
-        best_round = 3;
-        best_score = Score3;
+      for (int i = 0; i < Scores.Length; ++i) {
+        if (Scores[i] > best_score) {
+          best_round = i + 1;
+          best_score = Scores[i];
+        }
       }
       
       return best_round;
     }
     
-    private int[] GetScores() {
-      List<int> scores = new List<int>();
-      scores.Add(Score1);
-      scores.Add(Score2);
-      scores.Add(Score3);
+    private int[] GetSortedScores() {
+      List<int> scores = new List<int>(Scores);
       scores.Sort();
       return scores.ToArray();
     }
 
     public bool IsScoreEqual(ScoreRow other) {
-      int[] thisScores = GetScores();
-      int[] rowScores = other.GetScores();
-      for (int i = 0; i < 3; ++i) {
+      int[] thisScores = GetSortedScores();
+      int[] rowScores = other.GetSortedScores();
+      for (int i = 0; i < thisScores.Length; ++i) {
         if (thisScores[i] != rowScores[i])
           return false;
       }
       return true;
     }
     
-    public string Points1 {
-      get { return Score1 == -1 ? "?" : Score1.ToString(); }
+    public string GetPoints(int round) {
+      return Scores[round - 1] == -1 ? "?" : Scores[round - 1].ToString();
     }
     
-    public string Points2 {
-      get { return Score2 == -1 ? "?" : Score2.ToString(); }
-    }
-    
-    public string Points3 {
-      get { return Score3 == -1 ? "?" : Score3.ToString(); }
+    public string[] GetAllPoints() {
+      string[] points = new string[Scores.Length];
+      for (int i = 0; i < Scores.Length; ++i) {
+        points[i] = GetPoints(i + 1);
+      }
+      return points;
     }
     
     static public XmlSerializer ArraySerializer =
         new XmlSerializer(typeof(ScoreRow[]));
     
     public int Rank = -1;
-    public int Score1;
-    public int Score2;
-    public int Score3;
+    public int[] Scores = null;
   }
 }

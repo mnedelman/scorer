@@ -72,36 +72,36 @@ namespace ScoreKeeper
     public void TestGetPoints() {
       Team team = new Team();
       
-      team.SetScore(1, new Score2009());
-      team.Score1.Zero();
+      team.Scores[0] = new Score2009();
+      team.Scores[0].Zero();
       
-      team.SetScore(2, new Score2009());
-      team.Score2.Zero();
-      team.Score2.Loops = 4;
+      team.Scores[1] = new Score2009();
+      team.Scores[1].Zero();
+      team.Scores[1].Loops = 4;
       
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("40", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("40", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
     }
 
     [Test]
     public void TestScoreSet() {
       Team team = new Team();
       
-      team.Score1 = new Score2009();
-      team.Score1.Zero();
+      team.Scores[0] = new Score2009();
+      team.Scores[0].Zero();
       
-      team.Score2 = new Score2009();
-      team.Score2.Zero();
-      team.Score2.Loops = 4;
+      team.Scores[1] = new Score2009();
+      team.Scores[1].Zero();
+      team.Scores[1].Loops = 4;
       
-      team.Score3 = new Score2009();
-      team.Score3.Zero();
-      team.Score3.PeopleOnTarget = YesNo.Yes;
+      team.Scores[2] = new Score2009();
+      team.Scores[2].Zero();
+      team.Scores[2].PeopleOnTarget = YesNo.Yes;
       
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("40", team.Points2);
-      Assert.AreEqual("10", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("40", team.GetPoints(2));
+      Assert.AreEqual("10", team.GetPoints(3));
     }
   }
 

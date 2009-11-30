@@ -140,14 +140,21 @@ namespace ScoreKeeper {
                  "</style>" +
                  "<table style=border-collapse:collapse>" +
                  "<tr><th>Rank<th>Team<th>1<th>2<th>3");
-      foreach (ScoreRow row in score_interface_.GetScores()) {
+      ScoreRow[] scores = score_interface_.GetScores();
+      if (scores.Length > 0) {
+        for (int i = 4; i <= scores[0].Scores.Length; ++i) {
+          str.Append("<th>" + i.ToString());
+        }
+      }
+      
+      foreach (ScoreRow row in scores) {
         int best = row.GetBestRound();
-        str.AppendFormat(
-            "<tr><td>{0}<td class=left>{1}<t{2}>{3}<t{4}>{5}<t{6}>{7}",
-            row.Rank, row.ToString(),
-            best == 1 ? 'h' : 'd', row.Points1,
-            best == 2 ? 'h' : 'd', row.Points2,
-            best == 3 ? 'h' : 'd', row.Points3);
+        str.AppendFormat("<tr><td>{0}<td class=left>{1}", row.Rank,
+                         row.ToString());
+        for (int round = 1; round <= row.Scores.Length; ++round) {
+          str.AppendFormat("<t{0}>{1}", best == round ? 'h' : 'd',
+                           row.GetPoints(round));
+        }
       }
       return new HttpResponse("Score HTML sent", str.ToString());
     }

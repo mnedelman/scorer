@@ -120,7 +120,8 @@ namespace ScoreKeeper {
       }
     }
     
-    [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    [Browsable(false),
+     DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public YesNo ValueYesNo {
       get {
         if (!YesNoMode) {

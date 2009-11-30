@@ -48,6 +48,7 @@ namespace ScoreKeeper {
 			if (Config.FileName == null || !SelectFile(Config.FileName))
   	    UpdateFileItems();
 	    UpdateScoreItems();
+	    OnRoundsChanged(null, null);
 	  }
 	  
     public void Log(string format, params object[] args) {
@@ -78,9 +79,11 @@ namespace ScoreKeeper {
 	    using (StreamWriter writer = File.CreateText(export_dialog_.FileName)) {
 	      writer.WriteLine("Rank Number {0, -43} Round:   1   2   3", "Name");
 	      foreach (ScoreRow row in team_data_.GetScores()) {
-	        writer.WriteLine("{0,3}  {1,6} {2,-50} {3,3} {4,3} {5,3}",
-	                         row.Rank, row.Number, row.Name, row.Points1,
-	                         row.Points2, row.Points3);
+	        writer.Write("{0,3}  {1,6} {2,-50}", row.Rank, row.Number, row.Name);
+	        for (int round = 1; round <= row.Scores.Length; ++round) {
+	          writer.Write(" {0, 3}", row.GetPoints(round));
+	        }
+	        writer.WriteLine("");
 	      }
 	    }
 		}
@@ -103,41 +106,20 @@ namespace ScoreKeeper {
 	      log_.Lines = log_entries_.ToArray();
 		}
 		
-		private void OnScore1Clear(object sender, EventArgs e) {
-	    SetScore(1, true);
-		}
-		
-		private void OnScore2Clear(object sender, EventArgs e) {
-	    SetScore(2, true);
-		}
-		
-		private void OnScore3Clear(object sender, EventArgs e) {
-	    SetScore(3, true);
-		}
-		
-		private void OnScore1Load(object sender, EventArgs e) {
-	    score_control_.Score = ((Team)team_.SelectedItem).Score1;
-		}
-		
-		private void OnScore2Load(object sender, EventArgs e) {
-	    score_control_.Score = ((Team)team_.SelectedItem).Score2;
-		}
-		
-		private void OnScore3Load(object sender, EventArgs e) {
-	    score_control_.Score = ((Team)team_.SelectedItem).Score3;
-		}
-	  
-		private void OnScore1Set(object sender, EventArgs e) {
-	    SetScore(1, false);
-		}
-		
-		private void OnScore2Set(object sender, EventArgs e) {
-	    SetScore(2, false);
-		}
-		
-		private void OnScore3Set(object sender, EventArgs e) {
-	    SetScore(3, false);
-		}
+		private void OnRoundsChanged(object sender, EventArgs e) {
+      team_data_.Rounds = (int)rounds_.Value;
+      int factor = team_data_.Rounds - 3;
+      this.undo_.Top = 90 + 25 * factor;
+      this.score_group_.Height = 120 + 25 * factor;
+      this.team_add_remove_.Top = 159 + 25 * factor;
+      this.scoreboard_.Top = 159 + 25 * factor;
+      this.log_.Height = 274 - 25 * factor;
+      
+      this.round4_.Visible = rounds_.Value >= 4;
+      this.round5_.Visible = rounds_.Value >= 5;
+      
+      Save();
+    }
 		
 		private void OnScoreboard(object sender, EventArgs e) {
 	    new ScoreForm(this).Show();
@@ -164,7 +146,9 @@ namespace ScoreKeeper {
 		}
 	  
 	  protected virtual void Save() {
-	    team_data_.Save(Config.FileName);
+      if (!loading_ && Config.FileName != null) {
+  	    team_data_.Save(Config.FileName);
+      }
 	  }
 		
 	  /// <summary>
@@ -196,21 +180,31 @@ namespace ScoreKeeper {
       score_control_.Enabled = has_file;
       panel_team_.Enabled = has_file;
       export_.Enabled = has_file;
+      
+      loading_ = true;
+      rounds_.Value = team_data_.Rounds;
 	    UpdateTeamList();
+	    loading_ = false;
 	  }
 	  
 	  protected void UpdateScoreItems() {
 	    bool has_score = score_control_.IsValid;
-	    score1_set_.Enabled = has_score;
-	    score2_set_.Enabled = has_score;
-	    score3_set_.Enabled = has_score;
+	    round1_.CanSet = has_score;
+	    round2_.CanSet = has_score;
+	    round3_.CanSet = has_score;
+	    round4_.CanSet = has_score;
+	    round5_.CanSet = has_score;
 	  }
 	  
-	  private void SetScore(int round, bool clear) {
+    public void LoadScore(int round) {
+	    score_control_.Score = ((Team)team_.SelectedItem).Scores[round - 1];
+		}
+		
+	  public void SetScore(int round, bool clear) {
 	    Team team = (Team)team_.SelectedItem;
 	    undo_team_ = team;
 	    undo_round_ = round;
-	    undo_score_ = team.GetScore(round);
+	    undo_score_ = team.Scores[round - 1];
 	    undo_.Text = clear ? "Undo Clear" : "Undo Set";
 	    undo_.Enabled = true;
 
@@ -223,24 +217,11 @@ namespace ScoreKeeper {
 	  private void UpdateScore(int round) {
 	    Team team = (Team)team_.SelectedItem;
 	    
-	    if (round == 0 || round == 1) {
-        score1_.Text = team.Points1;
-        bool has_score = team.Score1 != null;
-        score1_load_.Enabled = has_score;
-        score1_clear_.Enabled = has_score;
-	    }
-	    if (round == 0 || round == 2) {
-        score2_.Text = team.Points2;
-        bool has_score = team.Score2 != null;
-        score2_load_.Enabled = has_score;
-        score2_clear_.Enabled = has_score;
-	    }
-	    if (round == 0 || round == 3) {
-        score3_.Text = team.Points3;
-        bool has_score = team.Score3 != null;
-        score3_load_.Enabled = has_score;
-        score3_clear_.Enabled = has_score;
-	    }
+	    if (round == 0 || round == 1) { round1_.SetFromTeam(team); }
+	    if (round == 0 || round == 2) { round2_.SetFromTeam(team); }
+	    if (round == 0 || round == 3) { round3_.SetFromTeam(team); }
+	    if (round == 0 || round == 4) { round4_.SetFromTeam(team); }
+	    if (round == 0 || round == 5) { round5_.SetFromTeam(team); }
 	  }
 	  
 	  private void UpdateTeamList() {
@@ -263,17 +244,19 @@ namespace ScoreKeeper {
 	    if (is_team) {
 	      UpdateScore(0);
 	    } else {
-	      score1_.Text = "?";
-	      score2_.Text = "?";
-	      score3_.Text = "?";
+	      round1_.SetFromTeam(null);
+	      round2_.SetFromTeam(null);
+	      round3_.SetFromTeam(null);
+	      round4_.SetFromTeam(null);
+	      round5_.SetFromTeam(null);
 	    }
 	  }
 
+	  protected TeamData team_data_ = new TeamData();
 	  private Team undo_team_ = null;
 	  private Score2009 undo_score_ = null;
 	  private int undo_round_ = 0;
-	  
-	  protected TeamData team_data_ = new TeamData();
+	  private bool loading_ = false;
 	  
 	  List<string> log_entries_ = new List<string>();
 	}
