@@ -45,9 +45,9 @@ namespace ScoreKeeper {
       InitMembers();
     }
     
-    private void DrawCell(Graphics g, Font font, int y, int width, int row_index,
-                          string rank, string name, string score1,
-                          string score2, string score3, int best_round) {
+    private void DrawCell(Graphics g, Font font, int y, int width,
+                          int row_index, string rank, string name,
+                          string[] scores, int best_round) {
       g.DrawLine(pen_, 0, y + row_height_, width, y + row_height_);
       Brush brush = (row_index == -1 || row_index % 6 > 2) ? Brushes.LightGray :
                     Brushes.White;
@@ -61,40 +61,34 @@ namespace ScoreKeeper {
       rank_rect.Offset(0, 1);
       g.DrawString(rank, font, Brushes.Black, rank_rect, center_);
       
+      int rounds = scores.Length;
+      
       RectangleF font_rect =
           new RectangleF(rank_width_ + 1, rect_y,
-                         width - 3 * score_width_ - rank_width_ - 2,
+                         width - rounds * score_width_ - rank_width_ - 2,
                          rect_height);
       g.FillRectangle(brush, font_rect);
       font_rect.Offset(0, 1);
       g.DrawString(name, font, Brushes.Black, font_rect, regular_);
       
-      RectangleF round_rect = new RectangleF(width - 3 * score_width_ + 1,
+      RectangleF round_rect = new RectangleF(width - rounds * score_width_ + 1,
                                              rect_y, score_width_ - 2,
                                              rect_height);
-      g.FillRectangle(brush, round_rect);
-      round_rect.Offset(0, 1);
-      g.DrawString(score1, best_round == 1 ? bold_ : font, Brushes.Black,
-                   round_rect, center_);
       
-      round_rect.Offset(score_width_, -1);
-      g.FillRectangle(brush, round_rect);
-      round_rect.Offset(0, 1);
-      g.DrawString(score2, best_round == 2 ? bold_ : font, Brushes.Black,
-                   round_rect, center_);
-      
-      round_rect.Offset(score_width_, -1);
-      g.FillRectangle(brush, round_rect);
-      round_rect.Offset(0, 1);
-      g.DrawString(score3, best_round == 3 ? bold_ : font, Brushes.Black,
-                   round_rect, center_);
+      for (int i = 0; i < rounds; ++i) {
+        g.FillRectangle(brush, round_rect);
+        round_rect.Offset(0, 1);
+        g.DrawString(scores[i], best_round == i + 1 ? bold_ : font,
+                     Brushes.Black, round_rect, center_);
+        round_rect.Offset(score_width_, -1);
+      }
     }
     
     private void DrawLine(Graphics g, int x, int y1, int y2) {
       g.DrawLine(pen_, x, y1, x, y2);
     }
     
-    private void GetScores() {
+    public void GetScores() {
       int len = (scores_ == null) ? 0 : scores_.Length;
       try {
         scores_ = score_interface_.GetScores();
@@ -150,9 +144,11 @@ namespace ScoreKeeper {
       
       g.DrawRectangle(pen_, 1, top_, width - 1, bottom - top_);
       DrawLine(g, rank_width_, top_, bottom);
-      DrawLine(g, width - 3 * score_width_, top_, bottom);
-      DrawLine(g, width - 2 * score_width_, top_, bottom);
-      DrawLine(g, width - score_width_, top_, bottom);
+      
+      int rounds = (length == 0) ? 3 : scores_[0].Scores.Length;
+      for (int i = 1; i <= rounds; ++i) {
+        DrawLine(g, width - i * score_width_, top_, bottom);
+      }
       
       for (int i = 0; i <= length; ++i) {
         int scrolled_index = (i + length + 1 - scroll_) % (length + 1);
@@ -166,10 +162,15 @@ namespace ScoreKeeper {
         } else {
           ScoreRow row = scores_[i];
           DrawCell(g, body_, top, width, i, row.Rank.ToString(), row.ToString(),
-                   row.Points1, row.Points2, row.Points3, row.GetBestRound());
+                   row.GetAllPoints(), row.GetBestRound());
         }
       }
-      DrawCell(g, bold_, top_, width, -1, "Rank", "Team Name", "1", "2", "3",
+      
+      string[] round_headers = new string[rounds];
+      for (int i = 0; i < rounds; ++i) {
+        round_headers[i] = (i + 1).ToString();
+      }
+      DrawCell(g, bold_, top_, width, -1, "Rank", "Team Name", round_headers,
                0);
       
       e.Graphics.DrawImageUnscaled(buffer_, 0, 0);

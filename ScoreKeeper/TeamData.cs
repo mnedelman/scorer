@@ -64,7 +64,7 @@ namespace ScoreKeeper {
         
         scores = new List<ScoreRow>();
         foreach (Team team in teams_)
-          scores.Add(new ScoreRow(team));
+          scores.Add(new ScoreRow(team, rounds_));
         scores.Sort();
       }
       
@@ -87,7 +87,7 @@ namespace ScoreKeeper {
     
     public void SetScore(Team team, int round, Score2009 score) {
       lock (teams_)
-        team.SetScore(round, score);
+        team.Scores[round - 1] = score;
     }
     
     public Team[] Teams {
@@ -95,6 +95,12 @@ namespace ScoreKeeper {
       set { lock (teams_) teams_ = value; }
     }
     
+    public int Rounds {
+      get { return rounds_; }
+      set { rounds_ = value; }
+    }
+    
     private Team[] teams_ = new Team[0];
+    private int rounds_ = 3;
   }
 }

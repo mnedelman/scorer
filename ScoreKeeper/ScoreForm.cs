@@ -93,7 +93,7 @@ namespace ScoreKeeper {
       }
     }
     
-    void OnLogo(object sender, EventArgs e) {
+    private void OnLogo(object sender, EventArgs e) {
       ToolStripMenuItem item = (ToolStripMenuItem)sender;
       CheckItem(item, logos_);
       logo_panel_.Height = Convert.ToInt32(item.Tag) + 4;
@@ -105,6 +105,10 @@ namespace ScoreKeeper {
       if (e.Button != MouseButtons.Right)
         return;
       context_.Show((Control)sender, e.Location);
+    }
+    
+    private void OnRefresh(object sender, EventArgs e) {
+      scoreboard_.GetScores();
     }
     
     private void OnScoreUpdate(ScoreUpdateArgs update) {

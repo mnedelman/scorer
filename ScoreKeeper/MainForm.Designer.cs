@@ -39,28 +39,20 @@ namespace ScoreKeeper
 			this.components = new System.ComponentModel.Container();
 			this.score_control_ = new ScoreKeeper.Score2009Control();
 			this.panel_file_ = new System.Windows.Forms.Panel();
-			this.export_ = new System.Windows.Forms.Button();
-			this.ip_ = new System.Windows.Forms.Button();
 			this.file_status_ = new System.Windows.Forms.Label();
 			this.file_select_ = new System.Windows.Forms.Button();
+			this.rounds_label_ = new System.Windows.Forms.Label();
+			this.rounds_ = new System.Windows.Forms.NumericUpDown();
+			this.export_ = new System.Windows.Forms.Button();
+			this.ip_ = new System.Windows.Forms.Button();
 			this.panel_border_ = new System.Windows.Forms.Panel();
 			this.score_group_ = new System.Windows.Forms.GroupBox();
+			this.round5_ = new ScoreKeeper.RoundControl();
+			this.round4_ = new ScoreKeeper.RoundControl();
+			this.round3_ = new ScoreKeeper.RoundControl();
+			this.round2_ = new ScoreKeeper.RoundControl();
+			this.round1_ = new ScoreKeeper.RoundControl();
 			this.undo_ = new System.Windows.Forms.Button();
-			this.score3_clear_ = new System.Windows.Forms.Button();
-			this.score2_clear_ = new System.Windows.Forms.Button();
-			this.score1_clear_ = new System.Windows.Forms.Button();
-			this.score3_load_ = new System.Windows.Forms.Button();
-			this.score2_load_ = new System.Windows.Forms.Button();
-			this.score1_load_ = new System.Windows.Forms.Button();
-			this.score3_ = new System.Windows.Forms.Label();
-			this.score3_label_ = new System.Windows.Forms.Label();
-			this.score2_ = new System.Windows.Forms.Label();
-			this.score2_label_ = new System.Windows.Forms.Label();
-			this.score3_set_ = new System.Windows.Forms.Button();
-			this.score2_set_ = new System.Windows.Forms.Button();
-			this.score1_ = new System.Windows.Forms.Label();
-			this.score1_set_ = new System.Windows.Forms.Button();
-			this.score1_label_ = new System.Windows.Forms.Label();
 			this.team_add_remove_ = new System.Windows.Forms.Button();
 			this.select_dialog_ = new System.Windows.Forms.OpenFileDialog();
 			this.panel_team_ = new System.Windows.Forms.Panel();
@@ -72,6 +64,7 @@ namespace ScoreKeeper
 			this.export_dialog_ = new System.Windows.Forms.SaveFileDialog();
 			this.log_timer_ = new System.Windows.Forms.Timer(this.components);
 			this.panel_file_.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.rounds_)).BeginInit();
 			this.score_group_.SuspendLayout();
 			this.panel_team_.SuspendLayout();
 			this.panel_team_list_.SuspendLayout();
@@ -82,15 +75,17 @@ namespace ScoreKeeper
 			this.score_control_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.score_control_.Location = new System.Drawing.Point(299, 39);
 			this.score_control_.Name = "score_control_";
-			this.score_control_.TabIndex = 0;
+			this.score_control_.TabIndex = 2;
 			this.score_control_.Change += new System.EventHandler(this.OnScoreChange);
 			// 
 			// panel_file_
 			// 
-			this.panel_file_.Controls.Add(this.export_);
-			this.panel_file_.Controls.Add(this.ip_);
 			this.panel_file_.Controls.Add(this.file_status_);
 			this.panel_file_.Controls.Add(this.file_select_);
+			this.panel_file_.Controls.Add(this.rounds_label_);
+			this.panel_file_.Controls.Add(this.rounds_);
+			this.panel_file_.Controls.Add(this.export_);
+			this.panel_file_.Controls.Add(this.ip_);
 			this.panel_file_.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel_file_.Location = new System.Drawing.Point(8, 8);
 			this.panel_file_.Name = "panel_file_";
@@ -98,34 +93,12 @@ namespace ScoreKeeper
 			this.panel_file_.Size = new System.Drawing.Size(605, 31);
 			this.panel_file_.TabIndex = 0;
 			// 
-			// export_
-			// 
-			this.export_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.export_.Location = new System.Drawing.Point(437, 0);
-			this.export_.Name = "export_";
-			this.export_.Size = new System.Drawing.Size(93, 23);
-			this.export_.TabIndex = 2;
-			this.export_.Text = "Export Scores...";
-			this.export_.UseVisualStyleBackColor = true;
-			this.export_.Click += new System.EventHandler(this.OnExport);
-			// 
-			// ip_
-			// 
-			this.ip_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.ip_.Location = new System.Drawing.Point(530, 0);
-			this.ip_.Name = "ip_";
-			this.ip_.Size = new System.Drawing.Size(75, 23);
-			this.ip_.TabIndex = 3;
-			this.ip_.Text = "Show IP...";
-			this.ip_.UseVisualStyleBackColor = true;
-			this.ip_.Click += new System.EventHandler(this.OnIp);
-			// 
 			// file_status_
 			// 
 			this.file_status_.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.file_status_.Location = new System.Drawing.Point(75, 0);
 			this.file_status_.Name = "file_status_";
-			this.file_status_.Size = new System.Drawing.Size(530, 23);
+			this.file_status_.Size = new System.Drawing.Size(284, 23);
 			this.file_status_.TabIndex = 1;
 			this.file_status_.Text = "File status";
 			this.file_status_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -141,6 +114,63 @@ namespace ScoreKeeper
 			this.file_select_.UseVisualStyleBackColor = true;
 			this.file_select_.Click += new System.EventHandler(this.OnSelectFile);
 			// 
+			// rounds_label_
+			// 
+			this.rounds_label_.Dock = System.Windows.Forms.DockStyle.Right;
+			this.rounds_label_.Location = new System.Drawing.Point(359, 0);
+			this.rounds_label_.Name = "rounds_label_";
+			this.rounds_label_.Size = new System.Drawing.Size(48, 23);
+			this.rounds_label_.TabIndex = 2;
+			this.rounds_label_.Text = "Rounds:";
+			this.rounds_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// rounds_
+			// 
+			this.rounds_.Dock = System.Windows.Forms.DockStyle.Right;
+			this.rounds_.Location = new System.Drawing.Point(407, 0);
+			this.rounds_.Maximum = new decimal(new int[] {
+									5,
+									0,
+									0,
+									0});
+			this.rounds_.Minimum = new decimal(new int[] {
+									3,
+									0,
+									0,
+									0});
+			this.rounds_.Name = "rounds_";
+			this.rounds_.Size = new System.Drawing.Size(30, 20);
+			this.rounds_.TabIndex = 3;
+			this.rounds_.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.rounds_.Value = new decimal(new int[] {
+									3,
+									0,
+									0,
+									0});
+			this.rounds_.ValueChanged += new System.EventHandler(this.OnRoundsChanged);
+			// 
+			// export_
+			// 
+			this.export_.Dock = System.Windows.Forms.DockStyle.Right;
+			this.export_.Location = new System.Drawing.Point(437, 0);
+			this.export_.Name = "export_";
+			this.export_.Size = new System.Drawing.Size(93, 23);
+			this.export_.TabIndex = 4;
+			this.export_.Text = "Export Scores...";
+			this.export_.UseVisualStyleBackColor = true;
+			this.export_.Click += new System.EventHandler(this.OnExport);
+			// 
+			// ip_
+			// 
+			this.ip_.Dock = System.Windows.Forms.DockStyle.Right;
+			this.ip_.Location = new System.Drawing.Point(530, 0);
+			this.ip_.Name = "ip_";
+			this.ip_.Size = new System.Drawing.Size(75, 23);
+			this.ip_.TabIndex = 5;
+			this.ip_.Text = "Show IP...";
+			this.ip_.UseVisualStyleBackColor = true;
+			this.ip_.Click += new System.EventHandler(this.OnIp);
+			// 
 			// panel_border_
 			// 
 			this.panel_border_.BackColor = System.Drawing.SystemColors.ActiveBorder;
@@ -154,187 +184,73 @@ namespace ScoreKeeper
 			// 
 			// score_group_
 			// 
+			this.score_group_.Controls.Add(this.round5_);
+			this.score_group_.Controls.Add(this.round4_);
+			this.score_group_.Controls.Add(this.round3_);
+			this.score_group_.Controls.Add(this.round2_);
+			this.score_group_.Controls.Add(this.round1_);
 			this.score_group_.Controls.Add(this.undo_);
-			this.score_group_.Controls.Add(this.score3_clear_);
-			this.score_group_.Controls.Add(this.score2_clear_);
-			this.score_group_.Controls.Add(this.score1_clear_);
-			this.score_group_.Controls.Add(this.score3_load_);
-			this.score_group_.Controls.Add(this.score2_load_);
-			this.score_group_.Controls.Add(this.score1_load_);
-			this.score_group_.Controls.Add(this.score3_);
-			this.score_group_.Controls.Add(this.score3_label_);
-			this.score_group_.Controls.Add(this.score2_);
-			this.score_group_.Controls.Add(this.score2_label_);
-			this.score_group_.Controls.Add(this.score3_set_);
-			this.score_group_.Controls.Add(this.score2_set_);
-			this.score_group_.Controls.Add(this.score1_);
-			this.score_group_.Controls.Add(this.score1_set_);
-			this.score_group_.Controls.Add(this.score1_label_);
 			this.score_group_.Dock = System.Windows.Forms.DockStyle.Top;
 			this.score_group_.Location = new System.Drawing.Point(0, 33);
 			this.score_group_.Name = "score_group_";
-			this.score_group_.Size = new System.Drawing.Size(282, 120);
+			this.score_group_.Size = new System.Drawing.Size(282, 170);
 			this.score_group_.TabIndex = 1;
 			this.score_group_.TabStop = false;
 			this.score_group_.Text = "Scores";
 			// 
+			// round5_
+			// 
+			this.round5_.Location = new System.Drawing.Point(6, 115);
+			this.round5_.Name = "round5_";
+			this.round5_.Round = 5;
+			this.round5_.Size = new System.Drawing.Size(273, 25);
+			this.round5_.TabIndex = 4;
+			// 
+			// round4_
+			// 
+			this.round4_.Location = new System.Drawing.Point(6, 90);
+			this.round4_.Name = "round4_";
+			this.round4_.Round = 4;
+			this.round4_.Size = new System.Drawing.Size(273, 25);
+			this.round4_.TabIndex = 3;
+			// 
+			// round3_
+			// 
+			this.round3_.Location = new System.Drawing.Point(6, 65);
+			this.round3_.Name = "round3_";
+			this.round3_.Round = 3;
+			this.round3_.Size = new System.Drawing.Size(273, 25);
+			this.round3_.TabIndex = 2;
+			// 
+			// round2_
+			// 
+			this.round2_.Location = new System.Drawing.Point(6, 40);
+			this.round2_.Name = "round2_";
+			this.round2_.Round = 2;
+			this.round2_.Size = new System.Drawing.Size(273, 25);
+			this.round2_.TabIndex = 1;
+			// 
+			// round1_
+			// 
+			this.round1_.Location = new System.Drawing.Point(6, 15);
+			this.round1_.Name = "round1_";
+			this.round1_.Round = 1;
+			this.round1_.Size = new System.Drawing.Size(273, 25);
+			this.round1_.TabIndex = 0;
+			// 
 			// undo_
 			// 
-			this.undo_.Location = new System.Drawing.Point(101, 90);
+			this.undo_.Location = new System.Drawing.Point(101, 140);
 			this.undo_.Name = "undo_";
 			this.undo_.Size = new System.Drawing.Size(68, 23);
-			this.undo_.TabIndex = 15;
+			this.undo_.TabIndex = 5;
 			this.undo_.Text = "Undo Clear";
 			this.undo_.UseVisualStyleBackColor = true;
 			this.undo_.Click += new System.EventHandler(this.OnUndo);
 			// 
-			// score3_clear_
-			// 
-			this.score3_clear_.Location = new System.Drawing.Point(228, 65);
-			this.score3_clear_.Name = "score3_clear_";
-			this.score3_clear_.Size = new System.Drawing.Size(47, 23);
-			this.score3_clear_.TabIndex = 14;
-			this.score3_clear_.Text = "Clear";
-			this.score3_clear_.UseVisualStyleBackColor = true;
-			this.score3_clear_.Click += new System.EventHandler(this.OnScore3Clear);
-			// 
-			// score2_clear_
-			// 
-			this.score2_clear_.Location = new System.Drawing.Point(228, 40);
-			this.score2_clear_.Name = "score2_clear_";
-			this.score2_clear_.Size = new System.Drawing.Size(47, 23);
-			this.score2_clear_.TabIndex = 13;
-			this.score2_clear_.Text = "Clear";
-			this.score2_clear_.UseVisualStyleBackColor = true;
-			this.score2_clear_.Click += new System.EventHandler(this.OnScore2Clear);
-			// 
-			// score1_clear_
-			// 
-			this.score1_clear_.Location = new System.Drawing.Point(228, 15);
-			this.score1_clear_.Name = "score1_clear_";
-			this.score1_clear_.Size = new System.Drawing.Size(47, 23);
-			this.score1_clear_.TabIndex = 12;
-			this.score1_clear_.Text = "Clear";
-			this.score1_clear_.UseVisualStyleBackColor = true;
-			this.score1_clear_.Click += new System.EventHandler(this.OnScore1Clear);
-			// 
-			// score3_load_
-			// 
-			this.score3_load_.Location = new System.Drawing.Point(175, 65);
-			this.score3_load_.Name = "score3_load_";
-			this.score3_load_.Size = new System.Drawing.Size(47, 23);
-			this.score3_load_.TabIndex = 11;
-			this.score3_load_.Text = "Load";
-			this.score3_load_.UseVisualStyleBackColor = true;
-			this.score3_load_.Click += new System.EventHandler(this.OnScore3Load);
-			// 
-			// score2_load_
-			// 
-			this.score2_load_.Location = new System.Drawing.Point(175, 40);
-			this.score2_load_.Name = "score2_load_";
-			this.score2_load_.Size = new System.Drawing.Size(47, 23);
-			this.score2_load_.TabIndex = 7;
-			this.score2_load_.Text = "Load";
-			this.score2_load_.UseVisualStyleBackColor = true;
-			this.score2_load_.Click += new System.EventHandler(this.OnScore2Load);
-			// 
-			// score1_load_
-			// 
-			this.score1_load_.Location = new System.Drawing.Point(175, 15);
-			this.score1_load_.Name = "score1_load_";
-			this.score1_load_.Size = new System.Drawing.Size(47, 23);
-			this.score1_load_.TabIndex = 3;
-			this.score1_load_.Text = "Load";
-			this.score1_load_.UseVisualStyleBackColor = true;
-			this.score1_load_.Click += new System.EventHandler(this.OnScore1Load);
-			// 
-			// score3_
-			// 
-			this.score3_.Location = new System.Drawing.Point(65, 65);
-			this.score3_.Name = "score3_";
-			this.score3_.Size = new System.Drawing.Size(30, 23);
-			this.score3_.TabIndex = 9;
-			this.score3_.Text = "?";
-			this.score3_.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// score3_label_
-			// 
-			this.score3_label_.Location = new System.Drawing.Point(6, 65);
-			this.score3_label_.Name = "score3_label_";
-			this.score3_label_.Size = new System.Drawing.Size(53, 23);
-			this.score3_label_.TabIndex = 8;
-			this.score3_label_.Text = "Round 3:";
-			this.score3_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// score2_
-			// 
-			this.score2_.Location = new System.Drawing.Point(65, 40);
-			this.score2_.Name = "score2_";
-			this.score2_.Size = new System.Drawing.Size(30, 23);
-			this.score2_.TabIndex = 5;
-			this.score2_.Text = "?";
-			this.score2_.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// score2_label_
-			// 
-			this.score2_label_.Location = new System.Drawing.Point(6, 40);
-			this.score2_label_.Name = "score2_label_";
-			this.score2_label_.Size = new System.Drawing.Size(53, 23);
-			this.score2_label_.TabIndex = 4;
-			this.score2_label_.Text = "Round 2:";
-			this.score2_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// score3_set_
-			// 
-			this.score3_set_.Location = new System.Drawing.Point(101, 65);
-			this.score3_set_.Name = "score3_set_";
-			this.score3_set_.Size = new System.Drawing.Size(68, 23);
-			this.score3_set_.TabIndex = 10;
-			this.score3_set_.Text = "Set Score";
-			this.score3_set_.UseVisualStyleBackColor = true;
-			this.score3_set_.Click += new System.EventHandler(this.OnScore3Set);
-			// 
-			// score2_set_
-			// 
-			this.score2_set_.Location = new System.Drawing.Point(101, 40);
-			this.score2_set_.Name = "score2_set_";
-			this.score2_set_.Size = new System.Drawing.Size(68, 23);
-			this.score2_set_.TabIndex = 6;
-			this.score2_set_.Text = "Set Score";
-			this.score2_set_.UseVisualStyleBackColor = true;
-			this.score2_set_.Click += new System.EventHandler(this.OnScore2Set);
-			// 
-			// score1_
-			// 
-			this.score1_.Location = new System.Drawing.Point(65, 15);
-			this.score1_.Name = "score1_";
-			this.score1_.Size = new System.Drawing.Size(30, 23);
-			this.score1_.TabIndex = 1;
-			this.score1_.Text = "?";
-			this.score1_.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// score1_set_
-			// 
-			this.score1_set_.Location = new System.Drawing.Point(101, 15);
-			this.score1_set_.Name = "score1_set_";
-			this.score1_set_.Size = new System.Drawing.Size(68, 23);
-			this.score1_set_.TabIndex = 2;
-			this.score1_set_.Text = "Set Score";
-			this.score1_set_.UseVisualStyleBackColor = true;
-			this.score1_set_.Click += new System.EventHandler(this.OnScore1Set);
-			// 
-			// score1_label_
-			// 
-			this.score1_label_.Location = new System.Drawing.Point(6, 15);
-			this.score1_label_.Name = "score1_label_";
-			this.score1_label_.Size = new System.Drawing.Size(53, 23);
-			this.score1_label_.TabIndex = 0;
-			this.score1_label_.Text = "Round 1:";
-			this.score1_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// team_add_remove_
 			// 
-			this.team_add_remove_.Location = new System.Drawing.Point(26, 159);
+			this.team_add_remove_.Location = new System.Drawing.Point(26, 209);
 			this.team_add_remove_.Name = "team_add_remove_";
 			this.team_add_remove_.Size = new System.Drawing.Size(137, 23);
 			this.team_add_remove_.TabIndex = 2;
@@ -360,22 +276,22 @@ namespace ScoreKeeper
 			this.panel_team_.Name = "panel_team_";
 			this.panel_team_.Padding = new System.Windows.Forms.Padding(0, 8, 8, 0);
 			this.panel_team_.Size = new System.Drawing.Size(290, 462);
-			this.panel_team_.TabIndex = 2;
+			this.panel_team_.TabIndex = 1;
 			// 
 			// log_
 			// 
 			this.log_.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.log_.Location = new System.Drawing.Point(0, 188);
+			this.log_.Location = new System.Drawing.Point(0, 238);
 			this.log_.Multiline = true;
 			this.log_.Name = "log_";
 			this.log_.ReadOnly = true;
 			this.log_.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.log_.Size = new System.Drawing.Size(282, 274);
+			this.log_.Size = new System.Drawing.Size(282, 224);
 			this.log_.TabIndex = 4;
 			// 
 			// scoreboard_
 			// 
-			this.scoreboard_.Location = new System.Drawing.Point(169, 159);
+			this.scoreboard_.Location = new System.Drawing.Point(169, 209);
 			this.scoreboard_.Name = "scoreboard_";
 			this.scoreboard_.Size = new System.Drawing.Size(87, 23);
 			this.scoreboard_.TabIndex = 3;
@@ -442,18 +358,23 @@ namespace ScoreKeeper
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.Text = "Score Keeper";
 			this.panel_file_.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.rounds_)).EndInit();
 			this.score_group_.ResumeLayout(false);
 			this.panel_team_.ResumeLayout(false);
 			this.panel_team_.PerformLayout();
 			this.panel_team_list_.ResumeLayout(false);
 			this.ResumeLayout(false);
 		}
+		protected ScoreKeeper.RoundControl round2_;
+		protected ScoreKeeper.RoundControl round3_;
+		protected ScoreKeeper.RoundControl round4_;
+		protected ScoreKeeper.RoundControl round5_;
+		protected ScoreKeeper.RoundControl round1_;
+		private System.Windows.Forms.NumericUpDown rounds_;
+		private System.Windows.Forms.Label rounds_label_;
 		private System.Windows.Forms.Timer log_timer_;
 		private System.Windows.Forms.TextBox log_;
 		protected System.Windows.Forms.Button undo_;
-		protected System.Windows.Forms.Button score1_clear_;
-		protected System.Windows.Forms.Button score2_clear_;
-		protected System.Windows.Forms.Button score3_clear_;
 		private System.Windows.Forms.Button scoreboard_;
 		private System.Windows.Forms.SaveFileDialog export_dialog_;
 		private System.Windows.Forms.Panel panel_file_;
@@ -466,18 +387,6 @@ namespace ScoreKeeper
 		protected System.Windows.Forms.Button team_add_remove_;
 		private System.Windows.Forms.Panel panel_border_;
 		private System.Windows.Forms.Button file_select_;
-		private System.Windows.Forms.Label score1_label_;
-		protected System.Windows.Forms.Button score1_set_;
-		protected System.Windows.Forms.Label score1_;
-		protected System.Windows.Forms.Button score2_set_;
-		protected System.Windows.Forms.Button score3_set_;
-		private System.Windows.Forms.Label score2_label_;
-		protected System.Windows.Forms.Label score2_;
-		private System.Windows.Forms.Label score3_label_;
-		protected System.Windows.Forms.Label score3_;
-		protected System.Windows.Forms.Button score1_load_;
-		protected System.Windows.Forms.Button score2_load_;
-		protected System.Windows.Forms.Button score3_load_;
 		private System.Windows.Forms.Label team_label_;
 		protected System.Windows.Forms.ComboBox team_;
 		protected System.Windows.Forms.GroupBox score_group_;

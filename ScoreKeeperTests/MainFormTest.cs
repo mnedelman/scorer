@@ -50,9 +50,9 @@ namespace ScoreKeeper {
       Assert.IsTrue(team_.Items[0] is string);
       
       Assert.IsFalse(score_group_.Enabled);
-      Assert.AreEqual("?", score1_.Text);
-      Assert.AreEqual("?", score2_.Text);
-      Assert.AreEqual("?", score3_.Text);
+      Assert.AreEqual("?", round1_.ScoreText);
+      Assert.AreEqual("?", round2_.ScoreText);
+      Assert.AreEqual("?", round3_.ScoreText);
     }
     
     [Test]
@@ -66,12 +66,12 @@ namespace ScoreKeeper {
       Assert.AreEqual(team, team_.Items[0]);
       
       Assert.IsTrue(score_group_.Enabled);
-      Assert.AreEqual("0", score1_.Text);
-      Assert.IsTrue(score1_load_.Enabled);
-      Assert.AreEqual("10", score2_.Text);
-      Assert.IsTrue(score2_load_.Enabled);
-      Assert.AreEqual("?", score3_.Text);
-      Assert.IsFalse(score3_load_.Enabled);
+      Assert.AreEqual("0", round1_.ScoreText, "1");
+      Assert.IsTrue(round1_.CanLoad, "1");
+      Assert.AreEqual("10", round2_.ScoreText, "2");
+      Assert.IsTrue(round2_.CanLoad, "2");
+      Assert.AreEqual("?", round3_.ScoreText, "3");
+      Assert.IsFalse(round3_.CanLoad, "3");
     }
     
     [Test]
@@ -83,96 +83,96 @@ namespace ScoreKeeper {
       ScoreInfo score = score_control_.Score.Score();
       Assert.AreEqual(0, score.Points);
       Assert.IsFalse(score.IsValid());
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("10", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("10", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
       
-      ControlHelper.FireEvent(score1_load_, "Click");
+      ControlHelper.FireEvent(round1_.LoadControl, "Click");
       score = score_control_.Score.Score();
       Assert.AreEqual(0, score.Points);
       Assert.IsTrue(score.IsValid());
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("10", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("10", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
       
-      ControlHelper.FireEvent(score2_load_, "Click");
+      ControlHelper.FireEvent(round2_.LoadControl, "Click");
       score = score_control_.Score.Score();
       Assert.AreEqual(10, score.Points);
       Assert.IsTrue(score.IsValid());
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("10", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("10", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
       
       Score2009 score_data = score_control_.Score;
       score_data.Loops = 1;
       score_control_.Score = score_data;
       
-      ControlHelper.FireEvent(score3_set_, "Click");
+      ControlHelper.FireEvent(round3_.SetControl, "Click");
       score = score_control_.Score.Score();
       Assert.AreEqual(0, score.Points);
       Assert.IsFalse(score.IsValid());
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("10", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("10", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
       
-      ControlHelper.FireEvent(score3_load_, "Click");
+      ControlHelper.FireEvent(round3_.LoadControl, "Click");
       score = score_control_.Score.Score();
       Assert.AreEqual(20, score.Points);
       Assert.IsTrue(score.IsValid());
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("10", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("10", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
       
       score_data = score_control_.Score;
       score_data.Loops = 2;
       score_control_.Score = score_data;
       
-      ControlHelper.FireEvent(score2_set_, "Click");
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      ControlHelper.FireEvent(round2_.SetControl, "Click");
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
 
-      ControlHelper.FireEvent(score2_load_, "Click");
-      ControlHelper.FireEvent(score1_set_, "Click");
-      Assert.AreEqual("30", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      ControlHelper.FireEvent(round2_.LoadControl, "Click");
+      ControlHelper.FireEvent(round1_.SetControl, "Click");
+      Assert.AreEqual("30", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
 
       ControlHelper.FireEvent(undo_, "Click");
-      Assert.AreEqual("0", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      Assert.AreEqual("0", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
 
-      ControlHelper.FireEvent(score1_clear_, "Click");
-      Assert.AreEqual("?", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("20", team.Points3);
+      ControlHelper.FireEvent(round1_.ClearControl, "Click");
+      Assert.AreEqual("?", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
 
-      ControlHelper.FireEvent(score3_clear_, "Click");
-      Assert.AreEqual("?", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      ControlHelper.FireEvent(round3_.ClearControl, "Click");
+      Assert.AreEqual("?", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
 
-      ControlHelper.FireEvent(score2_clear_, "Click");
-      Assert.AreEqual("?", team.Points1);
-      Assert.AreEqual("?", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      ControlHelper.FireEvent(round2_.ClearControl, "Click");
+      Assert.AreEqual("?", team.GetPoints(1));
+      Assert.AreEqual("?", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsTrue(undo_.Enabled);
 
       ControlHelper.FireEvent(undo_, "Click");
-      Assert.AreEqual("?", team.Points1);
-      Assert.AreEqual("30", team.Points2);
-      Assert.AreEqual("?", team.Points3);
+      Assert.AreEqual("?", team.GetPoints(1));
+      Assert.AreEqual("30", team.GetPoints(2));
+      Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
     }
     
@@ -207,10 +207,10 @@ namespace ScoreKeeper {
     
     private Team SampleTeam() {
       Team team = new Team("foo", "bar");
-      team.SetScore(1, new Score2009());
-      team.Score1.Zero();
-      team.SetScore(2, team.Score1.Clone());
-      team.Score2.PeopleOnTarget = YesNo.Yes;
+      team.Scores[0] = new Score2009();
+      team.Scores[0].Zero();
+      team.Scores[1] = team.Scores[0].Clone();
+      team.Scores[1].PeopleOnTarget = YesNo.Yes;
       return team;
     }
     

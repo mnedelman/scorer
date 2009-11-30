@@ -35,60 +35,60 @@ namespace ScoreKeeper
     [Test]
     public void TestConstructor() {
       Team team = new Team("7", "bar");
-      team.SetScore(1, new Score2009());
-      team.Score1.Zero();
-      team.SetScore(2, team.Score1.Clone());
-      team.Score2.Loops = 1;
+      team.Scores[0] = new Score2009();
+      team.Scores[0].Zero();
+      team.Scores[1] = team.Scores[0].Clone();
+      team.Scores[1].Loops = 1;
       
-      ScoreRow row = new ScoreRow(team);
+      ScoreRow row = new ScoreRow(team, 3);
       Assert.AreEqual(-1, row.Rank);
       Assert.AreEqual("7", row.Number);
       Assert.AreEqual("bar", row.Name);
-      Assert.AreEqual("0", row.Points1);
-      Assert.AreEqual("10", row.Points2);
-      Assert.AreEqual("?", row.Points3);
+      Assert.AreEqual("0", row.GetPoints(1));
+      Assert.AreEqual("10", row.GetPoints(2));
+      Assert.AreEqual("?", row.GetPoints(3));
       Assert.AreEqual(2, row.GetBestRound());
       
-      team.SetScore(3, team.Score2.Clone());
-      team.Score3.Loops = 3;
-      row = new ScoreRow(team);
+      team.Scores[2] = team.Scores[1].Clone();
+      team.Scores[2].Loops = 3;
+      row = new ScoreRow(team, 3);
       Assert.AreEqual(3, row.GetBestRound());
       
-      team.SetScore(2, null);
-      team.SetScore(3, null);
-      row = new ScoreRow(team);
+      team.Scores[1] = null;
+      team.Scores[2] = null;
+      row = new ScoreRow(team, 3);
       Assert.AreEqual(0, row.GetBestRound());
 
-      team.Score1.Loops = 4;
-      row = new ScoreRow(team);
+      team.Scores[0].Loops = 4;
+      row = new ScoreRow(team, 3);
       Assert.AreEqual(1, row.GetBestRound());
       
-      team.SetScore(1, null);
-      row = new ScoreRow(team);
+      team.Scores[0] = null;
+      row = new ScoreRow(team, 3);
       Assert.AreEqual(0, row.GetBestRound());
       
-      team.SetScore(1, new Score2009());
-      team.Score1.Zero();
-      team.SetScore(2, team.Score1.Clone());
-      team.SetScore(3, team.Score1.Clone());
-      row = new ScoreRow(team);
+      team.Scores[0] = new Score2009();
+      team.Scores[0].Zero();
+      team.Scores[1] = team.Scores[0].Clone();
+      team.Scores[2] = team.Scores[0].Clone();
+      row = new ScoreRow(team, 3);
       Assert.AreEqual(0, row.GetBestRound());
     }
 
     [Test]
     public void TestCompareTo() {
-      ScoreRow row1 = new ScoreRow("7", "foo", 50, 200, 100);
-      ScoreRow row2 = new ScoreRow("7", "foo", 200, 200, 50);
-      ScoreRow row3 = new ScoreRow("7", "foo", 200, 200, 200);
-      ScoreRow row4 = new ScoreRow("8", "foo", 200, 200, 200);
-      ScoreRow row5 = new ScoreRow("7", "fob", 200, 200, 200);
-      ScoreRow row6 = new ScoreRow("5", "bar", 200, 300, 200);
-      ScoreRow row7 = new ScoreRow("4", "baz", 50, 50, 100);
-      ScoreRow row8 = new ScoreRow("3", "baz", -1, -1, -1);
-      ScoreRow row9 = new ScoreRow("3", "baz", 0, 0, 0);
-      ScoreRow row10 = new ScoreRow("3", "baz", 0, -1, -1);
-      ScoreRow row11 = new ScoreRow("9", "baz", 50, 100, 50);
-      ScoreRow row12 = new ScoreRow("10", "baz", 100, 50, 50);
+      ScoreRow row1 = new ScoreRow("7", "foo", new int[] { 50, 200, 100 });
+      ScoreRow row2 = new ScoreRow("7", "foo", new int[] { 200, 200, 50 });
+      ScoreRow row3 = new ScoreRow("7", "foo", new int[] { 200, 200, 200 });
+      ScoreRow row4 = new ScoreRow("8", "foo", new int[] { 200, 200, 200 });
+      ScoreRow row5 = new ScoreRow("7", "fob", new int[] { 200, 200, 200 });
+      ScoreRow row6 = new ScoreRow("5", "bar", new int[] { 200, 300, 200 });
+      ScoreRow row7 = new ScoreRow("4", "baz", new int[] { 50, 50, 100 });
+      ScoreRow row8 = new ScoreRow("3", "baz", new int[] { -1, -1, -1 });
+      ScoreRow row9 = new ScoreRow("3", "baz", new int[] { 0, 0, 0 });
+      ScoreRow row10 = new ScoreRow("3", "baz", new int[] { 0, -1, -1 });
+      ScoreRow row11 = new ScoreRow("9", "baz", new int[] { 50, 100, 50 });
+      ScoreRow row12 = new ScoreRow("10", "baz", new int[] { 100, 50, 50 });
       List<ScoreRow> list = new List<ScoreRow>(
           new ScoreRow[] {row1, row2, row3, row4, row5, row6, row7, row8, row9,
                           row10, row11, row12
@@ -111,7 +111,7 @@ namespace ScoreKeeper
     [Test]
     [ExpectedException(typeof(ArgumentException))]
     public void TestCompareToInvalid() {
-      ScoreRow row1 = new ScoreRow("7", "foo", 200, 100, 50);
+      ScoreRow row1 = new ScoreRow("7", "foo", new int[] {200, 100, 50});
       row1.CompareTo(null);
     }
   }

@@ -38,52 +38,15 @@ namespace ScoreKeeper {
       Name = name;
     }
   
-    [XmlIgnoreAttribute]
-    public string Points1 {
-      get { return GetPoints(Score1); }
-    }
-    
-    [XmlIgnoreAttribute]
-    public string Points2 {
-      get { return GetPoints(Score2); }
-    }
-    
-    [XmlIgnoreAttribute]
-    public string Points3 {
-      get { return GetPoints(Score3); }
-    }
-    
-    private string GetPoints(Score2009 score) {
+    public string GetPoints(int round) {
+      Score2009 score = Scores[round - 1];
       if (score == null)
         return "?";
       else
         return score.Score().Points.ToString();
     }
     
-    public Score2009 GetScore(int index) {
-      return scores_[index - 1];
-    }
-    
-    public void SetScore(int index, Score2009 score) {
-      scores_[index - 1] = score;
-    }
-    
-    public Score2009 Score1 {
-      get { return scores_[0]; }
-      set { scores_[0] = value; }
-    }
-    
-    public Score2009 Score2 {
-      get { return scores_[1]; }
-      set { scores_[1] = value; }
-    }
-    
-    public Score2009 Score3 {
-      get { return scores_[2]; }
-      set { scores_[2] = value; }
-    }
-    
-    private Score2009[] scores_ = new Score2009[3];
+    public Score2009[] Scores = new Score2009[5];
   }
   
   public class TeamNameComparer : IComparer {

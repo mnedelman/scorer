@@ -43,16 +43,16 @@ namespace ScoreKeeper {
       Team team1 = new Team("1", string.Empty);
       
       Team team2 = new Team("2", string.Empty);
-      team2.SetScore(1, score_zero);
-      team2.SetScore(3, score_zero);
+      team2.Scores[0] = score_zero;
+      team2.Scores[2] = score_zero;
       
       Team team3 = new Team("3", string.Empty);
-      team3.SetScore(2, score_zero);
+      team3.Scores[1] = score_zero;
       
       Team team4 = new Team("4", string.Empty);
-      team4.SetScore(1, score_zero);
-      team4.SetScore(2, score_zero);
-      team4.SetScore(3, score_zero);
+      team4.Scores[0] = score_zero;
+      team4.Scores[1] = score_zero;
+      team4.Scores[2] = score_zero;
       
       TeamData team_data = new TeamData();
       team_data.Teams = new Team[] {team1, team2, team3, team4};
@@ -76,41 +76,41 @@ namespace ScoreKeeper {
       Team team1 = new Team("1", string.Empty);
       
       Team team2 = new Team("2", string.Empty);
-      team2.SetScore(1, score_zero);
-      team2.SetScore(3, score_zero);
+      team2.Scores[0] = score_zero;
+      team2.Scores[2] = score_zero;
       
       Team team3 = new Team("3", string.Empty);
-      team3.SetScore(2, score_zero);
+      team3.Scores[1] = score_zero;
       
       Team team4 = new Team("4", string.Empty);
-      team4.SetScore(1, score_zero.Clone());  // 10
-      team4.Score1.Loops = 1;
-      team4.SetScore(2, score_zero.Clone());  // 10
-      team4.Score2.PeopleOnTarget = YesNo.Yes;
-      team4.SetScore(3, score_zero.Clone());  // 40
-      team4.Score3.SensorWalls = 0;
+      team4.Scores[0] = score_zero.Clone();  // 10
+      team4.Scores[0].Loops = 1;
+      team4.Scores[1] = score_zero.Clone();  // 10
+      team4.Scores[1].PeopleOnTarget = YesNo.Yes;
+      team4.Scores[2] = score_zero.Clone();  // 40
+      team4.Scores[2].SensorWalls = 0;
       
       Team team5 = new Team("5", string.Empty);
-      team5.SetScore(1, score_zero.Clone());  // 40
-      team5.Score1.Loops = 4;
-      team5.SetScore(2, score_zero.Clone());  // 20
-      team5.Score2.Truck = YesNo.Yes;
-      team5.SetScore(3, score_zero.Clone());  // 10
-      team5.Score3.WarningBeacons = 1;
+      team5.Scores[0] = score_zero.Clone();  // 40
+      team5.Scores[0].Loops = 4;
+      team5.Scores[1] = score_zero.Clone();  // 20
+      team5.Scores[1].Truck = YesNo.Yes;
+      team5.Scores[2] = score_zero.Clone();  // 10
+      team5.Scores[2].WarningBeacons = 1;
       
       Team team6 = new Team("6", string.Empty);
-      team6.SetScore(1, score_zero.Clone());  // 20
-      team6.Score1.Robot = RobotLocation.YellowBridge;
-      team6.SetScore(2, score_zero.Clone());  // 40
-      team6.Score2.Robot = RobotLocation.YellowBridge;
-      team6.Score2.Truck = YesNo.Yes;
-      team6.SetScore(3, score_zero.Clone());  // 20
-      team6.Score3.Truck = YesNo.Yes;
+      team6.Scores[0] = score_zero.Clone();  // 20
+      team6.Scores[0].Robot = RobotLocation.YellowBridge;
+      team6.Scores[1] = score_zero.Clone();  // 40
+      team6.Scores[1].Robot = RobotLocation.YellowBridge;
+      team6.Scores[1].Truck = YesNo.Yes;
+      team6.Scores[2] = score_zero.Clone();  // 20
+      team6.Scores[2].Truck = YesNo.Yes;
       
       Team team7 = new Team("7", string.Empty);
-      team7.SetScore(1, team5.Score1.Clone());
-      team7.SetScore(2, team5.Score2.Clone());
-      team7.SetScore(3, team5.Score3.Clone());
+      team7.Scores[0] = team5.Scores[0].Clone();
+      team7.Scores[1] = team5.Scores[1].Clone();
+      team7.Scores[2] = team5.Scores[2].Clone();
       
       TeamData team_data = new TeamData();
       team_data.Teams = new Team[] {team1, team2, team3, team4, team5, team6,
