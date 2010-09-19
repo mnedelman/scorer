@@ -72,15 +72,15 @@ namespace ScoreKeeper
     public void TestGetPoints() {
       Team team = new Team();
       
-      team.Scores[0] = new Score2009();
+      team.Scores[0] = new Score2010();
       team.Scores[0].Zero();
       
-      team.Scores[1] = new Score2009();
+      team.Scores[1] = new Score2010();
       team.Scores[1].Zero();
-      team.Scores[1].Loops = 4;
+      team.Scores[1].DoorOpen = YesNo.Yes;
       
       Assert.AreEqual("0", team.GetPoints(1));
-      Assert.AreEqual("40", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(2));
       Assert.AreEqual("?", team.GetPoints(3));
     }
 
@@ -88,20 +88,20 @@ namespace ScoreKeeper
     public void TestScoreSet() {
       Team team = new Team();
       
-      team.Scores[0] = new Score2009();
+      team.Scores[0] = new Score2010();
       team.Scores[0].Zero();
       
-      team.Scores[1] = new Score2009();
+      team.Scores[1] = new Score2010();
       team.Scores[1].Zero();
-      team.Scores[1].Loops = 4;
+      team.Scores[1].ArteryExpanded = YesNo.Yes;
       
-      team.Scores[2] = new Score2009();
+      team.Scores[2] = new Score2010();
       team.Scores[2].Zero();
-      team.Scores[2].PeopleOnTarget = YesNo.Yes;
+      team.Scores[2].DoorOpen = YesNo.Yes;
       
       Assert.AreEqual("0", team.GetPoints(1));
-      Assert.AreEqual("40", team.GetPoints(2));
-      Assert.AreEqual("10", team.GetPoints(3));
+      Assert.AreEqual("25", team.GetPoints(2));
+      Assert.AreEqual("20", team.GetPoints(3));
     }
   }
 

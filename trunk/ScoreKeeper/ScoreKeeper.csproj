@@ -54,17 +54,17 @@
     <Compile Include="RoundControl.Designer.cs">
       <DependentUpon>RoundControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Score2009.cs" />
-    <Compile Include="Score2009Control.cs" />
-    <Compile Include="Score2009Control.Designer.cs">
-      <DependentUpon>Score2009Control.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Score2010.cs" />
+    <Compile Include="Score2010Control.cs" />
+    <Compile Include="Score2010Control.Designer.cs">
+      <DependentUpon>Score2010Control.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScoreboardControl.cs" />
     <Compile Include="ScoreboardControl.Designer.cs">
       <DependentUpon>ScoreboardControl.cs</DependentUpon>
@@ -90,11 +90,11 @@
     <EmbeddedResource Include="RoundControl.resx">
       <DependentUpon>RoundControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Score2009Control.resx">
-      <DependentUpon>Score2009Control.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Score2010Control.resx">
+      <DependentUpon>Score2010Control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScoreboardControl.resx">
       <DependentUpon>ScoreboardControl.cs</DependentUpon>
