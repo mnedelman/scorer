@@ -164,9 +164,9 @@ namespace ScoreKeeper
     	// 
     	// url_
     	// 
-    	this.url_.Location = new System.Drawing.Point(79, 6);
+    	this.url_.Location = new System.Drawing.Point(80, 6);
     	this.url_.Name = "url_";
-    	this.url_.Size = new System.Drawing.Size(171, 19);
+    	this.url_.Size = new System.Drawing.Size(178, 19);
     	this.url_.TabIndex = 9;
     	this.url_.TabStop = true;
     	this.url_.Text = "http://code.google.com/p/scorer";
@@ -203,7 +203,7 @@ namespace ScoreKeeper
     	// app_version_
     	// 
     	this.app_version_.BorderStyle = System.Windows.Forms.BorderStyle.None;
-    	this.app_version_.Location = new System.Drawing.Point(82, 28);
+    	this.app_version_.Location = new System.Drawing.Point(83, 28);
     	this.app_version_.Name = "app_version_";
     	this.app_version_.ReadOnly = true;
     	this.app_version_.Size = new System.Drawing.Size(162, 13);
@@ -213,7 +213,7 @@ namespace ScoreKeeper
     	// net_version_
     	// 
     	this.net_version_.BorderStyle = System.Windows.Forms.BorderStyle.None;
-    	this.net_version_.Location = new System.Drawing.Point(82, 47);
+    	this.net_version_.Location = new System.Drawing.Point(83, 47);
     	this.net_version_.Name = "net_version_";
     	this.net_version_.ReadOnly = true;
     	this.net_version_.Size = new System.Drawing.Size(162, 13);
@@ -226,12 +226,9 @@ namespace ScoreKeeper
     	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
     	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
     	this.CancelButton = this.cancel_;
-    	this.ClientSize = new System.Drawing.Size(249, 189);
+    	this.ClientSize = new System.Drawing.Size(254, 189);
     	this.Controls.Add(this.net_version_);
     	this.Controls.Add(this.app_version_);
-    	this.Controls.Add(this.app_version_label_);
-    	this.Controls.Add(this.net_version_label_);
-    	this.Controls.Add(this.url_label_);
     	this.Controls.Add(this.url_);
     	this.Controls.Add(this.cancel_);
     	this.Controls.Add(this.ok_);
@@ -241,6 +238,9 @@ namespace ScoreKeeper
     	this.Controls.Add(this.host_);
     	this.Controls.Add(this.mode_client_);
     	this.Controls.Add(this.mode_server_);
+    	this.Controls.Add(this.app_version_label_);
+    	this.Controls.Add(this.net_version_label_);
+    	this.Controls.Add(this.url_label_);
     	this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
     	this.MaximizeBox = false;
     	this.MinimizeBox = false;

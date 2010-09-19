@@ -37,7 +37,7 @@ namespace ScoreKeeper
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.score_control_ = new ScoreKeeper.Score2009Control();
+			this.score_control_ = new ScoreKeeper.Score2010Control();
 			this.panel_file_ = new System.Windows.Forms.Panel();
 			this.file_status_ = new System.Windows.Forms.Label();
 			this.file_select_ = new System.Windows.Forms.Button();
@@ -275,7 +275,7 @@ namespace ScoreKeeper
 			this.panel_team_.Location = new System.Drawing.Point(8, 40);
 			this.panel_team_.Name = "panel_team_";
 			this.panel_team_.Padding = new System.Windows.Forms.Padding(0, 8, 8, 0);
-			this.panel_team_.Size = new System.Drawing.Size(290, 462);
+			this.panel_team_.Size = new System.Drawing.Size(290, 690);
 			this.panel_team_.TabIndex = 1;
 			// 
 			// log_
@@ -286,7 +286,7 @@ namespace ScoreKeeper
 			this.log_.Name = "log_";
 			this.log_.ReadOnly = true;
 			this.log_.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.log_.Size = new System.Drawing.Size(282, 224);
+			this.log_.Size = new System.Drawing.Size(282, 452);
 			this.log_.TabIndex = 4;
 			// 
 			// scoreboard_
@@ -346,7 +346,7 @@ namespace ScoreKeeper
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(621, 510);
+			this.ClientSize = new System.Drawing.Size(621, 738);
 			this.Controls.Add(this.panel_team_);
 			this.Controls.Add(this.score_control_);
 			this.Controls.Add(this.panel_border_);
@@ -390,6 +390,6 @@ namespace ScoreKeeper
 		private System.Windows.Forms.Label team_label_;
 		protected System.Windows.Forms.ComboBox team_;
 		protected System.Windows.Forms.GroupBox score_group_;
-		protected ScoreKeeper.Score2009Control score_control_;
+		protected ScoreKeeper.Score2010Control score_control_;
 	}
 }
