@@ -16,12 +16,7 @@ This software is not associated with the FIRST organization.  It was written as 
 = Install =
 
   # Download the [http://code.google.com/p/scorer/downloads/list latest zip file].
-  # Unzip; there should be ScoreKeeper.exe along with two FLL logos (the league and event logo).
-    * These logos should be kept in the same directory as ScoreKeeper.exe.
-    * The logos are from:
-      * [http://www.usfirst.org/uploadedImages/Community/FLL/Communications_Resource_Center/Asset/FLLlogo_color_rgb.jpg FLL league logo]
-      * [http://www.usfirst.org/uploadedImages/Community/FLL/Communications_Resource_Center/Assets/2008_Archive_Assets/FLLClimateConnections_FULLCOLOR(no%20frame).jpg Event logo]
-
+  # Unzip; there should be ScoreKeeper.exe along with a scoresheet for use by referees.
   # Make sure a minimum of .NET framework 2.0 is installed.  You can get the latest version of the .NET framework from [http://msdn.microsoft.com/en-us/netframework/default.aspx Microsoft].
 
 No additional setup should be necessary; just run `ScoreKeeper.exe` to start the application.
@@ -53,6 +48,9 @@ Generally, this should be done prior to an event.  This prepares the information
       # Add the team number and name.
     # Once you're done adding teams, click on "OK".
     * Once the team entry is finished, the "Team" dropdown should have the complete list of teams.
+  # Choose the number of rounds for your event.
+    * Events may be 3 to 5 rounds.
+    * Scores for all rounds are counted when determining ranking.
 
 == Entering Scores ==
 
@@ -60,10 +58,17 @@ Generally, this should be done prior to an event.  This prepares the information
     * Question marks ("?") will show up on rounds where teams don't have scores.
   # For each item on the scoresheet, make the corresponding selection on the event list.
     * As you click on items, you can watch the score field change as appropriate.
-    * The red message at the top-right of the score entry indicates missing or invalid score data.
-    * You will know you are done entering scores because no red message will show at the top-right.
+    * The red message at the bottom of the score entry indicates missing or invalid score data.
+    * You will know you are done entering scores because no red message will show at the bottom.
   # Once the score entry is complete, the "Set Score" buttons will enable on the left side of the window, beneath the teams.  Click on the button for the appropriate round.
     * After setting the score, inputs will automatically reset to zero.
+
+== Auditing Scores ==
+
+  * You may load scores in order to verify correct entry using the "Load" button for a round.
+    * This loads previous input into the score entry.
+    * If changes are made, use the "Set Score" button to save changes to a round.
+  * You may also use the "Clear" button to remove a round's input from a team.
 
 
 = Scoreboard (Client) =
@@ -86,8 +91,10 @@ The scoreboard display can be accessed one of two ways; either running in "Score
 To customize the display mode, use the right mouse button to click anywhere on the scoreboard.  This displays the following options:
 
   * *Full Screen*:  If checked, the scoreboard will display full screen.  It is recommended you check this as part of setting up the scoreboard.
+  * *Refresh Now*:  If the automatic refresh appears to be taking too long, you may use this to force an immediate refresh.
   * *Font Size*:  This modifies the font size of the scoreboard, which changes how many teams will be displayed at once.
   * *Cycle Time*:  If there are too many teams to see everyone at once, the scoreboard will slowly cycle through them.  This modifies the speed of the rotation.
+  * *Logo Size*: May be used to change the size of the corner logos for differently sized screens, if preferred.
   * *Corner Logos*:  If checked, the FLL logo will show in the top left and right corners.  If unchecked, a flat color will be displayed instead, to allow for chroma key based overlays.
   * *Corner Color...*:  This opens up a dialog to select a new chroma key for the corners.  By default, the corners are R=0, G=254, B=0.
   * *Show Status*:  If checked, a small status message noting the last time the scoreboard got scores from the server will be shown at the bottom of the window.  Normally, scores will be fetched roughly once per minute.  If this message is black, everything is fine.  If this message is orange, the connection may have been lost.
