@@ -67,6 +67,8 @@ namespace ScoreKeeper
     	this.bridge_bone_inserted_label_ = new System.Windows.Forms.Label();
     	this.bridge_bone_inserted_ = new ScoreKeeper.SelectionControl();
     	this.rapid_blood_screening_panel_ = new System.Windows.Forms.Panel();
+    	this.red_cells_not_in_patients_area_ = new ScoreKeeper.SelectionControl();
+    	this.red_cells_in_patients_area_label_ = new System.Windows.Forms.Label();
     	this.red_blood_cells_remaining_ = new ScoreKeeper.SelectionControl();
     	this.red_blood_cells_remaining_label_ = new System.Windows.Forms.Label();
     	this.white_cells_in_patients_area_label_ = new System.Windows.Forms.Label();
@@ -133,7 +135,7 @@ namespace ScoreKeeper
     	// error_
     	// 
     	this.error_.ForeColor = System.Drawing.Color.Red;
-    	this.error_.Location = new System.Drawing.Point(0, 659);
+    	this.error_.Location = new System.Drawing.Point(0, 684);
     	this.error_.Name = "error_";
     	this.error_.Size = new System.Drawing.Size(314, 29);
     	this.error_.TabIndex = 18;
@@ -264,6 +266,8 @@ namespace ScoreKeeper
     	// rapid_blood_screening_panel_
     	// 
     	this.rapid_blood_screening_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+    	this.rapid_blood_screening_panel_.Controls.Add(this.red_cells_not_in_patients_area_);
+    	this.rapid_blood_screening_panel_.Controls.Add(this.red_cells_in_patients_area_label_);
     	this.rapid_blood_screening_panel_.Controls.Add(this.red_blood_cells_remaining_);
     	this.rapid_blood_screening_panel_.Controls.Add(this.red_blood_cells_remaining_label_);
     	this.rapid_blood_screening_panel_.Controls.Add(this.white_cells_in_patients_area_label_);
@@ -272,8 +276,29 @@ namespace ScoreKeeper
     	this.rapid_blood_screening_panel_.Controls.Add(this.syringe_in_base_);
     	this.rapid_blood_screening_panel_.Location = new System.Drawing.Point(0, 111);
     	this.rapid_blood_screening_panel_.Name = "rapid_blood_screening_panel_";
-    	this.rapid_blood_screening_panel_.Size = new System.Drawing.Size(314, 100);
+    	this.rapid_blood_screening_panel_.Size = new System.Drawing.Size(314, 125);
     	this.rapid_blood_screening_panel_.TabIndex = 6;
+    	// 
+    	// red_cells_not_in_patients_area_
+    	// 
+    	this.red_cells_not_in_patients_area_.Labels = new string[] {
+    	    	"Yes",
+    	    	"No"};
+    	this.red_cells_not_in_patients_area_.Location = new System.Drawing.Point(240, 53);
+    	this.red_cells_not_in_patients_area_.Name = "red_cells_not_in_patients_area_";
+    	this.red_cells_not_in_patients_area_.TabIndex = 7;
+    	this.red_cells_not_in_patients_area_.Value = null;
+    	this.red_cells_not_in_patients_area_.ValueInt = -1;
+    	this.red_cells_not_in_patients_area_.Change += new System.EventHandler(this.OnChangeRedCellsInPatientsArea);
+    	// 
+    	// red_cells_in_patients_area_label_
+    	// 
+    	this.red_cells_in_patients_area_label_.Location = new System.Drawing.Point(3, 53);
+    	this.red_cells_in_patients_area_label_.Name = "red_cells_in_patients_area_label_";
+    	this.red_cells_in_patients_area_label_.Size = new System.Drawing.Size(208, 23);
+    	this.red_cells_in_patients_area_label_.TabIndex = 6;
+    	this.red_cells_in_patients_area_label_.Text = "Zero red blood cells in patient\'s area?";
+    	this.red_cells_in_patients_area_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// red_blood_cells_remaining_
     	// 
@@ -287,7 +312,7 @@ namespace ScoreKeeper
     	    	"6",
     	    	"7",
     	    	"8"};
-    	this.red_blood_cells_remaining_.Location = new System.Drawing.Point(95, 72);
+    	this.red_blood_cells_remaining_.Location = new System.Drawing.Point(95, 97);
     	this.red_blood_cells_remaining_.Name = "red_blood_cells_remaining_";
     	this.red_blood_cells_remaining_.TabIndex = 5;
     	this.red_blood_cells_remaining_.Value = null;
@@ -296,7 +321,7 @@ namespace ScoreKeeper
     	// 
     	// red_blood_cells_remaining_label_
     	// 
-    	this.red_blood_cells_remaining_label_.Location = new System.Drawing.Point(3, 53);
+    	this.red_blood_cells_remaining_label_.Location = new System.Drawing.Point(3, 78);
     	this.red_blood_cells_remaining_label_.Name = "red_blood_cells_remaining_label_";
     	this.red_blood_cells_remaining_label_.Size = new System.Drawing.Size(208, 23);
     	this.red_blood_cells_remaining_label_.TabIndex = 4;
@@ -330,7 +355,7 @@ namespace ScoreKeeper
     	this.syringe_in_base_panel_.Name = "syringe_in_base_panel_";
     	this.syringe_in_base_panel_.Size = new System.Drawing.Size(208, 23);
     	this.syringe_in_base_panel_.TabIndex = 0;
-    	this.syringe_in_base_panel_.Text = "Syringe in base?";
+    	this.syringe_in_base_panel_.Text = "Syringe reached base?";
     	this.syringe_in_base_panel_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// syringe_in_base_
@@ -352,7 +377,7 @@ namespace ScoreKeeper
     	this.bad_cell_destruction_panel_.Controls.Add(this.cells_white_facing_north_);
     	this.bad_cell_destruction_panel_.Controls.Add(this.cells_black_facing_up_label_);
     	this.bad_cell_destruction_panel_.Controls.Add(this.cells_white_facing_north_label_);
-    	this.bad_cell_destruction_panel_.Location = new System.Drawing.Point(0, 210);
+    	this.bad_cell_destruction_panel_.Location = new System.Drawing.Point(0, 235);
     	this.bad_cell_destruction_panel_.Name = "bad_cell_destruction_panel_";
     	this.bad_cell_destruction_panel_.Size = new System.Drawing.Size(314, 56);
     	this.bad_cell_destruction_panel_.TabIndex = 7;
@@ -412,7 +437,7 @@ namespace ScoreKeeper
     	this.mechanical_arm_patent_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.mechanical_arm_patent_panel_.Controls.Add(this.patent_grabbed_label_);
     	this.mechanical_arm_patent_panel_.Controls.Add(this.patent_grabbed_);
-    	this.mechanical_arm_patent_panel_.Location = new System.Drawing.Point(0, 265);
+    	this.mechanical_arm_patent_panel_.Location = new System.Drawing.Point(0, 290);
     	this.mechanical_arm_patent_panel_.Name = "mechanical_arm_patent_panel_";
     	this.mechanical_arm_patent_panel_.Size = new System.Drawing.Size(314, 31);
     	this.mechanical_arm_patent_panel_.TabIndex = 8;
@@ -445,7 +470,7 @@ namespace ScoreKeeper
     	this.pace_maker_panel_.Controls.Add(this.pace_maker_body_not_in_heart_);
     	this.pace_maker_panel_.Controls.Add(this.pace_maker_tube_in_heart_label_);
     	this.pace_maker_panel_.Controls.Add(this.pace_maker_tube_in_heart_);
-    	this.pace_maker_panel_.Location = new System.Drawing.Point(0, 325);
+    	this.pace_maker_panel_.Location = new System.Drawing.Point(0, 350);
     	this.pace_maker_panel_.Name = "pace_maker_panel_";
     	this.pace_maker_panel_.Size = new System.Drawing.Size(314, 56);
     	this.pace_maker_panel_.TabIndex = 10;
@@ -497,7 +522,7 @@ namespace ScoreKeeper
     	this.cardiac_patch_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.cardiac_patch_panel_.Controls.Add(this.cardiac_patch_applied_label_);
     	this.cardiac_patch_panel_.Controls.Add(this.cardiac_patch_applied_);
-    	this.cardiac_patch_panel_.Location = new System.Drawing.Point(0, 295);
+    	this.cardiac_patch_panel_.Location = new System.Drawing.Point(0, 320);
     	this.cardiac_patch_panel_.Name = "cardiac_patch_panel_";
     	this.cardiac_patch_panel_.Size = new System.Drawing.Size(314, 31);
     	this.cardiac_patch_panel_.TabIndex = 9;
@@ -528,7 +553,7 @@ namespace ScoreKeeper
     	this.nerve_mapping_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.nerve_mapping_panel_.Controls.Add(this.nerve_mapping_done_label_);
     	this.nerve_mapping_panel_.Controls.Add(this.nerve_mapping_done_);
-    	this.nerve_mapping_panel_.Location = new System.Drawing.Point(0, 380);
+    	this.nerve_mapping_panel_.Location = new System.Drawing.Point(0, 405);
     	this.nerve_mapping_panel_.Name = "nerve_mapping_panel_";
     	this.nerve_mapping_panel_.Size = new System.Drawing.Size(314, 31);
     	this.nerve_mapping_panel_.TabIndex = 11;
@@ -539,7 +564,7 @@ namespace ScoreKeeper
     	this.nerve_mapping_done_label_.Name = "nerve_mapping_done_label_";
     	this.nerve_mapping_done_label_.Size = new System.Drawing.Size(208, 23);
     	this.nerve_mapping_done_label_.TabIndex = 0;
-    	this.nerve_mapping_done_label_.Text = "Never input/output revealed?";
+    	this.nerve_mapping_done_label_.Text = "Nerve input/output revealed?";
     	this.nerve_mapping_done_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// nerve_mapping_done_
@@ -559,7 +584,7 @@ namespace ScoreKeeper
     	this.object_control_through_thought_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.object_control_through_thought_panel_.Controls.Add(this.door_open_label_);
     	this.object_control_through_thought_panel_.Controls.Add(this.door_open_);
-    	this.object_control_through_thought_panel_.Location = new System.Drawing.Point(0, 410);
+    	this.object_control_through_thought_panel_.Location = new System.Drawing.Point(0, 435);
     	this.object_control_through_thought_panel_.Name = "object_control_through_thought_panel_";
     	this.object_control_through_thought_panel_.Size = new System.Drawing.Size(314, 31);
     	this.object_control_through_thought_panel_.TabIndex = 12;
@@ -594,7 +619,7 @@ namespace ScoreKeeper
     	this.medicine_auto_dispensing_panel_.Controls.Add(this.medicine_pink_on_);
     	this.medicine_auto_dispensing_panel_.Controls.Add(this.medicine_blue_and_white_off_label_);
     	this.medicine_auto_dispensing_panel_.Controls.Add(this.medicine_blue_and_white_off_);
-    	this.medicine_auto_dispensing_panel_.Location = new System.Drawing.Point(0, 440);
+    	this.medicine_auto_dispensing_panel_.Location = new System.Drawing.Point(0, 465);
     	this.medicine_auto_dispensing_panel_.Name = "medicine_auto_dispensing_panel_";
     	this.medicine_auto_dispensing_panel_.Size = new System.Drawing.Size(314, 100);
     	this.medicine_auto_dispensing_panel_.TabIndex = 13;
@@ -667,7 +692,7 @@ namespace ScoreKeeper
     	this.bionic_eyes_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.bionic_eyes_panel_.Controls.Add(this.eye_in_body_label_);
     	this.bionic_eyes_panel_.Controls.Add(this.eye_in_body_);
-    	this.bionic_eyes_panel_.Location = new System.Drawing.Point(0, 599);
+    	this.bionic_eyes_panel_.Location = new System.Drawing.Point(0, 624);
     	this.bionic_eyes_panel_.Name = "bionic_eyes_panel_";
     	this.bionic_eyes_panel_.Size = new System.Drawing.Size(314, 31);
     	this.bionic_eyes_panel_.TabIndex = 16;
@@ -698,7 +723,7 @@ namespace ScoreKeeper
     	this.professional_teamwork_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.professional_teamwork_panel_.Controls.Add(this.people_in_patients_area_label_);
     	this.professional_teamwork_panel_.Controls.Add(this.people_in_patients_area_);
-    	this.professional_teamwork_panel_.Location = new System.Drawing.Point(0, 569);
+    	this.professional_teamwork_panel_.Location = new System.Drawing.Point(0, 594);
     	this.professional_teamwork_panel_.Name = "professional_teamwork_panel_";
     	this.professional_teamwork_panel_.Size = new System.Drawing.Size(314, 31);
     	this.professional_teamwork_panel_.TabIndex = 15;
@@ -729,7 +754,7 @@ namespace ScoreKeeper
     	this.robotic_sensitity_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.robotic_sensitity_panel_.Controls.Add(this.weight_raised_label_);
     	this.robotic_sensitity_panel_.Controls.Add(this.weight_raised_);
-    	this.robotic_sensitity_panel_.Location = new System.Drawing.Point(0, 539);
+    	this.robotic_sensitity_panel_.Location = new System.Drawing.Point(0, 564);
     	this.robotic_sensitity_panel_.Name = "robotic_sensitity_panel_";
     	this.robotic_sensitity_panel_.Size = new System.Drawing.Size(314, 31);
     	this.robotic_sensitity_panel_.TabIndex = 14;
@@ -760,7 +785,7 @@ namespace ScoreKeeper
     	this.stent_panel_.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
     	this.stent_panel_.Controls.Add(this.artery_expanded_label_);
     	this.stent_panel_.Controls.Add(this.artery_expanded_);
-    	this.stent_panel_.Location = new System.Drawing.Point(0, 629);
+    	this.stent_panel_.Location = new System.Drawing.Point(0, 654);
     	this.stent_panel_.Name = "stent_panel_";
     	this.stent_panel_.Size = new System.Drawing.Size(314, 31);
     	this.stent_panel_.TabIndex = 17;
@@ -810,7 +835,7 @@ namespace ScoreKeeper
     	this.Controls.Add(this.reset_);
     	this.Controls.Add(this.score_label_);
     	this.Name = "Score2010Control";
-    	this.Size = new System.Drawing.Size(314, 688);
+    	this.Size = new System.Drawing.Size(314, 713);
     	this.common_bone_repaired_panel_.ResumeLayout(false);
     	this.special_bone_repaired_panel_.ResumeLayout(false);
     	this.rapid_blood_screening_panel_.ResumeLayout(false);
@@ -827,6 +852,8 @@ namespace ScoreKeeper
     	this.stent_panel_.ResumeLayout(false);
     	this.ResumeLayout(false);
     }
+    private System.Windows.Forms.Label red_cells_in_patients_area_label_;
+    protected ScoreKeeper.SelectionControl red_cells_not_in_patients_area_;
     private System.Windows.Forms.Label cardiac_patch_applied_label_;
     protected ScoreKeeper.SelectionControl cardiac_patch_applied_;
     protected ScoreKeeper.SelectionControl artery_expanded_;

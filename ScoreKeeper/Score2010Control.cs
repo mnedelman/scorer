@@ -92,8 +92,8 @@ namespace ScoreKeeper {
     protected override void OnResize(EventArgs e) {
       base.OnResize(e);
       
-      if (!Size.Equals(new Size(314, 688)))
-        base.Size = new Size(314, 688);
+      if (!Size.Equals(new Size(314, 713)))
+        base.Size = new Size(314, 713);
     }
     
     protected void HandleChange() {
@@ -139,6 +139,11 @@ namespace ScoreKeeper {
     
     void OnChangeWhiteCellsInPatientsArea(object sender, EventArgs e) {
       score_.WhiteCellsInPatientsArea = white_cells_in_patients_area_.ValueYesNo;
+      this.HandleChange();
+    }
+    
+    void OnChangeRedCellsInPatientsArea(object sender, EventArgs e) {
+      score_.RedCellsNotInPatientsArea = red_cells_not_in_patients_area_.ValueYesNo;
       this.HandleChange();
     }
     

@@ -275,13 +275,13 @@ namespace ScoreKeeper
 			this.panel_team_.Location = new System.Drawing.Point(8, 40);
 			this.panel_team_.Name = "panel_team_";
 			this.panel_team_.Padding = new System.Windows.Forms.Padding(0, 8, 8, 0);
-			this.panel_team_.Size = new System.Drawing.Size(290, 690);
+			this.panel_team_.Size = new System.Drawing.Size(290, 714);
 			this.panel_team_.TabIndex = 1;
 			// 
 			// log_
 			// 
 			this.log_.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.log_.Location = new System.Drawing.Point(0, 238);
+			this.log_.Location = new System.Drawing.Point(0, 262);
 			this.log_.Multiline = true;
 			this.log_.Name = "log_";
 			this.log_.ReadOnly = true;
@@ -346,7 +346,7 @@ namespace ScoreKeeper
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(621, 738);
+			this.ClientSize = new System.Drawing.Size(621, 762);
 			this.Controls.Add(this.panel_team_);
 			this.Controls.Add(this.score_control_);
 			this.Controls.Add(this.panel_border_);

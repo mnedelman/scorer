@@ -64,6 +64,7 @@ namespace ScoreKeeper {
 	    GoalScored = YesNo.No;
 	    SyringeInBase = YesNo.No;
 	    WhiteCellsInPatientsArea = YesNo.No;
+	    RedCellsNotInPatientsArea = YesNo.No;
 	    RedBloodCellsRemaining = 0;
 	    CellsWhiteFacingNorth = 0;
 	    CellsBlackFacingUp = 0;
@@ -163,16 +164,22 @@ namespace ScoreKeeper {
     public ScoreInfo ScoreRapidBloodScreening() {
       if (SyringeInBase == YesNo.Unknown)
         return new ScoreInfo(
-            "Needs answer: Bridge inserted into special bone?");
+            "Needs answer: Syringe in base?");
       if (WhiteCellsInPatientsArea == YesNo.Unknown)
-        return new ScoreInfo("Needs answer: Goal scored by special bone foot?");
+        return new ScoreInfo(
+            "Needs answer: Three white blood cells in patient's area?");
+      if (RedCellsNotInPatientsArea == YesNo.Unknown)
+        return new ScoreInfo(
+            "Needs answer: Zero red blood cells in patient's area?");
       if (RedBloodCellsRemaining < 0)
         return new ScoreInfo("Needs answer: # red blood cells in table");
       if (RedBloodCellsRemaining > 8)
         return new ScoreInfo("Invalid value: # red blood cells in table");
       int points = 0;
       if (SyringeInBase == YesNo.Yes) points += 25;
-      if (WhiteCellsInPatientsArea == YesNo.Yes) points += 15;
+      if (WhiteCellsInPatientsArea == YesNo.Yes &&
+          RedCellsNotInPatientsArea == YesNo.Yes)
+        points += 15;
       points += 5 * RedBloodCellsRemaining;
       return new ScoreInfo(points);
     }
@@ -368,6 +375,7 @@ namespace ScoreKeeper {
     public YesNo GoalScored = YesNo.Unknown;
     public YesNo SyringeInBase = YesNo.Unknown;
     public YesNo WhiteCellsInPatientsArea = YesNo.Unknown;
+    public YesNo RedCellsNotInPatientsArea = YesNo.Unknown;
     public int RedBloodCellsRemaining = -1;
     public int CellsWhiteFacingNorth = -1;
     public int CellsBlackFacingUp = -1;

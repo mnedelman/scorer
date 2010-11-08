@@ -97,6 +97,7 @@ namespace ScoreKeeper {
       score.GoalScored = YesNo.Yes;
       score.SyringeInBase = YesNo.Yes;
       score.WhiteCellsInPatientsArea = YesNo.Yes;
+      score.RedCellsNotInPatientsArea = YesNo.Yes;
       score.RedBloodCellsRemaining = 8;
       score.CellsWhiteFacingNorth = 5;
       score.CellsBlackFacingUp = 0;
@@ -126,7 +127,8 @@ namespace ScoreKeeper {
       score.BridgeBoneInserted = YesNo.Yes;        // 15
       score.GoalScored = YesNo.No;                 //  0
       score.SyringeInBase = YesNo.Yes;             // 25
-      score.WhiteCellsInPatientsArea = YesNo.Yes;  // 15
+      score.WhiteCellsInPatientsArea = YesNo.Yes;
+      score.RedCellsNotInPatientsArea = YesNo.Yes; // 15
       score.RedBloodCellsRemaining = 5;            // 25
       score.CellsWhiteFacingNorth = 1;             //    (see next)
       score.CellsBlackFacingUp = 3;                //  0
@@ -212,6 +214,10 @@ namespace ScoreKeeper {
       info = score.ScoreBadCellDestruction();
       Assert.False(info.IsValid());
 
+      score.RedCellsNotInPatientsArea = YesNo.No;
+      info = score.ScoreBadCellDestruction();
+      Assert.False(info.IsValid());
+
       score.RedBloodCellsRemaining = 0;
       info = score.ScoreRapidBloodScreening();
       Assert.True(info.IsValid());
@@ -225,17 +231,27 @@ namespace ScoreKeeper {
       score.WhiteCellsInPatientsArea = YesNo.Yes;
       info = score.ScoreRapidBloodScreening();
       Assert.True(info.IsValid());
+      Assert.AreEqual(25, info.Points);
+
+      score.RedCellsNotInPatientsArea = YesNo.Yes;
+      info = score.ScoreRapidBloodScreening();
+      Assert.True(info.IsValid());
       Assert.AreEqual(40, info.Points);
+
+      score.WhiteCellsInPatientsArea = YesNo.No;
+      info = score.ScoreRapidBloodScreening();
+      Assert.True(info.IsValid());
+      Assert.AreEqual(25, info.Points);
 
       score.RedBloodCellsRemaining = 3;
       info = score.ScoreRapidBloodScreening();
       Assert.True(info.IsValid());
-      Assert.AreEqual(55, info.Points);
+      Assert.AreEqual(40, info.Points);
 
       score.RedBloodCellsRemaining = 8;
       info = score.ScoreRapidBloodScreening();
       Assert.True(info.IsValid());
-      Assert.AreEqual(80, info.Points);
+      Assert.AreEqual(65, info.Points);
     }
     
     [Test]
