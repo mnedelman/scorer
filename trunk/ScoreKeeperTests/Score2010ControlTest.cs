@@ -94,6 +94,7 @@ namespace ScoreKeeper {
       score.GoalScored = YesNo.Yes;
       score.SyringeInBase = YesNo.Yes;
       score.WhiteCellsInPatientsArea = YesNo.Yes;
+      score.RedCellsNotInPatientsArea = YesNo.Yes;
       score.RedBloodCellsRemaining = 8;
       score.CellsWhiteFacingNorth = 5;
       score.CellsBlackFacingUp = 0;
@@ -123,7 +124,8 @@ namespace ScoreKeeper {
       score.BridgeBoneInserted = YesNo.Yes;        // 15
       score.GoalScored = YesNo.No;                 //  0
       score.SyringeInBase = YesNo.Yes;             // 25
-      score.WhiteCellsInPatientsArea = YesNo.Yes;  // 15
+      score.WhiteCellsInPatientsArea = YesNo.Yes;
+      score.RedCellsNotInPatientsArea = YesNo.Yes; // 15
       score.RedBloodCellsRemaining = 5;            // 25
       score.CellsWhiteFacingNorth = 1;             //    (see next)
       score.CellsBlackFacingUp = 3;                //  0
@@ -183,6 +185,10 @@ namespace ScoreKeeper {
       
       ControlHelper.FireEvent(white_cells_in_patients_area_.Controls[0], "Click");
       Assert.AreEqual(YesNo.Yes, score_.WhiteCellsInPatientsArea);
+      Assert.AreEqual("0", score_display_.Text);
+
+      ControlHelper.FireEvent(red_cells_not_in_patients_area_.Controls[0], "Click");
+      Assert.AreEqual(YesNo.Yes, score_.RedCellsNotInPatientsArea);
       Assert.AreEqual("0", score_display_.Text);
 
       ControlHelper.FireEvent(red_blood_cells_remaining_.Controls[3], "Click");
