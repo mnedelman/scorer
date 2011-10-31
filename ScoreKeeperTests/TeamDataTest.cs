@@ -37,7 +37,7 @@ namespace ScoreKeeper {
     
     [Test]
     public void TestGetScoresEqual() {
-      Score2010 score_zero = new Score2010();
+      Score2011 score_zero = new Score2011();
       score_zero.Zero();
       
       Team team1 = new Team("1", string.Empty);
@@ -70,7 +70,7 @@ namespace ScoreKeeper {
     
     [Test]
     public void TestGetScoresComplex() {
-      Score2010 score_zero = new Score2010();
+      Score2011 score_zero = new Score2011();
       score_zero.Zero();
       
       Team team1 = new Team("1", string.Empty);
@@ -84,30 +84,33 @@ namespace ScoreKeeper {
       
       Team team4 = new Team("4", string.Empty);
       team4.Scores[0] = score_zero.Clone();  // 10
-      team4.Scores[0].RedBloodCellsRemaining = 2;
+      team4.Scores[0].YellowBacteriaInBase = 1;
+      team4.Scores[0].BallsTouchingMat = 1;
       team4.Scores[1] = score_zero.Clone();  // 10
-      team4.Scores[1].RedBloodCellsRemaining = 2;
+      team4.Scores[1].YellowBacteriaInBase = 1;
+      team4.Scores[1].BallsTouchingMat = 1;
       team4.Scores[2] = score_zero.Clone();  // 40
-      team4.Scores[2].NerveMappingDone = YesNo.Yes;
-      team4.Scores[2].PeopleInPatientsArea = YesNo.Yes;
+      team4.Scores[2].TrailerLocation = TrailerLocationEnum.Dock;
+      team4.Scores[2].ThermometerSpindleFullyDropped = YesNo.Yes;
       
       Team team5 = new Team("5", string.Empty);
       team5.Scores[0] = score_zero.Clone();  // 40
-      team5.Scores[0].NerveMappingDone = YesNo.Yes;
-      team5.Scores[0].PeopleInPatientsArea = YesNo.Yes;
+      team5.Scores[0].TrailerLocation = TrailerLocationEnum.Dock;
+      team5.Scores[0].ThermometerSpindleFullyDropped = YesNo.Yes;
       team5.Scores[1] = score_zero.Clone();  // 20
-      team5.Scores[1].DoorOpen = YesNo.Yes;
+      team5.Scores[1].TrailerLocation = TrailerLocationEnum.Dock;
       team5.Scores[2] = score_zero.Clone();  // 10
-      team5.Scores[2].RedBloodCellsRemaining = 2;
+      team5.Scores[2].YellowBacteriaInBase = 1;
+      team5.Scores[2].BallsTouchingMat = 1;
       
       Team team6 = new Team("6", string.Empty);
       team6.Scores[0] = score_zero.Clone();  // 20
-      team6.Scores[0].DoorOpen = YesNo.Yes;
+      team6.Scores[0].TrailerLocation = TrailerLocationEnum.Dock;
       team6.Scores[1] = score_zero.Clone();  // 40
-      team6.Scores[1].NerveMappingDone = YesNo.Yes;
-      team6.Scores[1].PeopleInPatientsArea = YesNo.Yes;
+      team6.Scores[1].TrailerLocation = TrailerLocationEnum.Dock;
+      team6.Scores[1].ThermometerSpindleFullyDropped = YesNo.Yes;
       team6.Scores[2] = score_zero.Clone();  // 20
-      team6.Scores[2].DoorOpen = YesNo.Yes;
+      team6.Scores[2].TrailerLocation = TrailerLocationEnum.Dock;
       
       Team team7 = new Team("7", string.Empty);
       team7.Scores[0] = team5.Scores[0].Clone();

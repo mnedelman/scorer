@@ -37,7 +37,7 @@ namespace ScoreKeeper
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.score_control_ = new ScoreKeeper.Score2010Control();
+			this.score_control_ = new ScoreKeeper.Score2011Control();
 			this.panel_file_ = new System.Windows.Forms.Panel();
 			this.file_status_ = new System.Windows.Forms.Label();
 			this.file_select_ = new System.Windows.Forms.Button();
@@ -73,7 +73,7 @@ namespace ScoreKeeper
 			// score_control_
 			// 
 			this.score_control_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.score_control_.Location = new System.Drawing.Point(299, 39);
+			this.score_control_.Location = new System.Drawing.Point(298, 39);
 			this.score_control_.Name = "score_control_";
 			this.score_control_.TabIndex = 2;
 			this.score_control_.Change += new System.EventHandler(this.OnScoreChange);
@@ -90,7 +90,7 @@ namespace ScoreKeeper
 			this.panel_file_.Location = new System.Drawing.Point(8, 8);
 			this.panel_file_.Name = "panel_file_";
 			this.panel_file_.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
-			this.panel_file_.Size = new System.Drawing.Size(605, 31);
+			this.panel_file_.Size = new System.Drawing.Size(629, 31);
 			this.panel_file_.TabIndex = 0;
 			// 
 			// file_status_
@@ -98,7 +98,7 @@ namespace ScoreKeeper
 			this.file_status_.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.file_status_.Location = new System.Drawing.Point(75, 0);
 			this.file_status_.Name = "file_status_";
-			this.file_status_.Size = new System.Drawing.Size(284, 23);
+			this.file_status_.Size = new System.Drawing.Size(308, 23);
 			this.file_status_.TabIndex = 1;
 			this.file_status_.Text = "File status";
 			this.file_status_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -117,7 +117,7 @@ namespace ScoreKeeper
 			// rounds_label_
 			// 
 			this.rounds_label_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.rounds_label_.Location = new System.Drawing.Point(359, 0);
+			this.rounds_label_.Location = new System.Drawing.Point(383, 0);
 			this.rounds_label_.Name = "rounds_label_";
 			this.rounds_label_.Size = new System.Drawing.Size(48, 23);
 			this.rounds_label_.TabIndex = 2;
@@ -127,7 +127,7 @@ namespace ScoreKeeper
 			// rounds_
 			// 
 			this.rounds_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.rounds_.Location = new System.Drawing.Point(407, 0);
+			this.rounds_.Location = new System.Drawing.Point(431, 0);
 			this.rounds_.Maximum = new decimal(new int[] {
 									5,
 									0,
@@ -152,7 +152,7 @@ namespace ScoreKeeper
 			// export_
 			// 
 			this.export_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.export_.Location = new System.Drawing.Point(437, 0);
+			this.export_.Location = new System.Drawing.Point(461, 0);
 			this.export_.Name = "export_";
 			this.export_.Size = new System.Drawing.Size(93, 23);
 			this.export_.TabIndex = 4;
@@ -163,7 +163,7 @@ namespace ScoreKeeper
 			// ip_
 			// 
 			this.ip_.Dock = System.Windows.Forms.DockStyle.Right;
-			this.ip_.Location = new System.Drawing.Point(530, 0);
+			this.ip_.Location = new System.Drawing.Point(554, 0);
 			this.ip_.Name = "ip_";
 			this.ip_.Size = new System.Drawing.Size(75, 23);
 			this.ip_.TabIndex = 5;
@@ -179,7 +179,7 @@ namespace ScoreKeeper
 			this.panel_border_.Margin = new System.Windows.Forms.Padding(8);
 			this.panel_border_.Name = "panel_border_";
 			this.panel_border_.Padding = new System.Windows.Forms.Padding(8);
-			this.panel_border_.Size = new System.Drawing.Size(605, 1);
+			this.panel_border_.Size = new System.Drawing.Size(629, 1);
 			this.panel_border_.TabIndex = 1;
 			// 
 			// score_group_
@@ -275,13 +275,13 @@ namespace ScoreKeeper
 			this.panel_team_.Location = new System.Drawing.Point(8, 40);
 			this.panel_team_.Name = "panel_team_";
 			this.panel_team_.Padding = new System.Windows.Forms.Padding(0, 8, 8, 0);
-			this.panel_team_.Size = new System.Drawing.Size(290, 714);
+			this.panel_team_.Size = new System.Drawing.Size(290, 726);
 			this.panel_team_.TabIndex = 1;
 			// 
 			// log_
 			// 
 			this.log_.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.log_.Location = new System.Drawing.Point(0, 262);
+			this.log_.Location = new System.Drawing.Point(0, 274);
 			this.log_.Multiline = true;
 			this.log_.Name = "log_";
 			this.log_.ReadOnly = true;
@@ -346,7 +346,7 @@ namespace ScoreKeeper
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(621, 762);
+			this.ClientSize = new System.Drawing.Size(645, 774);
 			this.Controls.Add(this.panel_team_);
 			this.Controls.Add(this.score_control_);
 			this.Controls.Add(this.panel_border_);
@@ -390,6 +390,6 @@ namespace ScoreKeeper
 		private System.Windows.Forms.Label team_label_;
 		protected System.Windows.Forms.ComboBox team_;
 		protected System.Windows.Forms.GroupBox score_group_;
-		protected ScoreKeeper.Score2010Control score_control_;
+		protected ScoreKeeper.Score2011Control score_control_;
 	}
 }

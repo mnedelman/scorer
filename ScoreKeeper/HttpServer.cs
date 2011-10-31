@@ -133,7 +133,7 @@ namespace ScoreKeeper {
     /// <returns>A response with the HTML page.</returns>
     private HttpResponse HandleScoreHtml() {
       StringBuilder str = new StringBuilder();
-      str.Append("<title>Scores<body>" +
+      str.Append("<title>Scores</title><body>" +
                  "<style type=text/css>" +
                  "td,th{border:1px solid gray;padding:2px;text-align:center}" +
                  ".left{text-align:left}" +

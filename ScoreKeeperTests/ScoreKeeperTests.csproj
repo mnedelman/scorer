@@ -51,8 +51,7 @@
     <Compile Include="HttpServerTest.cs" />
     <Compile Include="MainFormTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Score2010ControlTest.cs" />
-    <Compile Include="Score2010Test.cs" />
+    <Compile Include="Score2011Test.cs" />
     <Compile Include="ScoreFormTest.cs" />
     <Compile Include="ScoreRowTest.cs" />
     <Compile Include="SelectionControlTest.cs" />

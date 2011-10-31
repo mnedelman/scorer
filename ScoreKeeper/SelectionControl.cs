@@ -56,7 +56,10 @@ namespace ScoreKeeper {
           Button button = new Button();
           int width = 12 + (int)Math.Ceiling(graphics.MeasureString(
               labels_[i], button.Font).Width);
+          if (labels_[i] == "Dock") width += 1;
           button.Bounds = new Rectangle(left, 0, width, 23);
+          button.Margin = new Padding(0, button.Margin.Top,
+                                      0, button.Margin.Bottom);
 
           button.Click += new EventHandler(OnClick);
           button.BackColor = Color.White;
@@ -83,6 +86,7 @@ namespace ScoreKeeper {
       get { return value_; }
       set {
         bool found = false;
+        if (value == "Unknown") value = null;
         value = value == null ? null : value.Replace(" ", "");
         foreach (Button button in Controls) {
           if (button.Text.Replace(" ", "") == value) {
