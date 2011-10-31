@@ -254,7 +254,7 @@ namespace ScoreKeeper {
 
 	  protected TeamData team_data_ = new TeamData();
 	  private Team undo_team_ = null;
-	  private Score2010 undo_score_ = null;
+	  private Score2011 undo_score_ = null;
 	  private int undo_round_ = 0;
 	  private bool loading_ = false;
 	  

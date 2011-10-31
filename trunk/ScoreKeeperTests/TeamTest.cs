@@ -72,12 +72,12 @@ namespace ScoreKeeper
     public void TestGetPoints() {
       Team team = new Team();
       
-      team.Scores[0] = new Score2010();
+      team.Scores[0] = new Score2011();
       team.Scores[0].Zero();
       
-      team.Scores[1] = new Score2010();
+      team.Scores[1] = new Score2011();
       team.Scores[1].Zero();
-      team.Scores[1].DoorOpen = YesNo.Yes;
+      team.Scores[1].TrailerLocation = TrailerLocationEnum.Dock;
       
       Assert.AreEqual("0", team.GetPoints(1));
       Assert.AreEqual("20", team.GetPoints(2));
@@ -88,20 +88,20 @@ namespace ScoreKeeper
     public void TestScoreSet() {
       Team team = new Team();
       
-      team.Scores[0] = new Score2010();
+      team.Scores[0] = new Score2011();
       team.Scores[0].Zero();
       
-      team.Scores[1] = new Score2010();
+      team.Scores[1] = new Score2011();
       team.Scores[1].Zero();
-      team.Scores[1].ArteryExpanded = YesNo.Yes;
+      team.Scores[1].AnyCornInBase = YesNo.Yes;
       
-      team.Scores[2] = new Score2010();
+      team.Scores[2] = new Score2011();
       team.Scores[2].Zero();
-      team.Scores[2].DoorOpen = YesNo.Yes;
+      team.Scores[2].AnyCornTouchingMat = YesNo.Yes;
       
       Assert.AreEqual("0", team.GetPoints(1));
-      Assert.AreEqual("25", team.GetPoints(2));
-      Assert.AreEqual("20", team.GetPoints(3));
+      Assert.AreEqual("9", team.GetPoints(2));
+      Assert.AreEqual("5", team.GetPoints(3));
     }
   }
 

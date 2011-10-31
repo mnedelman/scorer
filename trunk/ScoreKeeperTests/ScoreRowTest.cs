@@ -35,22 +35,22 @@ namespace ScoreKeeper
     [Test]
     public void TestConstructor() {
       Team team = new Team("7", "bar");
-      team.Scores[0] = new Score2010();
+      team.Scores[0] = new Score2011();
       team.Scores[0].Zero();
       team.Scores[1] = team.Scores[0].Clone();
-      team.Scores[1].RedBloodCellsRemaining = 1;
+      team.Scores[1].YellowBacteriaInBase = 1;
       
       ScoreRow row = new ScoreRow(team, 3);
       Assert.AreEqual(-1, row.Rank);
       Assert.AreEqual("7", row.Number);
       Assert.AreEqual("bar", row.Name);
       Assert.AreEqual("0", row.GetPoints(1));
-      Assert.AreEqual("5", row.GetPoints(2));
+      Assert.AreEqual("6", row.GetPoints(2));
       Assert.AreEqual("?", row.GetPoints(3));
       Assert.AreEqual(2, row.GetBestRound());
       
       team.Scores[2] = team.Scores[1].Clone();
-      team.Scores[2].RedBloodCellsRemaining = 3;
+      team.Scores[2].YellowBacteriaInBase = 3;
       row = new ScoreRow(team, 3);
       Assert.AreEqual(3, row.GetBestRound());
       
@@ -59,7 +59,7 @@ namespace ScoreKeeper
       row = new ScoreRow(team, 3);
       Assert.AreEqual(0, row.GetBestRound());
 
-      team.Scores[0].RedBloodCellsRemaining = 4;
+      team.Scores[0].YellowBacteriaInBase = 4;
       row = new ScoreRow(team, 3);
       Assert.AreEqual(1, row.GetBestRound());
       
@@ -67,7 +67,7 @@ namespace ScoreKeeper
       row = new ScoreRow(team, 3);
       Assert.AreEqual(0, row.GetBestRound());
       
-      team.Scores[0] = new Score2010();
+      team.Scores[0] = new Score2011();
       team.Scores[0].Zero();
       team.Scores[1] = team.Scores[0].Clone();
       team.Scores[2] = team.Scores[0].Clone();

@@ -79,7 +79,7 @@ namespace ScoreKeeper {
       Team team = SampleTeam();
       team_data_.Teams = new Team[] { team };
       Init();
-      
+
       ScoreInfo score = score_control_.Score.Score();
       Assert.AreEqual(0, score.Points);
       Assert.IsFalse(score.IsValid());
@@ -106,8 +106,8 @@ namespace ScoreKeeper {
       Assert.AreEqual("?", team.GetPoints(3));
       Assert.IsFalse(undo_.Enabled);
       
-      Score2010 score_data = score_control_.Score;
-      score_data.RedBloodCellsRemaining = 4;
+      Score2011 score_data = score_control_.Score;
+      score_data.YellowBacteriaInBase = 4;
       score_control_.Score = score_data;
       
       ControlHelper.FireEvent(round3_.SetControl, "Click");
@@ -129,7 +129,7 @@ namespace ScoreKeeper {
       Assert.IsTrue(undo_.Enabled);
       
       score_data = score_control_.Score;
-      score_data.RedBloodCellsRemaining = 6;
+      score_data.YellowBacteriaInBase = 6;
       score_control_.Score = score_data;
       
       ControlHelper.FireEvent(round2_.SetControl, "Click");
@@ -207,10 +207,12 @@ namespace ScoreKeeper {
     
     private Team SampleTeam() {
       Team team = new Team("foo", "bar");
-      team.Scores[0] = new Score2010();
+      team.Scores[0] = new Score2011();
       team.Scores[0].Zero();
       team.Scores[1] = team.Scores[0].Clone();
-      team.Scores[1].RedBloodCellsRemaining = 2;
+      team.Scores[1].YellowBacteriaInBase = 1;
+      team.Scores[1].BallsTouchingMat = 1;
+      Assert.AreEqual(10, team.Scores[1].Score().Points);
       return team;
     }
     

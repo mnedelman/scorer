@@ -41,7 +41,7 @@ namespace ScoreKeeper {
       Name = team.Name;
       this.Scores = new int[rounds];
       for (int round = 0; round < rounds; ++round) {
-        Score2010 score = team.Scores[round];
+        Score2011 score = team.Scores[round];
         Scores[round] = (score == null) ? -1 : score.Score().Points;
       }
     }
