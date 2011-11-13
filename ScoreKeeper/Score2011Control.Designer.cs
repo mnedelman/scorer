@@ -327,7 +327,7 @@ namespace ScoreKeeper
     	this.trailer_germ_free_label_.Name = "trailer_germ_free_label_";
     	this.trailer_germ_free_label_.Size = new System.Drawing.Size(208, 23);
     	this.trailer_germ_free_label_.TabIndex = 8;
-    	this.trailer_germ_free_label_.Text = "Is the trailer germ-free?";
+    	this.trailer_germ_free_label_.Text = "Is the trailer germ-free with meat?";
     	this.trailer_germ_free_label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
     	// 
     	// trailer_location_label_
