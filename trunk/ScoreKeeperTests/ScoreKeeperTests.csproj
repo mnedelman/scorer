@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{6DD3B418-E76E-4BEB-9D0E-9C6455C95733}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,7 @@
     <NoStdLib>False</NoStdLib>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -51,7 +53,7 @@
     <Compile Include="HttpServerTest.cs" />
     <Compile Include="MainFormTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Score2011Test.cs" />
+    <Compile Include="EventScoreTest.cs" />
     <Compile Include="ScoreFormTest.cs" />
     <Compile Include="ScoreRowTest.cs" />
     <Compile Include="SelectionControlTest.cs" />

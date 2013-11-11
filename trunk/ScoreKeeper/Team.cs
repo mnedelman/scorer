@@ -39,14 +39,14 @@ namespace ScoreKeeper {
     }
   
     public string GetPoints(int round) {
-      Score2011 score = Scores[round - 1];
+      EventScore score = Scores[round - 1];
       if (score == null)
         return "?";
       else
         return score.Score().Points.ToString();
     }
     
-    public Score2011[] Scores = new Score2011[5];
+    public EventScore[] Scores = new EventScore[5];
   }
   
   public class TeamNameComparer : IComparer {
