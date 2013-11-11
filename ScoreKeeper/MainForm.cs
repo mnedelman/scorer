@@ -113,7 +113,7 @@ namespace ScoreKeeper {
       this.score_group_.Height = 120 + 25 * factor;
       this.team_add_remove_.Top = 159 + 25 * factor;
       this.scoreboard_.Top = 159 + 25 * factor;
-      this.log_.Height = 502 - 25 * factor;
+      this.log_.Height = 295+50 - 25 * factor;
       
       this.round4_.Visible = rounds_.Value >= 4;
       this.round5_.Visible = rounds_.Value >= 5;
@@ -254,7 +254,7 @@ namespace ScoreKeeper {
 
 	  protected TeamData team_data_ = new TeamData();
 	  private Team undo_team_ = null;
-	  private Score2011 undo_score_ = null;
+	  private EventScore undo_score_ = null;
 	  private int undo_round_ = 0;
 	  private bool loading_ = false;
 	  

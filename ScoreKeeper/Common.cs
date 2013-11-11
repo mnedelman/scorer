@@ -37,7 +37,7 @@ namespace ScoreKeeper {
     Unknown,
   }
   
-  public delegate ScoreInfo ScoreDelegate();
+  public delegate ScoreInfo ScoreDelegate(bool zero);
   
   public struct ScoreInfo {
     public ScoreInfo(string error) {
